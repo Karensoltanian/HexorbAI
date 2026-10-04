@@ -336,13 +336,13 @@ const LOGO='<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id
 /* ---------- Providers ---------- */
 const P={
  custom:{n:'Custom',url:'',model:''},
- openai:{n:'OpenAI Compatible',url:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini'},
- llm7:{n:'LLM7',url:'https://api.llm7.io/v1/chat/completions',model:'default'},
- openrouter:{n:'OpenRouter',url:'https://openrouter.ai/api/v1/chat/completions',model:'openai/gpt-4o-mini'},
- groq:{n:'Groq',url:'https://api.groq.com/openai/v1/chat/completions',model:'llama-3.3-70b-versatile'},
- deepseek:{n:'DeepSeek',url:'https://api.deepseek.com/chat/completions',model:'deepseek-chat'},
+ openai:{n:'OpenAI Compatible',url:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',ms:['gpt-4o-mini','gpt-4o']},
+ llm7:{n:'LLM7',url:'https://api.llm7.io/v1/chat/completions',model:'default',ms:['default']},
+ openrouter:{n:'OpenRouter',url:'https://openrouter.ai/api/v1/chat/completions',model:'openai/gpt-4o-mini',ms:['openai/gpt-4o-mini','anthropic/claude-sonnet-4.5','meta-llama/llama-3.3-70b-instruct:free']},
+ groq:{n:'Groq',url:'https://api.groq.com/openai/v1/chat/completions',model:'llama-3.3-70b-versatile',ms:['llama-3.3-70b-versatile','openai/gpt-oss-120b','qwen/qwen3-32b']},
+ deepseek:{n:'DeepSeek',url:'https://api.deepseek.com/chat/completions',model:'deepseek-chat',ms:['deepseek-chat','deepseek-reasoner']},
  together:{n:'Together',url:'https://api.together.xyz/v1/chat/completions',model:'meta-llama/Llama-3.3-70B-Instruct-Turbo'},
- mistral:{n:'Mistral',url:'https://api.mistral.ai/v1/chat/completions',model:'mistral-small-latest'}
+ mistral:{n:'Mistral',url:'https://api.mistral.ai/v1/chat/completions',model:'mistral-small-latest',ms:['mistral-small-latest','mistral-large-latest']}
 };
 const IMG_DEFAULT='https://image.pollinations.ai/prompt/{prompt}?width=1024&height=1024&nologo=true&seed={seed}';
 
@@ -368,7 +368,7 @@ e_cred:'Wrong email or password.',e_used:'This email is already registered.',e_w
 users:'Users',feedback:'Feedback',announce:'Announcement',stats:'Stats',search:'Search',lastSeen:'Last seen',ban:'Suspend',unban:'Restore',wipe:'Delete data',publish:'Publish',clear:'Clear',annPh:'Message shown to all users',totalU:'Total users',active24:'Active in 24h',new7:'New in 7 days',totalM:'Total messages',likes:'Likes',dislikes:'Dislikes',noData:'No data',loading:'Loading...',sure:'Are you sure?',annDone:'Announcement updated',
 setupOwner:'Server not configured: edit firebase-config.js',nameMem:'Memory',wipeLocalAsk:'This deletes the data stored on this device for the current account.',syncFail:'Sync with server failed',needLogin:'Sign in to use this',
 idHud:'I am HEXORB, an AI assistant.',idMaker:'I was created and developed by Karen Soltanian.',visionErr:'Image sent. If the model cannot read images, pick a vision model in API settings.',
-apiWarn:'Security: the API key is stored unencrypted in this browser only. It is never sent to the HEXORB server.',provider:'Provider',apiKey:'API Key',endpoint:'Endpoint',test:'Test connection',noKeyFree:'LLM7 works without a key.',
+apiWarn:'Security: the API key is stored unencrypted in this browser only. It is never sent to the HEXORB server.',provider:'Provider',apiKey:'API Key',endpoint:'Endpoint',test:'Test connection',noKeyFree:'LLM7 works without a key.',modelHint:'Answer quality depends on the model. For smarter answers pick a stronger model (e.g. Groq llama-3.3-70b, DeepSeek, or a large model on OpenRouter). You can type any model name.',
 quickAll:'All settings',menuLbl:'Menu',micUnsupported:'Speech recognition is not supported in this browser.',listening:'Listening...',fileBig:'File is larger than 4 MB',attached:'Attached',noApi:'Set an endpoint first',needKey:'Add your API key first',nothingClear:'Nothing to clear',cleared:'Conversation cleared'},
 fa:{stop:'توقف',searchHist:'جست‌وجو در چت‌ها...',privacy:'حریم خصوصی',noMatch:'چتی پیدا نشد',newChat:'چت جدید',chat:'گفتگو',history:'تاریخچه',tools:'ابزارها',admin:'مدیریت',settings:'تنظیمات',api:'اتصال API',theme:'تم',palette:'پالت دستورات',
 s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error:'خطا',online:'آنلاین',offline:'آفلاین',model:'مدل',session:'نشست',link:'اتصال',
@@ -390,7 +390,7 @@ e_cred:'ایمیل یا رمز عبور اشتباه است.',e_used:'این ا�
 users:'کاربران',feedback:'بازخوردها',announce:'اعلان',stats:'آمار',search:'جستجو',lastSeen:'آخرین بازدید',ban:'مسدود',unban:'رفع انسداد',wipe:'حذف داده‌ها',publish:'انتشار',clear:'پاک کردن',annPh:'پیامی که به همه‌ی کاربران نشان داده می‌شود',totalU:'کل کاربران',active24:'فعال در ۲۴ ساعت',new7:'جدید در ۷ روز',totalM:'کل پیام‌ها',likes:'لایک‌ها',dislikes:'دیس‌لایک‌ها',noData:'داده‌ای نیست',loading:'در حال بارگذاری...',sure:'مطمئنی؟',annDone:'اعلان به‌روز شد',
 setupOwner:'سرور تنظیم نشده: فایل firebase-config.js را ویرایش کن',nameMem:'حافظه',wipeLocalAsk:'داده‌های ذخیره‌شده روی این دستگاه برای حساب فعلی پاک می‌شود.',syncFail:'همگام‌سازی با سرور ناموفق بود',needLogin:'برای استفاده وارد شو',
 idHud:'من HEXORB هستم، یک دستیار هوش مصنوعی.',idMaker:'سازنده و توسعه‌دهنده‌ی من کارن سلطانیان است.',visionErr:'تصویر ارسال شد. اگر مدل نمی‌تواند عکس بخواند، در تنظیمات API یک مدل بینایی انتخاب کن.',
-apiWarn:'هشدار امنیتی: کلید API بدون رمزگذاری فقط در همین مرورگر ذخیره می‌شود و هرگز به سرور HEXORB ارسال نمی‌شود.',provider:'سرویس‌دهنده',apiKey:'کلید API',endpoint:'آدرس Endpoint',test:'تست اتصال',noKeyFree:'LLM7 بدون کلید هم کار می‌کند.',
+apiWarn:'هشدار امنیتی: کلید API بدون رمزگذاری فقط در همین مرورگر ذخیره می‌شود و هرگز به سرور HEXORB ارسال نمی‌شود.',provider:'سرویس‌دهنده',apiKey:'کلید API',endpoint:'آدرس Endpoint',test:'تست اتصال',noKeyFree:'LLM7 بدون کلید هم کار می‌کند.',modelHint:'هوشمندی جواب‌ها به مدل بستگی دارد. برای جواب‌های هوشمندتر مدل قوی‌تری انتخاب کن (مثلاً Groq با llama-3.3-70b، DeepSeek یا مدل بزرگ در OpenRouter). هر اسم مدلی را می‌توانی تایپ کنی.',
 quickAll:'همه‌ی تنظیمات',menuLbl:'منو',micUnsupported:'تشخیص گفتار در این مرورگر پشتیبانی نمی‌شود.',listening:'در حال گوش دادن...',fileBig:'حجم فایل بیشتر از ۴ مگابایت است',attached:'پیوست شد',noApi:'ابتدا Endpoint را تنظیم کن',needKey:'ابتدا کلید API را وارد کن',nothingClear:'چیزی برای پاک کردن نیست',cleared:'گفتگو پاک شد'}
 };
 let lang='en';
@@ -517,7 +517,7 @@ function setStatus(s){R.status=s;const e=$('#stat');if(e){e.className='pill '+s;
 
 /* ---------- Identity + memory ---------- */
 function sysPrompt(){
- let s="You are HEXORB, a futuristic AI assistant. Never describe yourself as a HUD. Reply in the language the user writes in. Use markdown code fences for code. If asked who or what you are, say you are HEXORB, an AI assistant. If asked who made, built or developed you, say your creator and developer is Karen Soltanian (Persian: کارن سلطانیان). Never claim to be a product of any other company or model. Never repeat yourself: if the user asks something you already answered, give a fresh answer with different wording, a new angle or extra detail instead of copying your earlier reply.";
+ let s="You are HEXORB, a futuristic AI assistant. Never describe yourself as a HUD. Reply in the language the user writes in. Use markdown code fences for code. If asked who or what you are, say you are HEXORB, an AI assistant. If asked who made, built or developed you, say your creator and developer is Karen Soltanian (Persian: کارن سلطانیان). Never claim to be a product of any other company or model. Quality rules: be accurate and honest, and say so when you are unsure instead of guessing; think through problems step by step before answering and double-check calculations and facts; for math, logic and planning show the key steps briefly; for code give complete, working, well-structured code with a short explanation; ask one short clarifying question only when the request is truly ambiguous; match the length to the question (short for simple questions, thorough for complex ones); write natural, fluent Persian when the user writes Persian. Never repeat yourself: if the user asks something you already answered, give a fresh answer with different wording, a new angle or extra detail instead of copying your earlier reply.";
  if(UI.memOn&&D.mem.length)s+="\nLong-term memory about the user (use it naturally, do not recite it unless asked):\n"+D.mem.slice(-40).map(m=>'- '+m.text).join('\n');
  return s}
 const IDV={en:{maker:['I was created and developed by Karen Soltanian.','My creator and developer is Karen Soltanian.','Karen Soltanian is the one who designed and developed me.'],who:['I am HEXORB, an AI assistant.',"I'm HEXORB, your AI assistant.",'HEXORB here, an AI assistant ready to help.']},
@@ -656,7 +656,7 @@ const seg=(items,cur,act)=>`<div class="seg">${items.map(x=>`<button class="${x[
 function openApi(){const c=API;modal(t('api'),`<div class="warn">${t('apiWarn')}</div>
 <label>${t('provider')}<select id="a-p">${Object.keys(P).map(k=>`<option value="${k}"${k===c.provider?' selected':''}>${P[k].n}</option>`).join('')}</select></label>
 <label>${t('apiKey')}<div class="row"><input id="a-k" type="password" autocomplete="off" spellcheck="false" value="${esc(c.key)}" dir="ltr"><button class="ib" data-act="eye">${I('eye')}</button><button class="ib" data-act="kc">${I('copy')}</button></div></label>
-<label>${t('model')}<input id="a-m" value="${esc(c.model)}" spellcheck="false" dir="ltr"></label>
+<label>${t('model')}<input id="a-m" list="a-ml" value="${esc(c.model)}" spellcheck="false" dir="ltr"><datalist id="a-ml">${((P[c.provider]||{}).ms||[]).map(x=>`<option value="${esc(x)}">`).join('')}</datalist></label><p class="note">${t('modelHint')}</p>
 <label>${t('endpoint')}<input id="a-e" value="${esc(c.endpoint)}" spellcheck="false" dir="ltr"></label>
 <div style="margin-bottom:12px"><span id="a-s" class="pill ${R.status}">${t('s_'+R.status)}</span> <small style="color:var(--mu)">${t('noKeyFree')}</small></div>
 <div class="row wrap"><button class="btn" data-act="atest">${t('test')}</button><button class="btn pri" data-act="asave">${t('save')}</button><button class="btn dng" data-act="aclear">${t('clear')}</button></div>`)}
@@ -833,7 +833,7 @@ document.addEventListener('click',e=>{
  if(!e.target.closest('#qs,#qsb'))$('#qs').hidden=true;
  const b=e.target.closest('[data-act]');if(!b)return;const s=b.dataset.act,i=s.indexOf(':');act(i<0?s:s.slice(0,i),i<0?'':s.slice(i+1),b)});
 document.addEventListener('change',e=>{const x=e.target;
- if(x.id==='a-p'){const p=P[x.value];$('#a-e').value=p.url;$('#a-m').value=p.model;return}
+ if(x.id==='a-p'){const p=P[x.value];$('#a-e').value=p.url;$('#a-m').value=p.model;$('#a-ml').innerHTML=(p.ms||[]).map(m=>`<option value="${esc(m)}">`).join('');return}
  if(x.dataset.set){UI[x.dataset.set]=x.type==='checkbox'?x.checked:x.value;applyAll();saveUI();render();return}
  if(x.dataset.api){API[x.dataset.api]=x.value.trim()||IMG_DEFAULT;saveAPI();toast(t('saved'))}});
 document.addEventListener('input',e=>{if(e.target.id==='pq')pfill(e.target.value);if(e.target.id==='inp')resize();if(e.target.id==='hq'){HQ=e.target.value;$('#hlist').innerHTML=histList(HQ)}if(e.target.id==='admq')$('#ulist').innerHTML=ulist(ADM.us||[],e.target.value)});
