@@ -94,7 +94,13 @@ h2{margin:0 0 14px;font-size:1.2em}
 .msg.er .body{border-color:var(--er);color:var(--er)}
 .body code{background:rgba(127,156,185,.2);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:.9em;direction:ltr;unicode-bidi:embed}
 .body h4{margin:6px 0 2px;color:var(--ac)}
-.body li{display:block;padding-inline-start:16px;position:relative}.body li::before{content:"";position:absolute;inset-inline-start:3px;top:.7em;width:5px;height:5px;border-radius:50%;background:var(--ac)}
+.body ul,.body ol{margin:6px 0;padding-inline-start:22px}.body li{margin:2px 0}
+.body a{color:var(--ac);text-decoration:underline;word-break:break-all}
+.body blockquote{margin:6px 0;padding:4px 12px;border-inline-start:3px solid var(--ac2);color:var(--mu);background:rgba(127,156,185,.08);border-radius:8px}
+.body hr{border:0;border-top:1px solid var(--bd);margin:10px 0}
+.tbl{overflow-x:auto;margin:8px 0;border:1px solid var(--bd);border-radius:10px}
+.tbl table{border-collapse:collapse;width:100%;font-size:.9em}.tbl th,.tbl td{padding:6px 10px;border-bottom:1px solid var(--bd);text-align:start;white-space:nowrap}.tbl th{background:rgba(34,211,238,.1)}
+.send.stop{background:var(--er);color:#fff}
 .imgs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
 .uimg,.genimg{max-width:100%;border-radius:12px;display:block}
 .uimg{max-height:220px;width:auto}
@@ -255,7 +261,7 @@ aside.open{transform:none!important}
     <button class="ib" id="genb" data-act="gen" data-tt="genImg"><span data-i="sparkles"></span></button>
     <textarea id="inp" rows="1" dir="auto" data-tp="ph"></textarea>
     <button class="ib" id="micb" data-act="mic" data-tt="mic"><span data-i="mic"></span></button>
-    <button class="ib send" data-act="send" data-tt="send"><span data-i="send"></span></button>
+    <button class="ib send" id="sendb" data-act="send" data-tt="send"></button>
    </div>
   </div>
   <input type="file" id="file" hidden multiple accept="image/*,.txt,.md,.json,.csv,.js,.ts,.py,.html,.css,.xml,.yml,.yaml,.log,.java,.c,.cpp,.go,.rs,.sh">
@@ -320,7 +326,8 @@ download:'<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>',
 check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
 ban:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
 megaphone:'<path class="f" d="M4 10v4h3l7 4V6L7 10z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
-msg:'<path class="f" d="M4 5h16v11H9l-5 4z"/>'
+msg:'<path class="f" d="M4 5h16v11H9l-5 4z"/>',
+stop:'<rect class="f" x="6" y="6" width="12" height="12" rx="2.5"/>'
 };
 const I=n=>`<svg class="i ic-${n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[n]||''}</svg>`;
 const GOOGLE='<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3A12 12 0 1 1 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7A20 20 0 1 0 44 24c0-1.3-.1-2.7-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8A12 12 0 0 1 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7A20 20 0 0 0 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0 1 12.7 28l-6.5 5A20 20 0 0 0 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.7-.4-3.9z"/></svg>';
@@ -341,7 +348,7 @@ const IMG_DEFAULT='https://image.pollinations.ai/prompt/{prompt}?width=1024&heig
 
 /* ---------- i18n ---------- */
 const L={
-en:{newChat:'New Chat',chat:'Chat',history:'History',tools:'Tools',admin:'Admin',settings:'Settings',api:'API Connection',theme:'Theme',palette:'Command palette',
+en:{stop:'Stop',searchHist:'Search chats...',privacy:'Privacy policy',noMatch:'No matching chats',newChat:'New Chat',chat:'Chat',history:'History',tools:'Tools',admin:'Admin',settings:'Settings',api:'API Connection',theme:'Theme',palette:'Command palette',
 s_off:'NOT CONNECTED',s_ok:'CONNECTED',s_testing:'TESTING',s_error:'ERROR',online:'Online',offline:'Offline',model:'Model',session:'Session',link:'Link',
 quick:'Quick settings',clearConv:'Clear conversation',attach:'Attach file or image',mic:'Microphone',send:'Send',genImg:'Generate image',
 ph:'Message HEXORB...',genOn:'Image mode: describe the picture you want',genOff:'Image mode off',
@@ -363,7 +370,7 @@ setupOwner:'Server not configured: edit firebase-config.js',nameMem:'Memory',wip
 idHud:'I am HEXORB, an AI assistant.',idMaker:'I was created and developed by Karen Soltanian.',visionErr:'Image sent. If the model cannot read images, pick a vision model in API settings.',
 apiWarn:'Security: the API key is stored unencrypted in this browser only. It is never sent to the HEXORB server.',provider:'Provider',apiKey:'API Key',endpoint:'Endpoint',test:'Test connection',noKeyFree:'LLM7 works without a key.',
 quickAll:'All settings',menuLbl:'Menu',micUnsupported:'Speech recognition is not supported in this browser.',listening:'Listening...',fileBig:'File is larger than 4 MB',attached:'Attached',noApi:'Set an endpoint first',needKey:'Add your API key first',nothingClear:'Nothing to clear',cleared:'Conversation cleared'},
-fa:{newChat:'چت جدید',chat:'گفتگو',history:'تاریخچه',tools:'ابزارها',admin:'مدیریت',settings:'تنظیمات',api:'اتصال API',theme:'تم',palette:'پالت دستورات',
+fa:{stop:'توقف',searchHist:'جست‌وجو در چت‌ها...',privacy:'حریم خصوصی',noMatch:'چتی پیدا نشد',newChat:'چت جدید',chat:'گفتگو',history:'تاریخچه',tools:'ابزارها',admin:'مدیریت',settings:'تنظیمات',api:'اتصال API',theme:'تم',palette:'پالت دستورات',
 s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error:'خطا',online:'آنلاین',offline:'آفلاین',model:'مدل',session:'نشست',link:'اتصال',
 quick:'تنظیمات سریع',clearConv:'پاک کردن گفتگو',attach:'پیوست فایل یا عکس',mic:'میکروفون',send:'ارسال',genImg:'ساخت تصویر',
 ph:'پیام به HEXORB...',genOn:'حالت تصویر: تصویر دلخواهت را توصیف کن',genOff:'حالت تصویر خاموش شد',
@@ -412,8 +419,23 @@ const dur=()=>{const s=Math.floor((Date.now()-R.start)/1000);return [Math.floor(
 function syncErr(e){console.warn(e);if(!syncErr.w){syncErr.w=1;setTimeout(()=>syncErr.w=0,15000);toast(t('syncFail'),'err')}}
 function toast(m,k=''){const e=document.createElement('div');e.className='toast '+k;e.textContent=m;$('#toasts').append(e);setTimeout(()=>e.remove(),3200)}
 async function copy(txt){try{await navigator.clipboard.writeText(txt)}catch(e){const a=document.createElement('textarea');a.value=txt;document.body.append(a);a.select();try{document.execCommand('copy')}catch(_){toast('Copy failed','err');a.remove();return}a.remove()}toast(t('copied'))}
+function inl(s){return s.replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*\w])\*([^\s*][^*\n]*?[^\s*]|[^\s*])\*(?![*\w])/g,'$1<i>$2</i>').replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>').replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,(m,p,u)=>p+'<a href="'+u+'" target="_blank" rel="noopener noreferrer">'+u+'</a>')}
+function md(s){const ln=s.split('\n');let out='',i=0,m;
+ const row=l=>/^\s*\|.*\|\s*$/.test(l),sep=l=>/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(l);
+ const cells=r=>r.trim().replace(/^\||\|$/g,'').split('|').map(c=>inl(c.trim()));
+ while(i<ln.length){const l=ln[i];
+  if(row(l)&&i+1<ln.length&&sep(ln[i+1])){const h=cells(l);i+=2;const rs=[];while(i<ln.length&&row(ln[i])){rs.push(cells(ln[i]));i++}
+   out+='<div class="tbl"><table><thead><tr>'+h.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead><tbody>'+rs.map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';continue}
+  if((m=l.match(/^#{1,3} (.+)$/))){out+='<h4>'+inl(m[1])+'</h4>';i++;continue}
+  if(/^\s*[-*•] /.test(l)){let it='';while(i<ln.length&&(m=ln[i].match(/^\s*[-*•] (.+)$/))){it+='<li>'+inl(m[1])+'</li>';i++}out+='<ul>'+it+'</ul>';continue}
+  if(/^\s*\d+[.)] /.test(l)){let it='';while(i<ln.length&&(m=ln[i].match(/^\s*\d+[.)] (.+)$/))){it+='<li>'+inl(m[1])+'</li>';i++}out+='<ol>'+it+'</ol>';continue}
+  if(/^&gt; ?/.test(l)){let q='';while(i<ln.length&&(m=ln[i].match(/^&gt; ?(.*)$/))){q+=inl(m[1])+'<br>';i++}out+='<blockquote>'+q+'</blockquote>';continue}
+  if(/^\s*(-{3,}|\*{3,})\s*$/.test(l)){out+='<hr>';i++;continue}
+  if(l.trim()===''){if(out&&!/(<\/ul>|<\/ol>|<\/blockquote>|<\/div>|<\/h4>|<hr>|<br>)$/.test(out))out+='<br>';i++;continue}
+  out+=inl(l)+(i<ln.length-1?'<br>':'');i++}
+ return out.replace(/(<br>)+$/,'')}
 function fmt(s){return String(s||'').split('```').map((p,i)=>{if(i%2){const n=p.indexOf('\n'),lg=n>-1?p.slice(0,n).trim():'',code=n>-1?p.slice(n+1):p;return `<div class="code"><div class="ch"><span>${esc(lg||'code')}</span><button data-act="cc">${I('copy')}${t('copy')}</button></div><pre>${esc(code)}</pre></div>`}
-return esc(p).replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g,'<b>$1</b>').replace(/^#{1,3} (.+)$/gm,'<h4>$1</h4>').replace(/^[-*] (.+)$/gm,'<li>$1</li>').replace(/(<\/h4>|<\/li>)\n/g,'$1').replace(/\n/g,'<br>')}).join('')}
+return md(esc(p))}).join('')}
 const scrollEnd=()=>{const v=$('#view');v.scrollTop=v.scrollHeight};
 function packMsgs(msgs){let s=JSON.stringify(msgs);if(s.length<900000)return s;const c=msgs.map(m=>Object.assign({},m));for(const m of c){if(m.img&&m.img.length){m.img=[];s=JSON.stringify(c);if(s.length<900000)return s}}return JSON.stringify(c.slice(-30))}
 
@@ -468,6 +490,27 @@ async function call(extra,cfg){cfg=cfg||API;
  if(!r.ok){let m=d&&((d.error&&(d.error.message||d.error))||d.message)||'';if(typeof m!=='string')m=JSON.stringify(m);throw new Error((HTTP[r.status]||'HTTP '+r.status)+(m?' ('+m.slice(0,200)+')':''))}
  if(!d)throw new Error('Invalid response: the API did not return JSON.');
  return d}
+function httpErr(status,raw){let d=null;try{d=JSON.parse(raw)}catch(e){}let m=d&&((d.error&&(d.error.message||d.error))||d.message)||'';if(typeof m!=='string')m=JSON.stringify(m);return new Error((HTTP[status]||'HTTP '+status)+(m?' ('+m.slice(0,200)+')':''))}
+async function callStream(extra,onDelta,cfg){cfg=cfg||API;
+ const ctl=new AbortController();R.abort=ctl;let timer=setTimeout(()=>ctl.abort(),60000);let r;
+ try{r=await fetch(cfg.endpoint,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json',Authorization:'Bearer '+(cfg.key||'unused')},body:JSON.stringify(Object.assign({model:cfg.model,stream:true},extra))})}
+ catch(e){clearTimeout(timer);if(R.stopped)return{text:'',stopped:true};throw new Error(ctl.signal.aborted?'Request timed out.':'Network error - check your connection, endpoint URL, or CORS support.')}
+ if(!r.ok){clearTimeout(timer);const raw=await r.text();
+  if(r.status===400||r.status===422){return{text:extract(await call(extra,cfg)),fallback:true}}
+  throw httpErr(r.status,raw)}
+ const ct=r.headers.get('content-type')||'';
+ if(!r.body||ct.indexOf('text/event-stream')<0){clearTimeout(timer);const raw=await r.text();let d=null;try{d=JSON.parse(raw)}catch(e){}if(!d)throw new Error('Invalid response: the API did not return JSON.');return{text:extract(d),fallback:true}}
+ const rd=r.body.getReader(),dec=new TextDecoder();let buf='',text='';
+ try{for(;;){const x=await rd.read();if(x.done)break;clearTimeout(timer);timer=setTimeout(()=>ctl.abort(),60000);
+   buf+=dec.decode(x.value,{stream:true});let i;
+   while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(line.indexOf('data:')!==0)continue;const p=line.slice(5).trim();if(p==='[DONE]')continue;
+    try{const j=JSON.parse(p),c0=j.choices&&j.choices[0],dl=c0&&((c0.delta&&c0.delta.content)||c0.text);if(typeof dl==='string'&&dl){text+=dl;onDelta(text)}}catch(e){}}}}
+ catch(e){if(R.stopped)return{text,stopped:true};if(text)return{text,partial:true};throw new Error(ctl.signal.aborted?'Request timed out.':'Connection lost while streaming.')}
+ finally{clearTimeout(timer)}
+ if(!text.trim())throw new Error('The API returned an empty or unexpected response.');
+ return{text}}
+let raf=0;
+function updateStream(m){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const els=$$('.msg.ai .txt'),el=els[els.length-1];if(el&&m.stream){el.innerHTML=fmt(m.c);if(UI.auto)scrollEnd()}})}
 function extract(d){const c=d&&d.choices&&d.choices[0];let x=c&&((c.message&&c.message.content!=null)?c.message.content:c.text);if(Array.isArray(x))x=x.map(p=>p&&p.text||'').join('');
  if(typeof x!=='string'||!x.trim())throw new Error('The API returned an empty or unexpected response.');return x}
 function setStatus(s){R.status=s;const e=$('#stat');if(e){e.className='pill '+s;e.textContent=t('s_'+s)}const a=$('#a-s');if(a){a.className='pill '+s;a.textContent=t('s_'+s)}}
@@ -521,17 +564,19 @@ async function send(){
  save(c);await ask(c,text)}
 function apiOK(){if(!API.endpoint){toast(t('noApi'),'err');openApi();return false}if(API.provider!=='llm7'&&!API.key){toast(t('needKey'),'err');openApi();return false}return true}
 function buildMsgs(c,prev){
- const h=c.msgs.filter(m=>!m.e&&!m.gen).slice(-20);let lastImg=-1;h.forEach((m,i)=>{if(m.img&&m.img.length)lastImg=i});
+ const h=c.msgs.filter(m=>!m.e&&!m.gen&&!m.stream).slice(-20);let lastImg=-1;h.forEach((m,i)=>{if(m.img&&m.img.length)lastImg=i});
  return [{role:'system',content:sysPrompt()+(prev?"\nThe user asked you to answer again. Write a clearly different answer (new wording and structure, fresh details) from this previous answer:\n"+prev.slice(0,700):'')}].concat(h.map((m,i)=>{
   if(m.r!=='user')return{role:'assistant',content:m.c||''};
   const txt=m.a||m.c||'';
   if(m.img&&m.img.length&&i===lastImg)return{role:'user',content:[{type:'text',text:txt||'Describe this image.'}].concat(m.img.map(u=>({type:'image_url',image_url:{url:u}})))};
   return{role:'user',content:txt+(m.img&&m.img.length?' [image]':'')}}))}
 async function ask(c,userText,prev){
- if(!apiOK())return;R.busy=true;render();let ok=false;
- try{const txt=extract(await call({messages:buildMsgs(c,prev),temperature:0.9,top_p:0.95}));c.msgs.push({id:uid(),r:'ai',c:txt,t:Date.now()});D.reqs++;setStatus('ok');ok=true}
- catch(e){c.msgs.push({id:uid(),r:'ai',c:e.message,t:Date.now(),e:1});setStatus('error')}
- R.busy=false;c.ts=Date.now();save(c);render();if(ok){typeLast();if(userText)learn(userText)}}
+ if(!apiOK())return;const msgs=buildMsgs(c,prev);
+ const m={id:uid(),r:'ai',c:'',t:Date.now(),stream:true};c.msgs.push(m);R.busy=true;R.stopped=false;render();let ok=false,fb=false;
+ try{const res=await callStream({messages:msgs,temperature:0.9,top_p:0.95},tx=>{m.c=tx;updateStream(m)});
+  m.stream=false;m.c=res.text||'';fb=!!res.fallback;if(!m.c.trim())c.msgs.pop();else{D.reqs++;setStatus('ok');ok=true}}
+ catch(e){m.stream=false;m.c=e.message;m.e=1;setStatus('error')}
+ R.busy=false;R.abort=null;c.ts=Date.now();save(c);render();if(ok){if(fb)typeLast();if(userText)learn(userText)}}
 async function enhance(text){
  if(!(/[^\x00-\x7F]/.test(text)))return text;
  try{return extract(await call({max_tokens:120,temperature:.4,messages:[{role:'system',content:'Rewrite the user request as one vivid English image-generation prompt (max 60 words). Output only the prompt.'},{role:'user',content:text}]})).trim().replace(/^["']|["']$/g,'')||text}catch(e){return text}}
@@ -567,21 +612,25 @@ function msgHTML(m,i,a){
  const user=m.r==='user';let b='';
  if(m.img&&m.img.length)b+=`<div class="imgs">${m.img.map(s=>`<img class="uimg" src="${esc(s)}" alt="">`).join('')}</div>`;
  if(m.gen)b+=`<div class="genbox"><div class="shim">${esc(t('imgMaking'))}</div><img class="genimg" alt="${esc(m.gen.prompt)}" src="${esc(m.gen.url)}"></div>`;
- if(m.c)b+=`<div class="txt" dir="auto">${fmt(m.c)}</div>`;
+ if(m.c||m.stream)b+=`<div class="txt" dir="auto">${m.c?fmt(m.c):'<span class="dots"><i></i><i></i><i></i></span>'}</div>`;
  if(m.f)b+=`<div class="chip" style="margin-top:6px">${I('clip')}${esc(m.f)}</div>`;
  let acts=`<div class="acts"><button data-act="cp:${i}">${I('copy')}${t('copy')}</button>`;
  if(!user){
   if(m.gen)acts+=`<button data-act="saveimg:${i}">${I('download')}${t('save')}</button>`;
-  if(i===a.length-1)acts+=`<button data-act="rg">${I('refresh')}${t('regen')}</button>`;
-  if(!m.e)acts+=`<button class="fb up ${m.fb==='up'?'on':''}" data-act="fb:${i}:up" title="${t('like')}" aria-label="${t('like')}">${I('thumbup')}</button><button class="fb down ${m.fb==='down'?'on':''}" data-act="fb:${i}:down" title="${t('dislike')}" aria-label="${t('dislike')}">${I('thumbdown')}</button>`}
+  if(i===a.length-1&&!m.stream)acts+=`<button data-act="rg">${I('refresh')}${t('regen')}</button>`;
+  if(!m.e&&!m.stream)acts+=`<button class="fb up ${m.fb==='up'?'on':''}" data-act="fb:${i}:up" title="${t('like')}" aria-label="${t('like')}">${I('thumbup')}</button><button class="fb down ${m.fb==='down'?'on':''}" data-act="fb:${i}:down" title="${t('dislike')}" aria-label="${t('dislike')}">${I('thumbdown')}</button>`}
  acts+='</div>';
  let fbn='';
  if(!user&&m.fb)fbn=`<div class="fbn">${I('check')}<span>${m.fbc?t('fbSent'):t('thanks')}</span>${m.fb==='down'&&!m.fbc?`<input maxlength="300" placeholder="${esc(t('fbPh'))}"><button data-act="fbc:${i}">${t('fbSend')}</button>`:''}</div>`;
  return `<div class="msg ${user?'user':'ai'}${m.e?' er':''}"><div class="who">${user?t('you'):'HEXORB'} &middot; ${tm(m.t)}</div><div class="body">${b}</div>${acts}${fbn}</div>`}
+let HQ='';
+function histList(q){q=(q||'').trim().toLowerCase();const cs=D.convs.filter(c=>!q||c.title.toLowerCase().includes(q)||c.msgs.some(m=>(m.c||'').toLowerCase().includes(q)));
+ if(!cs.length)return `<div class="empty">${D.convs.length?t('noMatch'):t('empty')}</div>`;
+ return cs.map(c=>`<div class="card hi"><button class="t" data-act="open:${c.id}"><b>${esc(c.title)}</b><small style="color:var(--mu)">${c.msgs.length} ${t('msgs')} &middot; ${new Date(c.ts).toLocaleDateString(lang==='fa'?'fa-IR':undefined)}${c.id===D.cur?' &middot; '+t('active'):''}</small></button><button class="ib" data-act="ren:${c.id}" title="${t('rename')}">${I('edit')}</button><button class="ib" data-act="del:${c.id}" title="${t('delete')}">${I('trash')}</button></div>`).join('')}
 const VIEWS={
  chat(){const c=cur();if(!c||(!c.msgs.length&&!R.busy))return hud();
-  return `<div class="msgs">${c.msgs.map(msgHTML).join('')}${R.busy?`<div class="msg ai"><div class="who">HEXORB</div><div class="body"><span class="dots"><i></i><i></i><i></i></span></div></div>`:''}</div>`},
- hist(){return `<div class="wrap"><div class="row" style="justify-content:space-between;margin-bottom:14px"><h2 style="margin:0">${t('history')}</h2><button class="btn pri" data-act="new">${I('plus')}${t('newChat')}</button></div>`+(D.convs.length?D.convs.map(c=>`<div class="card hi"><button class="t" data-act="open:${c.id}"><b>${esc(c.title)}</b><small style="color:var(--mu)">${c.msgs.length} ${t('msgs')} &middot; ${new Date(c.ts).toLocaleDateString(lang==='fa'?'fa-IR':undefined)}${c.id===D.cur?' &middot; '+t('active'):''}</small></button><button class="ib" data-act="ren:${c.id}" title="${t('rename')}">${I('edit')}</button><button class="ib" data-act="del:${c.id}" title="${t('delete')}">${I('trash')}</button></div>`).join(''):`<div class="empty">${t('empty')}</div>`)+'</div>'},
+  return `<div class="msgs">${c.msgs.map(msgHTML).join('')}${R.busy&&!(c.msgs.length&&c.msgs[c.msgs.length-1].stream)?`<div class="msg ai"><div class="who">HEXORB</div><div class="body"><span class="dots"><i></i><i></i><i></i></span></div></div>`:''}</div>`},
+ hist(){return `<div class="wrap"><div class="row" style="justify-content:space-between;margin-bottom:12px"><h2 style="margin:0">${t('history')}</h2><button class="btn pri" data-act="new">${I('plus')}${t('newChat')}</button></div><input id="hq" placeholder="${esc(t('searchHist'))}" value="${esc(HQ)}" style="margin-bottom:12px"><div id="hlist">${histList(HQ)}</div></div>`},
  tools(){return `<div class="wrap"><h2>${t('tools')}</h2><div class="grid">${TL.map(x=>`<button class="qa" data-act="tool:${x[0]}"><span class="tile">${I(x[1])}</span><b>${t('tl_'+x[0])}</b><small>${t('toolHint')}</small></button>`).join('')}</div></div>`}
 };
 function render(){
@@ -593,6 +642,7 @@ function render(){
  $('#view').innerHTML=VIEWS[R.view]();
  $$('.genimg').forEach(im=>{if(im.complete&&im.naturalWidth)im.parentNode.classList.add('ready')});
  chips();
+ const sb=$('#sendb');if(sb){const st=!!(R.busy&&R.abort);sb.innerHTML=I(st?'stop':'send');sb.dataset.act=st?'stop':'send';sb.classList.toggle('stop',st);sb.title=t(st?'stop':'send')}
  const cc=cur();if(R.view==='chat'&&UI.auto&&cc&&cc.msgs.length)scrollEnd();else $('#view').scrollTop=0}
 function applyLang(){lang=UI.lang==='fa'?'fa':'en';const h=document.documentElement;h.lang=lang;h.dir=lang==='fa'?'rtl':'ltr';
  $$('[data-t]').forEach(e=>{e.textContent=t(e.dataset.t)});$$('[data-tt]').forEach(e=>{e.title=t(e.dataset.tt);e.setAttribute('aria-label',t(e.dataset.tt))});$$('[data-tp]').forEach(e=>{e.placeholder=t(e.dataset.tp)})}
@@ -620,7 +670,7 @@ const STAB={
 <label>${t('dispName')}<input id="dn" value="${esc(U.name)}" maxlength="40"></label><div class="row wrap" style="margin-bottom:12px"><button class="btn pri" data-act="savename">${t('save')}</button>${U.verified?'':`<button class="btn" data-act="resendv">${I('mail')}${t('resendV')}</button>`}<button class="btn" data-act="resetpw">${I('lock')}${t('resetPw')}</button></div><button class="btn dng full" data-act="logout">${I('logout')}${t('logout')}</button>`
  :`<div class="warn">${t('guestNote')}</div><button class="btn pri full" data-act="login">${I('user')}${t('signIn')}</button>`,
  images:()=>`<label>${t('imgEndpoint')}<input data-api="imgUrl" value="${esc(API.imgUrl)}" dir="ltr" spellcheck="false"></label><p class="note">${t('imgHint')}</p><button class="btn sm" data-act="imgreset">${t('clear')}</button>`,
- data:()=>`<div class="row wrap"><button class="btn dng" data-act="wipelocal">${I('trash')}${t('clearLocal')}</button>${U&&Cloud.ok?`<button class="btn dng" data-act="wipecloud">${I('trash')}${t('deleteCloud')}</button>`:''}</div>`
+ data:()=>`<div class="row wrap"><a class="btn" href="privacy.html" target="_blank" rel="noopener">${I('shield')}${t('privacy')}</a><button class="btn dng" data-act="wipelocal">${I('trash')}${t('clearLocal')}</button>${U&&Cloud.ok?`<button class="btn dng" data-act="wipecloud">${I('trash')}${t('deleteCloud')}</button>`:''}</div>`
 };
 function openSettings(tab){tab=STAB[tab]?tab:'general';const tabs=[['general','tGeneral','gear'],['memory','tMemory','brain'],['account','tAccount','user'],['images','tImages','image'],['data','tData','trash']];
  modal(t('settings'),`<div class="tabs">${tabs.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="settings:${x[0]}">${I(x[2])}${t(x[1])}</button>`).join('')}</div>${STAB[tab]()}`,'')}
@@ -652,7 +702,7 @@ function loginHTML(){
   if(m!=='reset')h+=`<label>${t('pass')}<input id="lg-p" type="password" autocomplete="${m==='up'?'new-password':'current-password'}" dir="ltr"></label>`;
   h+=`<p class="lerr" id="lerr">${esc(LG.err)}</p>${LG.ok?`<p class="note" style="color:var(--ok)">${esc(LG.ok)}</p>`:''}<button class="btn pri full" type="submit">${m==='up'?t('signup'):m==='reset'?t('sendReset'):t('signIn')}</button></form>`;
   h+=`<div class="row wrap" style="justify-content:space-between;margin-top:8px">`+(m==='in'?`<button class="link" data-act="lmode:reset">${t('forgot')}</button><button class="link" data-act="lmode:up">${t('noAcc')}</button>`:m==='up'?`<button class="link" data-act="lmode:in">${t('haveAcc')}</button>`:`<button class="link" data-act="lmode:in">${t('backIn')}</button>`)+`</div><div class="or">${t('or')}</div>`}
- h+=`<button class="btn full" data-act="lguest">${I('user')}${t('guestBtn')}</button></div>`;return h}
+ h+=`<button class="btn full" data-act="lguest">${I('user')}${t('guestBtn')}</button><p class="note" style="text-align:center;margin:12px 0 0"><a class="link" href="privacy.html" target="_blank" rel="noopener">${t('privacy')}</a></p></div>`;return h}
 function showLogin(err,mode){LG.err=err||'';LG.ok='';if(mode)LG.mode=mode;const l=$('#login');l.hidden=false;l.innerHTML=loginHTML()}
 function hideLogin(){$('#login').hidden=true}
 function showSplash(){const l=$('#login');l.hidden=false;l.innerHTML=`<div class="card" style="text-align:center">${core}<h1 class="brand">HEXORB</h1><p class="sub"><span class="dots"><i></i><i></i><i></i></span></p></div>`}
@@ -721,6 +771,7 @@ function act(a,p,el){switch(a){
  case 'tool':if(p==='img'){R.gen=true;go('chat');chips();$('#inp').focus()}else setPrompt(t('pt_'+p));break;
  case 'gen':R.gen=!R.gen;chips();if(!R.gen)toast(t('genOff'));$('#inp').focus();break;
  case 'send':send();break;
+ case 'stop':R.stopped=true;if(R.abort)R.abort.abort();break;
  case 'attach':$('#file').click();break;
  case 'rmf':R.files.splice(+p,1);chips();break;
  case 'mic':mic();break;
@@ -785,7 +836,7 @@ document.addEventListener('change',e=>{const x=e.target;
  if(x.id==='a-p'){const p=P[x.value];$('#a-e').value=p.url;$('#a-m').value=p.model;return}
  if(x.dataset.set){UI[x.dataset.set]=x.type==='checkbox'?x.checked:x.value;applyAll();saveUI();render();return}
  if(x.dataset.api){API[x.dataset.api]=x.value.trim()||IMG_DEFAULT;saveAPI();toast(t('saved'))}});
-document.addEventListener('input',e=>{if(e.target.id==='pq')pfill(e.target.value);if(e.target.id==='inp')resize();if(e.target.id==='admq')$('#ulist').innerHTML=ulist(ADM.us||[],e.target.value)});
+document.addEventListener('input',e=>{if(e.target.id==='pq')pfill(e.target.value);if(e.target.id==='inp')resize();if(e.target.id==='hq'){HQ=e.target.value;$('#hlist').innerHTML=histList(HQ)}if(e.target.id==='admq')$('#ulist').innerHTML=ulist(ADM.us||[],e.target.value)});
 document.addEventListener('submit',e=>{if(e.target.id==='lform'){e.preventDefault();doAuth(LG.mode)}});
 document.addEventListener('load',e=>{const im=e.target;if(im&&im.classList&&im.classList.contains('genimg'))im.parentNode.classList.add('ready')},true);
 document.addEventListener('error',e=>{const im=e.target;if(im&&im.classList&&im.classList.contains('genimg')){const bx=im.parentNode;bx.classList.add('fail');bx.querySelector('.shim').innerHTML=esc(t('imgFail'))+`<br><button class="btn sm" data-act="retryimg" style="margin-top:8px">${t('retry')}</button>`}},true);
