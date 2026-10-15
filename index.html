@@ -9,11 +9,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@400;500;700;800&display=swap">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050a14">
+<script src="config.js"></script>
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<script src="backend-config.js"></script>
-<style>
-:root{--bg:#050a14;--pan:rgba(14,26,48,.62);--pan2:rgba(20,36,64,.9);--bd:rgba(80,200,255,.2);--tx:#dff3ff;--mu:#7f9cb9;--ac:#22d3ee;--ac2:#a855f7;--ok:#34d399;--er:#fb7185;--wa:#fbbf24;--hi:#e8fbff;--gl:0 0 18px rgba(34,211,238,.35);--grid:rgba(34,211,238,.06);--fs:clamp(14px,.9vw + 11px,16px)}
+<style>:root{--bg:#050a14;--pan:rgba(14,26,48,.62);--pan2:rgba(20,36,64,.9);--bd:rgba(80,200,255,.2);--tx:#dff3ff;--mu:#7f9cb9;--ac:#22d3ee;--ac2:#a855f7;--ok:#34d399;--er:#fb7185;--wa:#fbbf24;--hi:#e8fbff;--gl:0 0 18px rgba(34,211,238,.35);--grid:rgba(34,211,238,.06);--fs:clamp(14px,.9vw + 11px,16px)}
 [data-theme=light]{--bg:#eef3fa;--pan:rgba(255,255,255,.76);--pan2:rgba(255,255,255,.97);--bd:rgba(20,90,170,.2);--tx:#0c1b30;--mu:#52667f;--ac:#0891b2;--ac2:#7c3aed;--hi:#0b3a66;--gl:0 0 16px rgba(8,145,178,.25);--grid:rgba(8,100,170,.07)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:#050a14}html[data-theme=light]{background:#eef3fa}
@@ -27,7 +26,7 @@ button{cursor:pointer;border:0;background:none;padding:0}
 .brand{font-family:Orbitron,"Space Grotesk",sans-serif;font-weight:900;letter-spacing:.2em;background:linear-gradient(100deg,var(--ac),var(--hi) 45%,var(--ac2) 72%,var(--ac));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:shine 7s linear infinite;filter:drop-shadow(0 0 9px rgba(34,211,238,.4))}
 @keyframes shine{to{background-position:-220% 0}}
 #app{display:flex;height:100vh;height:100dvh;position:relative;z-index:1;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-aside{width:238px;flex:none;display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--pan);border-inline-end:1px solid var(--bd);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .3s;overflow-y:auto}
+aside{width:262px;flex:none;display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--pan);border-inline-end:1px solid var(--bd);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .3s;overflow-y:auto}
 .logo{display:flex;align-items:center;gap:10px;padding:4px 6px 0;font-size:1.25rem}
 .logo svg{width:38px;height:38px;flex:none}
 .by{font-size:.7em;letter-spacing:.2em;color:var(--mu);padding:0 8px 12px;margin-top:-2px}
@@ -79,7 +78,7 @@ header{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1
 .chip{display:inline-flex;gap:6px;align-items:center;padding:5px 12px;border-radius:99px;border:1px solid var(--bd);background:var(--pan);font-size:.8em;color:var(--mu)}
 .chip b{color:var(--tx)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:12px}
-.card,.qa{background:var(--pan);border:1px solid var(--bd);border-radius:14px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.card,.qa{background:var(--pan);border:1px solid var(--bd);border-radius:16px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(0,0,0,.18)}
 .qa{padding:14px;text-align:start;display:flex;flex-direction:column;gap:8px;transition:.25s;color:var(--tx)}
 .qa:hover{transform:translateY(-3px);border-color:var(--ac);box-shadow:var(--gl)}
 .qa .tile{width:40px;height:40px}.qa small{color:var(--mu)}
@@ -217,6 +216,32 @@ aside.open{transform:none!important}
 #scrim.show{display:block;position:fixed;top:0;right:0;bottom:0;left:0;z-index:45;background:rgba(0,0,0,.55)}
 .scan{display:none}.hide-m{display:none!important}.msg{max-width:100%}
 }
+
+/* ---- simpler look (animations kept) ---- */
+.scan{display:none}
+body{background-image:none}
+body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),transparent)}
+.card,.qa{box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--pan2)}
+.qa:hover{box-shadow:none}
+.nb.act{box-shadow:none}.nb.act .tile,.nb.pri .tile{box-shadow:none}
+.nb.pri{background:rgba(34,211,238,.12)}
+.info{display:none}
+.hud{padding-bottom:6px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qa{padding:12px;flex-direction:row;align-items:center;gap:10px;min-height:56px}
+.qa .tile{width:34px;height:34px;flex:none}
+.qa small{display:none}
+.qa b{font-weight:600;font-size:.95em}
+.ib:hover,.btn:hover,.box:focus-within{box-shadow:none}
+.dot.on{box-shadow:none}
+.toast{box-shadow:none}
+@media(min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.shc{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.shc::-webkit-scrollbar{display:none}
+.sh{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:var(--pan2);border:1px solid var(--bd);color:var(--tx);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;transition:transform .18s,border-color .2s,background .2s}
+.sh svg{width:16px;height:16px;flex:none}
+.sh:hover{border-color:var(--cy,#27d7ff)}.sh:active{transform:scale(.94)}
 </style>
 </head>
 <body>
@@ -256,6 +281,7 @@ aside.open{transform:none!important}
   <div class="comp">
    <div id="chips"></div>
    <div class="gm" id="gm" hidden></div>
+   <div class="shc" id="shc"></div>
    <div class="box">
     <button class="ib" data-act="attach" data-tt="attach"><span data-i="clip"></span></button>
     <button class="ib" id="genb" data-act="gen" data-tt="genImg"><span data-i="sparkles"></span></button>
@@ -278,7 +304,6 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.query
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const CFG=window.HEXORB_CONFIG||{};
-const API_BASE=String(CFG.apiBase||'http://localhost:3000/api').replace(/\/$/,'');
 const OWNER=String(CFG.owner||'').trim().toLowerCase();
 const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
@@ -332,7 +357,7 @@ stop:'<rect class="f" x="6" y="6" width="12" height="12" rx="2.5"/>'
 };
 const I=n=>`<svg class="i ic-${n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[n]||''}</svg>`;
 const GOOGLE='<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3A12 12 0 1 1 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7A20 20 0 1 0 44 24c0-1.3-.1-2.7-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8A12 12 0 0 1 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7A20 20 0 0 0 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0 1 12.7 28l-6.5 5A20 20 0 0 0 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.7-.4-3.9z"/></svg>';
-const LOGO='<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><g class="rg" style="transform-origin:24px 24px"><path d="M24 3l17.5 10v22L24 45 6.5 35V13z" fill="none" stroke="url(#lg)" stroke-width="2.4" stroke-dasharray="26 8"/></g><g class="rg rg2" style="transform-origin:24px 24px"><circle cx="24" cy="24" r="11" fill="none" stroke="url(#lg)" stroke-width="1.8" stroke-dasharray="14 7"/></g><circle class="cc" cx="24" cy="24" r="5" fill="url(#lg)" style="transform-origin:24px 24px"/><circle cx="24" cy="24" r="2" fill="#fff"/></svg>';
+const LOGO='<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22e5ff"/><stop offset=".55" stop-color="#6d7bff"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><path d="M24.0 3.0 L42.2 13.5 L42.2 34.5 L24.0 45.0 L5.8 34.5 L5.8 13.5Z" fill="none" stroke="url(#lg)" stroke-width="2.6" stroke-linejoin="round"/><circle cx="24.0" cy="3.0" r="1.6" fill="#fff"/><circle cx="42.2" cy="13.5" r="1.6" fill="#fff"/><circle cx="42.2" cy="34.5" r="1.6" fill="#fff"/><circle cx="24.0" cy="45.0" r="1.6" fill="#fff"/><circle cx="5.8" cy="34.5" r="1.6" fill="#fff"/><circle cx="5.8" cy="13.5" r="1.6" fill="#fff"/><g class="rg" style="transform-origin:24px 24px"><circle cx="24" cy="24" r="13" fill="none" stroke="url(#lg)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="22 8"/></g><g class="rg rg2" style="transform-origin:24px 24px"><circle cx="24" cy="24" r="9" fill="none" stroke="url(#lg)" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="12 6"/></g><circle class="cc" cx="24" cy="24" r="4.2" fill="url(#lg)" style="transform-origin:24px 24px"/><circle cx="22.8" cy="22.8" r="1.2" fill="#fff"/></svg>';
 
 /* ---------- Providers ---------- */
 const P={
@@ -354,7 +379,7 @@ s_off:'NOT CONNECTED',s_ok:'CONNECTED',s_testing:'TESTING',s_error:'ERROR',onlin
 quick:'Quick settings',clearConv:'Clear conversation',attach:'Attach file or image',mic:'Microphone',send:'Send',genImg:'Generate image',
 ph:'Message HEXORB...',genOn:'Image mode: describe the picture you want',genOff:'Image mode off',
 qa_plan:'Planning',qa_brain:'Brainstorm',qa_learn:'Learn',qa_code:'Coding',qa_sum:'Summarize',qa_ana:'Analyze',
-p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
+p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
 tl_sum:'Text Summarizer',tl_tr:'Translator',tl_code:'Code Helper',tl_wr:'Writing Assistant',tl_json:'JSON Formatter',tl_img:'Image Generator',
 pt_sum:'Summarize this text concisely:\n',pt_tr:'Translate the following text to Persian (or to English if it is already Persian):\n',pt_code:'Review this code, find bugs and suggest improvements:\n',pt_wr:'Improve the clarity, grammar and tone of this text:\n',pt_json:'Validate and pretty-print this JSON, and explain any errors:\n',
 toolHint:'Insert prompt into composer',
@@ -364,10 +389,10 @@ tGeneral:'General',tMemory:'Memory',tAccount:'Account',tImages:'Images',tData:'D
 memOn:'Use memory',memHint:'HEXORB remembers useful facts about you across chats. You can edit or delete them here.',memAdd:'Add a memory',memEmpty:'Nothing remembered yet.',memClear:'Clear all memory',memUpdated:'Memory updated',
 imgEndpoint:'Image endpoint',imgHint:'Use {prompt} and {seed}. Default is the free Pollinations service.',clearLocal:'Clear data on this device',deleteCloud:'Delete my chats and memory from the server',deleted:'Deleted',
 guest:'Guest',guestNote:'You are using guest mode. Chats stay on this device only.',signIn:'Sign in',logout:'Log out',verified:'Email verified',notVerified:'Email not verified',resendV:'Resend verification email',resetPw:'Send password reset email',dispName:'Display name',owner:'Owner',saved:'Saved',
-welcome:'Welcome to HEXORB',loginSub:'Sign in to sync your chats and memory',google:'Continue with Google',email:'Email',pass:'Password',name:'Display name',signup:'Create account',forgot:'Forgot password?',haveAcc:'Already have an account? Sign in',noAcc:'No account? Create one',or:'or',guestBtn:'Continue as guest',noServer:'The server is not configured yet, so only guest mode is available.',resetSent:'Password reset email sent',verifySent:'Verification email sent',banned:'This account has been suspended.',sendReset:'Send reset link',backIn:'Back to sign in',
-e_cred:'Wrong email or password.',e_used:'This email is already registered.',e_weak:'Password must be at least 6 characters.',e_mail:'Invalid email address.',e_many:'Too many attempts. Try again later.',e_net:'Network error. Check your connection.',e_domain:'This domain is not allowed by the server.',e_fill:'Fill in all fields.',e_gen:'Something went wrong. Try again.',
+welcome:'Welcome to HEXORB',loginSub:'Sign in to sync your chats and memory',google:'Continue with Google',email:'Email',pass:'Password',name:'Display name',signup:'Create account',forgot:'Forgot password?',haveAcc:'Already have an account? Sign in',noAcc:'No account? Create one',or:'or',guestBtn:'Continue as guest',noServer:'The server is not set up yet (config.js). Only guest mode is available.',resetSent:'Password reset email sent',verifySent:'Verification email sent',banned:'This account has been suspended.',sendReset:'Send reset link',backIn:'Back to sign in',
+e_cred:'Wrong email or password.',e_used:'This email is already registered.',e_weak:'Password must be at least 6 characters.',e_mail:'Invalid email address.',e_many:'Too many attempts. Try again later.',e_net:'Network error. Check your connection.',e_domain:'This site is not allowed to use the server.',e_fill:'Fill in all fields.',e_gen:'Something went wrong. Try again.',
 users:'Users',feedback:'Feedback',announce:'Announcement',stats:'Stats',search:'Search',lastSeen:'Last seen',ban:'Suspend',unban:'Restore',wipe:'Delete data',publish:'Publish',clear:'Clear',annPh:'Message shown to all users',totalU:'Total users',active24:'Active in 24h',new7:'New in 7 days',totalM:'Total messages',likes:'Likes',dislikes:'Dislikes',noData:'No data',loading:'Loading...',sure:'Are you sure?',annDone:'Announcement updated',
-setupOwner:'Backend not configured: edit backend-config.js',nameMem:'Memory',wipeLocalAsk:'This deletes the data stored on this device for the current account.',syncFail:'Sync with server failed',needLogin:'Sign in to use this',
+admEmail:'Admin email',admPass:'Password',admLogin:'Sign in',admBad:'Wrong email or password, or the server is not set up yet.',admSess:'Session expired. Sign in again.',x_admins:'Admins',x_addAdmin:'Add admin',x_adminEmail:'user@email.com',x_reviewed:'Reviewed',x_all:'All',x_new:'New',x_more:'Load more',x_chpw:'Change password',x_oldpw:'Current password',x_newpw:'New password',x_passok:'Password changed',x_addOk:'Admin added',x_you:'you',x_noPerm:'No permission',x_code:'Owner code',x_needcode:'This email is reserved for the owner. Enter the owner code.',x_badcode:'Wrong owner code.',x_nouser:'No registered account with this email.',x_forgot:'Ask the admin to reset your password.',x_tmpPw:'Temporary password (give it to the user):',x_users:'Users',x_admin:'Admin',x_banned:'Banned',x_noAcc:'No accounts yet',x_total:'Users',x_active:'Active 24h',x_msgs:'Messages',x_likes:'Likes',x_dislikes:'Dislikes',x_banL:'Banned',x_rpw:'Reset password',setupOwner:'Server not configured: edit config.js',nameMem:'Memory',wipeLocalAsk:'This deletes the data stored on this device for the current account.',syncFail:'Sync with server failed',needLogin:'Sign in to use this',
 idHud:'I am HEXORB, an AI assistant.',idMaker:'I was created and developed by Karen Soltanian.',visionErr:'Image sent. If the model cannot read images, pick a vision model in API settings.',
 apiWarn:'Security: the API key is stored unencrypted in this browser only. It is never sent to the HEXORB server.',provider:'Provider',apiKey:'API Key',endpoint:'Endpoint',test:'Test connection',noKeyFree:'LLM7 works without a key.',modelHint:'Answer quality depends on the model. For smarter answers pick a stronger model (e.g. Groq llama-3.3-70b, DeepSeek, or a large model on OpenRouter). You can type any model name.',
 quickAll:'All settings',menuLbl:'Menu',micUnsupported:'Speech recognition is not supported in this browser.',listening:'Listening...',fileBig:'File is larger than 4 MB',attached:'Attached',noApi:'Set an endpoint first',needKey:'Add your API key first',nothingClear:'Nothing to clear',cleared:'Conversation cleared'},
@@ -376,7 +401,7 @@ s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error
 quick:'تنظیمات سریع',clearConv:'پاک کردن گفتگو',attach:'پیوست فایل یا عکس',mic:'میکروفون',send:'ارسال',genImg:'ساخت تصویر',
 ph:'پیام به HEXORB...',genOn:'حالت تصویر: تصویر دلخواهت را توصیف کن',genOff:'حالت تصویر خاموش شد',
 qa_plan:'برنامه‌ریزی',qa_brain:'ایده‌پردازی',qa_learn:'یادگیری',qa_code:'کدنویسی',qa_sum:'خلاصه‌سازی',qa_ana:'تحلیل',
-p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
+p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
 tl_sum:'خلاصه‌ساز متن',tl_tr:'مترجم',tl_code:'دستیار کد',tl_wr:'دستیار نوشتن',tl_json:'فرمت‌کننده JSON',tl_img:'تولید تصویر',
 pt_sum:'این متن را کوتاه خلاصه کن:\n',pt_tr:'متن زیر را به انگلیسی ترجمه کن (اگر انگلیسی است به فارسی):\n',pt_code:'این کد را بررسی کن، باگ‌ها را پیدا کن و بهبود پیشنهاد بده:\n',pt_wr:'وضوح، گرامر و لحن این متن را بهتر کن:\n',pt_json:'این JSON را بررسی و مرتب کن و خطاها را توضیح بده:\n',
 toolHint:'پرامپت را وارد کادر پیام می‌کند',
@@ -386,10 +411,10 @@ tGeneral:'عمومی',tMemory:'حافظه',tAccount:'حساب',tImages:'تصاو
 memOn:'استفاده از حافظه',memHint:'HEXORB موارد مفید درباره‌ی تو را بین چت‌ها به خاطر می‌سپارد. اینجا می‌توانی ویرایش یا حذفشان کنی.',memAdd:'افزودن به حافظه',memEmpty:'هنوز چیزی به خاطر سپرده نشده.',memClear:'پاک کردن کل حافظه',memUpdated:'حافظه به‌روز شد',
 imgEndpoint:'آدرس تولید تصویر',imgHint:'از {prompt} و {seed} استفاده کن. پیش‌فرض سرویس رایگان Pollinations است.',clearLocal:'پاک کردن داده‌های این دستگاه',deleteCloud:'حذف چت‌ها و حافظه‌ام از سرور',deleted:'حذف شد',
 guest:'مهمان',guestNote:'در حالت مهمان هستی. چت‌ها فقط روی همین دستگاه می‌مانند.',signIn:'ورود',logout:'خروج',verified:'ایمیل تأیید شده',notVerified:'ایمیل تأیید نشده',resendV:'ارسال دوباره‌ی ایمیل تأیید',resetPw:'ارسال ایمیل بازیابی رمز',dispName:'نام نمایشی',owner:'مالک',saved:'ذخیره شد',
-welcome:'به HEXORB خوش آمدی',loginSub:'برای همگام‌سازی چت‌ها و حافظه وارد شو',google:'ادامه با گوگل',email:'ایمیل',pass:'رمز عبور',name:'نام نمایشی',signup:'ساخت حساب',forgot:'رمز را فراموش کردی؟',haveAcc:'حساب داری؟ وارد شو',noAcc:'حساب نداری؟ بساز',or:'یا',guestBtn:'ادامه به‌صورت مهمان',noServer:'سرور هنوز تنظیم نشده و فقط حالت مهمان در دسترس است.',resetSent:'ایمیل بازیابی رمز ارسال شد',verifySent:'ایمیل تأیید ارسال شد',banned:'این حساب مسدود شده است.',sendReset:'ارسال لینک بازیابی',backIn:'بازگشت به ورود',
-e_cred:'ایمیل یا رمز عبور اشتباه است.',e_used:'این ایمیل قبلاً ثبت شده است.',e_weak:'رمز عبور باید حداقل ۶ کاراکتر باشد.',e_mail:'آدرس ایمیل معتبر نیست.',e_many:'تلاش‌های زیاد. کمی بعد دوباره امتحان کن.',e_net:'خطای شبکه. اتصال را بررسی کن.',e_domain:'این دامنه در سرور مجاز نشده است.',e_fill:'همه‌ی فیلدها را پر کن.',e_gen:'مشکلی پیش آمد. دوباره تلاش کن.',
+welcome:'به HEXORB خوش آمدی',loginSub:'برای همگام‌سازی چت‌ها و حافظه وارد شو',google:'ادامه با گوگل',email:'ایمیل',pass:'رمز عبور',name:'نام نمایشی',signup:'ساخت حساب',forgot:'رمز را فراموش کردی؟',haveAcc:'حساب داری؟ وارد شو',noAcc:'حساب نداری؟ بساز',or:'یا',guestBtn:'ادامه به‌صورت مهمان',noServer:'سرور هنوز تنظیم نشده (فایل config.js). فقط حالت مهمان در دسترس است.',resetSent:'ایمیل بازیابی رمز ارسال شد',verifySent:'ایمیل تأیید ارسال شد',banned:'این حساب مسدود شده است.',sendReset:'ارسال لینک بازیابی',backIn:'بازگشت به ورود',
+e_cred:'ایمیل یا رمز عبور اشتباه است.',e_used:'این ایمیل قبلاً ثبت شده است.',e_weak:'رمز عبور باید حداقل ۶ کاراکتر باشد.',e_mail:'آدرس ایمیل معتبر نیست.',e_many:'تلاش‌های زیاد. کمی بعد دوباره امتحان کن.',e_net:'خطای شبکه. اتصال را بررسی کن.',e_domain:'این سایت اجازه‌ی استفاده از سرور را ندارد.',e_fill:'همه‌ی فیلدها را پر کن.',e_gen:'مشکلی پیش آمد. دوباره تلاش کن.',
 users:'کاربران',feedback:'بازخوردها',announce:'اعلان',stats:'آمار',search:'جستجو',lastSeen:'آخرین بازدید',ban:'مسدود',unban:'رفع انسداد',wipe:'حذف داده‌ها',publish:'انتشار',clear:'پاک کردن',annPh:'پیامی که به همه‌ی کاربران نشان داده می‌شود',totalU:'کل کاربران',active24:'فعال در ۲۴ ساعت',new7:'جدید در ۷ روز',totalM:'کل پیام‌ها',likes:'لایک‌ها',dislikes:'دیس‌لایک‌ها',noData:'داده‌ای نیست',loading:'در حال بارگذاری...',sure:'مطمئنی؟',annDone:'اعلان به‌روز شد',
-setupOwner:'سرور تنظیم نشده: فایل backend-config.js را ویرایش کن',nameMem:'حافظه',wipeLocalAsk:'داده‌های ذخیره‌شده روی این دستگاه برای حساب فعلی پاک می‌شود.',syncFail:'همگام‌سازی با سرور ناموفق بود',needLogin:'برای استفاده وارد شو',
+admEmail:'ایمیل ادمین',admPass:'رمز عبور',admLogin:'ورود',admBad:'ایمیل یا رمز اشتباه است یا سرور هنوز تنظیم نشده.',admSess:'نشست تمام شد. دوباره وارد شو.',x_admins:'ادمین‌ها',x_addAdmin:'افزودن ادمین',x_adminEmail:'user@email.com',x_reviewed:'بررسی‌شده',x_all:'همه',x_new:'جدید',x_more:'بیشتر',x_chpw:'تغییر رمز',x_oldpw:'رمز فعلی',x_newpw:'رمز جدید',x_passok:'رمز تغییر کرد',x_addOk:'ادمین اضافه شد',x_you:'تو',x_noPerm:'دسترسی نداری',x_code:'کد مالک',x_needcode:'این ایمیل مخصوص مالک است. کد مالک را وارد کن.',x_badcode:'کد مالک اشتباه است.',x_nouser:'حسابی با این ایمیل ثبت‌نام نکرده است.',x_forgot:'برای بازنشانی رمز از ادمین کمک بخواه.',x_tmpPw:'رمز موقت (به کاربر بده):',x_users:'کاربران',x_admin:'ادمین',x_banned:'مسدود',x_noAcc:'هنوز حسابی نیست',x_total:'کاربران',x_active:'فعال ۲۴ساعت',x_msgs:'پیام‌ها',x_likes:'لایک',x_dislikes:'دیس‌لایک',x_banL:'مسدود',x_rpw:'بازنشانی رمز',setupOwner:'سرور تنظیم نشده: فایل config.js را ویرایش کن',nameMem:'حافظه',wipeLocalAsk:'داده‌های ذخیره‌شده روی این دستگاه برای حساب فعلی پاک می‌شود.',syncFail:'همگام‌سازی با سرور ناموفق بود',needLogin:'برای استفاده وارد شو',
 idHud:'من HEXORB هستم، یک دستیار هوش مصنوعی.',idMaker:'سازنده و توسعه‌دهنده‌ی من کارن سلطانیان است.',visionErr:'تصویر ارسال شد. اگر مدل نمی‌تواند عکس بخواند، در تنظیمات API یک مدل بینایی انتخاب کن.',
 apiWarn:'هشدار امنیتی: کلید API بدون رمزگذاری فقط در همین مرورگر ذخیره می‌شود و هرگز به سرور HEXORB ارسال نمی‌شود.',provider:'سرویس‌دهنده',apiKey:'کلید API',endpoint:'آدرس Endpoint',test:'تست اتصال',noKeyFree:'LLM7 بدون کلید هم کار می‌کند.',modelHint:'هوشمندی جواب‌ها به مدل بستگی دارد. برای جواب‌های هوشمندتر مدل قوی‌تری انتخاب کن (مثلاً Groq با llama-3.3-70b، DeepSeek یا مدل بزرگ در OpenRouter). هر اسم مدلی را می‌توانی تایپ کنی.',
 quickAll:'همه‌ی تنظیمات',menuLbl:'منو',micUnsupported:'تشخیص گفتار در این مرورگر پشتیبانی نمی‌شود.',listening:'در حال گوش دادن...',fileBig:'حجم فایل بیشتر از ۴ مگابایت است',attached:'پیوست شد',noApi:'ابتدا Endpoint را تنظیم کن',needKey:'ابتدا کلید API را وارد کن',nothingClear:'چیزی برای پاک کردن نیست',cleared:'گفتگو پاک شد'}
@@ -440,35 +465,88 @@ return md(esc(p))}).join('')}
 const scrollEnd=()=>{const v=$('#view');v.scrollTop=v.scrollHeight};
 function packMsgs(msgs){let s=JSON.stringify(msgs);if(s.length<900000)return s;const c=msgs.map(m=>Object.assign({},m));for(const m of c){if(m.img&&m.img.length){m.img=[];s=JSON.stringify(c);if(s.length<900000)return s}}return JSON.stringify(c.slice(-30))}
 
-/* ---------- Hexorb backend (no Firebase) ---------- */
-const Cloud={ok:false,token:localStorage.getItem('hexorb.token')||'',me:null,cache:{users:[],feedback:[],ann:null},
- async req(path,opts={}){const headers={'Content-Type':'application/json',...(opts.headers||{})};if(this.token)headers.Authorization='Bearer '+this.token;const r=await fetch(API_BASE+path,{...opts,headers});let d={};try{d=await r.json()}catch(_){}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed ('+r.status+')'),{code:d.code||'api/error'});return d},
- async init(){try{const d=await this.req('/health');this.ok=!!d.ok;if(this.ok&&this.token){try{this.me=(await this.req('/auth/me')).user}catch(_){this.token='';localStorage.removeItem('hexorb.token')}}return this.ok}catch(e){console.warn('Hexorb backend unavailable',e);return false}},
- watch(cb){setTimeout(()=>cb(this.me),0)},
- async signIn(email,password){const d=await this.req('/auth/login',{method:'POST',body:JSON.stringify({email,password})});this.token=d.token;this.me=d.user;localStorage.setItem('hexorb.token',this.token);onAuth(this.me);return d},
- async signUp(name,email,password){const d=await this.req('/auth/register',{method:'POST',body:JSON.stringify({name,email,password})});this.token=d.token;this.me=d.user;localStorage.setItem('hexorb.token',this.token);onAuth(this.me);return d},
- async google(){throw new Error('Google sign-in is not enabled in this backend build.')},
- async reset(email){await this.req('/auth/password-reset-request',{method:'POST',body:JSON.stringify({email})})},
- async out(){this.token='';this.me=null;localStorage.removeItem('hexorb.token')},
- async verify(){throw new Error('Email verification requires an email provider to be configured on the server.')},
- async rename(name){const d=await this.req('/auth/profile',{method:'PATCH',body:JSON.stringify({name})});this.me=d.user;return d},
- inc(n){return n},
- async getUser(id){if(this.me&&this.me.uid===id)return this.me;return (await this.req('/users/'+encodeURIComponent(id))).user},
- async setUser(id,d){if(id===this.me?.uid){const r=await this.req('/auth/profile',{method:'PATCH',body:JSON.stringify(d)});this.me=r.user;return r}return this.req('/admin/users/'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(d)})},
- async loadConvs(id){return ld('hexorb.convs.'+id,[])},saveConv(id,c){const a=ld('hexorb.convs.'+id,[]).filter(x=>x.id!==c.id);a.push(c);a.sort((x,y)=>(y.ts||0)-(x.ts||0));sv('hexorb.convs.'+id,a.slice(0,60));return Promise.resolve()},
- async delConv(id,cid){sv('hexorb.convs.'+id,ld('hexorb.convs.'+id,[]).filter(x=>x.id!==cid))},
- async loadMem(id){return ld('hexorb.mem.'+id,[])},saveMem(id,m){const a=ld('hexorb.mem.'+id,[]).filter(x=>x.id!==m.id);a.push(m);sv('hexorb.mem.'+id,a);return Promise.resolve()},
- async delMem(id,mid){sv('hexorb.mem.'+id,ld('hexorb.mem.'+id,[]).filter(x=>x.id!==mid))},
- async addFeedback(d){return this.req('/feedback',{method:'POST',body:JSON.stringify(d)})},
- async allUsers(){return (await this.req('/admin/users')).users},
- async allFeedback(){return (await this.req('/admin/feedback')).feedback},
- async delFeedback(id){return this.req('/admin/feedback/'+encodeURIComponent(id),{method:'DELETE'})},
- async getAnn(){return (await this.req('/announcement')).announcement},
- async setAnn(d){return this.req('/admin/announcement',{method:'PUT',body:JSON.stringify(d)})},
- async wipeSubs(id){sv('hexorb.convs.'+id,[]);sv('hexorb.mem.'+id,[])},
- async wipeUser(id){return this.req('/admin/users/'+encodeURIComponent(id),{method:'DELETE'})},
- async setAdmin(email,isAdmin=true){return this.req('/admin/roles',{method:'POST',body:JSON.stringify({email,isAdmin})})}
+
+/* ---------- Cloud (Supabase: Auth + Postgres functions, plain fetch, no library) ---------- */
+const SB_URL=String(CFG.sbUrl||'').trim().replace(/\/+$/,'');
+const SB_KEY=String(CFG.sbKey||'').trim();
+const Cloud={ok:false,cfgd:false,ses:null,me:null,cb:null,_sync:null,
+async init(){this.cfgd=/^(https:\/\/|http:\/\/localhost)[^\s]+$/.test(SB_URL)&&SB_KEY.length>20&&!/YOUR|PASTE|xxxx/i.test(SB_URL+SB_KEY);if(!this.cfgd)return false;
+ try{this.ses=JSON.parse(localStorage.getItem('hexorb.ses')||'null')}catch(e){this.ses=null}this.ok=true;return true},
+store(){try{if(this.ses)localStorage.setItem('hexorb.ses',JSON.stringify(this.ses));else{localStorage.removeItem('hexorb.ses');localStorage.removeItem('hexorb.me')}}catch(e){}},
+clear(){this.ses=null;this.me=null;this._sync=null;this.store()},
+setSes(j){if(!j||!j.access_token)return;this.ses={at:j.access_token,rt:j.refresh_token,exp:Date.now()+((+j.expires_in||3600)*1000)};this.store()},
+/* map Supabase / GoTrue / Postgres error texts to the codes the UI understands */
+errOf(r,j){const raw=j||{};const c=String(raw.error_code||raw.code||'');const m=String(raw.msg||raw.message||raw.error_description||raw.error||'');
+ const k=(m.match(/^[a-z_]+$/)||[''])[0]; /* our own RAISE EXCEPTION 'need_code' etc. */
+ const x=new Error(m||('HTTP '+r.status));x.status=r.status;x.sbcode=k||c;
+ const T={need_code:'auth/need-code',bad_code:'auth/bad-code',banned:'auth/banned',forbidden:'auth/forbidden',no_user:'auth/no-user',bad_email:'auth/invalid-email',rate_limited:'auth/too-many-requests',unauthorized:'auth/unauthorized',
+  invalid_credentials:'auth/invalid-credential',user_already_exists:'auth/email-already-in-use',email_exists:'auth/email-already-in-use',weak_password:'auth/weak-password',user_banned:'auth/banned',
+  over_request_rate_limit:'auth/too-many-requests',over_email_send_rate_limit:'auth/too-many-requests',email_not_confirmed:'auth/confirm',validation_failed:'auth/invalid-email',email_address_invalid:'auth/invalid-email',signup_disabled:'auth/signup-off'};
+ x.code=T[k]||T[c]||'';
+ if(!x.code){if(/already registered|already been registered/i.test(m))x.code='auth/email-already-in-use';else if(/invalid login/i.test(m))x.code='auth/invalid-credential';else if(/password/i.test(m)&&/(least|short|weak)/i.test(m))x.code='auth/weak-password';else if(/rate limit|too many/i.test(m))x.code='auth/too-many-requests';else if(/not confirmed/i.test(m))x.code='auth/confirm';else if(/banned/i.test(m))x.code='auth/banned';else if(/Database error saving new user/i.test(m))x.code='auth/need-code'}
+ return x},
+async raw(method,path,body,tok){const h={'content-type':'application/json',apikey:SB_KEY};if(tok)h.authorization='Bearer '+tok;let r;
+ try{r=await fetch(SB_URL+path,{method,headers:h,body:body===undefined?undefined:JSON.stringify(body)})}catch(e){const x=new Error('network');x.code='auth/network-request-failed';throw x}
+ let j=null;try{j=await r.json()}catch(e){}
+ if(!r.ok)throw this.errOf(r,j);return j},
+async fresh(){if(!this.ses)return '';
+ if(Date.now()>this.ses.exp-60000){
+  try{const j=await this.raw('POST','/auth/v1/token?grant_type=refresh_token',{refresh_token:this.ses.rt});this.setSes(j)}
+  catch(e){if(e.code==='auth/network-request-failed')throw e;this.clear();if(this.cb)this.cb(null);const x=new Error('unauthorized');x.code='auth/unauthorized';throw x}}
+ return this.ses.at},
+async rpc(fn,args,anon){let tok='';if(!anon){tok=await this.fresh();if(!tok){const x=new Error('unauthorized');x.code='auth/unauthorized';throw x}}
+ try{return await this.raw('POST','/rest/v1/rpc/'+fn,args||{},tok)}
+ catch(e){if(!anon&&(e.status===401||/jwt/i.test(e.message))&&this.ses){ /* token rejected: force one refresh and retry */
+   this.ses.exp=0;const t2=await this.fresh();return await this.raw('POST','/rest/v1/rpc/'+fn,args||{},t2)}
+  if(e.code==='auth/banned'&&!anon){/* handled by watch/UI */}throw e}},
+fu(m){return m?{uid:m.id,email:m.email,displayName:m.name,photoURL:'',emailVerified:true,isAdmin:!!m.isAdmin}:null},
+setMe(m){this.me=m;try{localStorage.setItem('hexorb.me',JSON.stringify(m))}catch(e){}},
+async watch(cb){this.cb=cb;if(!this.ses){cb(null);return}
+ try{const j=await this.rpc('hx_me');this.setMe(j.user);cb(this.fu(j.user))}
+ catch(e){if(e.code==='auth/network-request-failed'){let m=null;try{m=JSON.parse(localStorage.getItem('hexorb.me')||'null')}catch(_){}if(m){this.me=m;cb(this.fu(m));return}}
+  if(e.code==='auth/banned'){this.clear();cb(null);setTimeout(()=>toast(t('banned'),'err'),600);return}
+  if(this.ses)this.clear();cb(null)}},
+async login(e,p){const j=await this.raw('POST','/auth/v1/token?grant_type=password',{email:e,password:p});this.setSes(j);return j},
+async signIn(e,p){await this.login(e,p);const j=await this.rpc('hx_me');this.setMe(j.user);if(this.cb)this.cb(this.fu(j.user))},
+async signUp(n,e,p,code){
+ await this.raw('POST','/rest/v1/rpc/hx_check_signup',{p_email:e,p_code:code||''}); /* friendly owner-code errors */
+ const j=await this.raw('POST','/auth/v1/signup',{email:e,password:p,data:{name:n,code:code||''}});
+ if(j&&j.access_token)this.setSes(j);else await this.login(e,p); /* needs "Confirm email" switched OFF in Supabase */
+ const m=await this.rpc('hx_me');this.setMe(m.user);if(this.cb)this.cb(this.fu(m.user))},
+async out(){try{if(this.ses)await this.raw('POST','/auth/v1/logout',{},this.ses.at)}catch(e){}this.clear()},
+async rename(n){const j=await this.rpc('hx_profile',{p_name:n,p_settings:null,p_inc:0});this.setMe(j.user)},
+async changePass(o,n){if(String(n).length<6){const x=new Error('weak');x.code='auth/weak-password';throw x}
+ const em=this.me&&this.me.email;await this.login(em,o);await this.raw('PUT','/auth/v1/user',{password:n},this.ses.at)},
+async getUser(){return this.me?{settings:this.me.settings||{}}:null},
+async setUser(id,d){const hasS=!!d.settings,hasN=d.name!==undefined,hasI=d.msgs===1;if(!hasS&&!hasN&&!hasI)return;
+ await this.rpc('hx_profile',{p_name:hasN?d.name:null,p_settings:hasS?d.settings:null,p_inc:hasI?1:0})},
+inc(n){return 1},
+syncAll(){if(!this._sync)this._sync=this.rpc('hx_sync').catch(e=>{this._sync=null;throw e});return this._sync},
+async loadConvs(){const j=await this.syncAll();return(j.convs||[]).map(x=>{let msgs=[];try{msgs=JSON.parse(x.data||'[]')}catch(e){}return{id:x.id,title:x.title||'Chat',ts:+x.ts||0,msgs}})},
+async loadMem(){const j=await this.syncAll();return j.mem||[]},
+async saveConv(id,c){let ms=c.msgs.map(m=>m.img&&m.img.length?Object.assign({},m,{img:[]}):m),s=JSON.stringify(ms);
+ while(s.length>240000&&ms.length>2){ms=ms.slice(1);s=JSON.stringify(ms)}
+ await this.rpc('hx_conv_save',{p_id:c.id,p_title:String(c.title||'').slice(0,200),p_ts:c.ts,p_data:s})},
+delConv(id,cid){return this.rpc('hx_conv_del',{p_id:cid})},
+saveMem(id,m){return this.rpc('hx_mem_save',{p_id:m.id,p_text:m.text,p_ts:m.ts,p_src:m.src||'auto'})},
+delMem(id,mid){return this.rpc('hx_mem_del',{p_id:mid})},
+wipeSubs(){return this.rpc('hx_wipe_data')},
+addFeedback(d){return this.rpc('hx_feedback',{p_rating:d.rating,p_msg:d.msg||'',p_prompt:d.prompt||'',p_comment:d.comment||'',p_lang:d.lang||''})},
+async getAnn(){return this.rpc('hx_ann',{},true)},
+fbList(cursor,f){return this.rpc('hx_admin_feedback',{p_filter:f||'all',p_cursor:cursor?+cursor:null})},
+fbReview(id,v){return this.rpc('hx_admin_fb_review',{p_id:+id,p_v:!!v})},
+fbDel(id){return this.rpc('hx_admin_fb_delete',{p_id:+id})},
+users(){return this.rpc('hx_admin_users')},
+ban(id,b){return this.rpc('hx_admin_ban',{p_id:id,p_banned:!!b})},
+resetPw(id){return this.rpc('hx_admin_resetpw',{p_id:id})},
+wipeUser(id){return this.rpc('hx_admin_wipe',{p_id:id})},
+admins(){return this.rpc('hx_admin_admins')},
+adminAdd(e){return this.rpc('hx_admin_add',{p_email:e})},
+adminDel(e){return this.rpc('hx_admin_remove',{p_email:e})},
+setAnn(d){return this.rpc('hx_admin_ann',{p_text:d.text||''})},
+stats(){return this.rpc('hx_admin_stats')}
 };
+
 const pend={};
 function pushConv(c){if(!U||!Cloud.ok)return;clearTimeout(pend[c.id]);pend[c.id]=setTimeout(()=>Cloud.saveConv(U.uid,c).catch(syncErr),500)}
 function save(c){saveD();if(c)pushConv(c)}
@@ -588,10 +666,11 @@ function feedback(c,i,rating){
  if(m.fb)sendFb(c,i,null)}
 function sendFb(c,i,comment){
  const m=c.msgs[i];let prompt='';for(let j=i-1;j>=0;j--){if(c.msgs[j].r==='user'){prompt=c.msgs[j].c||'';break}}
- const rec={rating:m.fb,msg:(m.gen?'[image] '+m.gen.prompt:m.c||'').slice(0,1500),prompt:prompt.slice(0,500),comment:comment?String(comment).slice(0,500):'',conv:c.id,ts:Date.now()};
- if(U&&Cloud.ok){Cloud.addFeedback(Object.assign({uid:U.uid,email:U.email,name:U.name},rec)).catch(syncErr)}
+ const rec={rating:m.fb,msg:(m.gen?'[image] '+m.gen.prompt:m.c||'').slice(0,1500),prompt:prompt.slice(0,500),comment:comment?String(comment).slice(0,500):'',conv:c.id,lang:UI.lang,ts:Date.now()};
+ if(U&&Cloud.ok){Cloud.addFeedback(rec).catch(e=>{D.fbq.push(rec);if(D.fbq.length>50)D.fbq.shift();saveD();syncErr(e)})}
  else{D.fbq.push(rec);if(D.fbq.length>50)D.fbq.shift();saveD()}}
-function flushFb(){if(!U||!Cloud.ok||!D.fbq.length)return;const q=D.fbq.splice(0);saveD();q.forEach(r=>Cloud.addFeedback(Object.assign({uid:U.uid,email:U.email,name:U.name},r)).catch(()=>{}))}
+function flushFb(){if(!U||!Cloud.ok||!D.fbq.length)return;const q=D.fbq.splice(0);saveD();q.forEach(r=>Cloud.addFeedback(r).catch(()=>{D.fbq.push(r);saveD()}))}
+
 
 /* ---------- Views ---------- */
 const core=`<div class="core"><svg viewBox="0 0 200 200"><defs><radialGradient id="cg"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="var(--ac)"/><stop offset="1" stop-color="var(--ac2)" stop-opacity="0"/></radialGradient></defs><g class="rg"><circle cx="100" cy="100" r="92" fill="none" stroke="var(--ac)" stroke-width="2" stroke-dasharray="4 10 60 10" opacity=".8"/></g><g class="rg rg2"><circle cx="100" cy="100" r="76" fill="none" stroke="var(--ac2)" stroke-width="2.5" stroke-dasharray="90 20 10 20"/></g><circle cx="100" cy="100" r="60" fill="none" stroke="var(--bd)" stroke-width="1"/><circle class="cc" cx="100" cy="100" r="42" fill="url(#cg)"/><circle cx="100" cy="100" r="10" fill="#fff"/></svg></div>`;
@@ -599,6 +678,7 @@ const QA=[['plan','clock'],['brain','bolt'],['learn','book'],['code','code'],['s
 const TL=[['sum','list'],['tr','globe'],['code','code'],['wr','edit'],['json','json'],['img','sparkles']];
 const avInner=()=>U&&U.photo?`<img src="${esc(U.photo)}" alt="" referrerpolicy="no-referrer">`:(U?esc((U.name||'?').charAt(0).toUpperCase()):I('user'));
 function acctHTML(){
+ if(!U&&!Cloud.cfgd)return '';
  if(U)return `<button class="acct" data-act="settings:account"><span class="av">${avInner()}</span><span class="an"><b>${esc(U.name)}</b><small>${U.owner?t('owner'):esc(U.email)}</small></span></button>`;
  return `<button class="acct" data-act="login"><span class="av">${I('user')}</span><span class="an"><b>${t('guest')}</b><small>${t('signIn')}</small></span></button>`}
 function hud(){return `<div class="wrap"><div class="hud">${core}<h1 class="brand">HEXORB ONLINE</h1><div class="info"><span class="chip">${t('link')} <b>${t('s_'+R.status)}</b></span><span class="chip">${t('model')} <b>${esc(API.model||'-')}</b></span><span class="chip">${t('session')} <b class="sess">${dur()}</b></span></div></div><div class="grid">${QA.map(q=>`<button class="qa" data-act="qa:${q[0]}"><span class="tile">${I(q[1])}</span><b>${t('qa_'+q[0])}</b><small>${esc(t('p_'+q[0]).trim().slice(0,40))}</small></button>`).join('')}</div></div>`}
@@ -635,9 +715,11 @@ function render(){
  $('#acct').innerHTML=acctHTML();$('#hav').innerHTML=`<span class="av" style="width:30px;height:30px">${avInner()}</span>`;$('#nbAdmin').hidden=!(U&&U.owner);
  $('#view').innerHTML=VIEWS[R.view]();
  $$('.genimg').forEach(im=>{if(im.complete&&im.naturalWidth)im.parentNode.classList.add('ready')});
- chips();
+ chips();shc();
  const sb=$('#sendb');if(sb){const st=!!(R.busy&&R.abort);sb.innerHTML=I(st?'stop':'send');sb.dataset.act=st?'stop':'send';sb.classList.toggle('stop',st);sb.title=t(st?'stop':'send')}
  const cc=cur();if(R.view==='chat'&&UI.auto&&cc&&cc.msgs.length)scrollEnd();else $('#view').scrollTop=0}
+const SHC=[['sum','list','p_sum'],['exp','book','p_learn'],['tr','globe','p_tr'],['imp','sparkles','p_imp'],['code','code','p_code'],['brain','bolt','p_brain']];
+function shc(){const el=$('#shc');if(!el)return;const h=SHC.map(x=>`<button class="sh" data-act="sc:${x[0]}">${I(x[1])}<span>${t('s_'+x[0])}</span></button>`).join('');if(el.dataset.l!==lang+h.length){el.innerHTML=h;el.dataset.l=lang+h.length}}
 function applyLang(){lang=UI.lang==='fa'?'fa':'en';const h=document.documentElement;h.lang=lang;h.dir=lang==='fa'?'rtl':'ltr';
  $$('[data-t]').forEach(e=>{e.textContent=t(e.dataset.t)});$$('[data-tt]').forEach(e=>{e.title=t(e.dataset.tt);e.setAttribute('aria-label',t(e.dataset.tt))});$$('[data-tp]').forEach(e=>{e.placeholder=t(e.dataset.tp)})}
 function applyAll(){const h=document.documentElement;h.dataset.theme=UI.theme;h.dataset.anim=UI.anim;document.body.classList.toggle('rm',!!UI.reduce);applyLang()}
@@ -660,8 +742,8 @@ const STAB={
 <label>${t('anim')}<select data-set="anim">${['low','normal','high'].map(v=>`<option value="${v}"${UI.anim===v?' selected':''}>${v}</option>`).join('')}</select></label>${sw('reduce',t('reduce'))}${sw('auto',t('autoscroll'))}${sw('enter',t('enterSend'))}`,
  memory:()=>`${sw('memOn',t('memOn'))}<p class="note">${t('memHint')}</p>${D.mem.length?D.mem.map(m=>`<div class="mem"><input value="${esc(m.text)}" maxlength="300"><button class="ib" data-act="memsave:${m.id}" title="${t('save')}">${I('check')}</button><button class="ib" data-act="memdel:${m.id}" title="${t('delete')}">${I('trash')}</button></div>`).join(''):`<div class="empty" style="margin-bottom:12px">${t('memEmpty')}</div>`}
 <div class="mem"><input id="memnew" maxlength="300" placeholder="${esc(t('memAdd'))}"><button class="ib" data-act="memadd" title="${t('memAdd')}">${I('plus')}</button></div>${D.mem.length?`<button class="btn dng sm" data-act="memclear">${I('trash')}${t('memClear')}</button>`:''}`,
- account:()=>U?`<div class="urow"><span class="av" style="width:48px;height:48px">${avInner()}</span><div class="an"><b>${esc(U.name)}${U.owner?`<span class="badge o">${t('owner')}</span>`:''}</b><small>${esc(U.email)}</small><small>${U.verified?`<span style="color:var(--ok)">${t('verified')}</span>`:`<span style="color:var(--wa)">${t('notVerified')}</span>`}</small></div></div>
-<label>${t('dispName')}<input id="dn" value="${esc(U.name)}" maxlength="40"></label><div class="row wrap" style="margin-bottom:12px"><button class="btn pri" data-act="savename">${t('save')}</button>${U.verified?'':`<button class="btn" data-act="resendv">${I('mail')}${t('resendV')}</button>`}<button class="btn" data-act="resetpw">${I('lock')}${t('resetPw')}</button></div><button class="btn dng full" data-act="logout">${I('logout')}${t('logout')}</button>`
+ account:()=>U?`<div class="urow"><span class="av" style="width:48px;height:48px">${avInner()}</span><div class="an"><b>${esc(U.name)}${U.owner?`<span class="badge o">${t('owner')}</span>`:''}</b><small>${esc(U.email)}</small></div></div>
+<label>${t('dispName')}<input id="dn" value="${esc(U.name)}" maxlength="40"></label><div class="row wrap" style="margin-bottom:12px"><button class="btn pri" data-act="savename">${t('save')}</button><button class="btn" data-act="chpw">${I('lock')}${t('x_chpw')}</button></div><button class="btn dng full" data-act="logout">${I('logout')}${t('logout')}</button>`
  :`<div class="warn">${t('guestNote')}</div><button class="btn pri full" data-act="login">${I('user')}${t('signIn')}</button>`,
  images:()=>`<label>${t('imgEndpoint')}<input data-api="imgUrl" value="${esc(API.imgUrl)}" dir="ltr" spellcheck="false"></label><p class="note">${t('imgHint')}</p><button class="btn sm" data-act="imgreset">${t('clear')}</button>`,
  data:()=>`<div class="row wrap"><a class="btn" href="privacy.html" target="_blank" rel="noopener">${I('shield')}${t('privacy')}</a><button class="btn dng" data-act="wipelocal">${I('trash')}${t('clearLocal')}</button>${U&&Cloud.ok?`<button class="btn dng" data-act="wipecloud">${I('trash')}${t('deleteCloud')}</button>`:''}</div>`
@@ -682,6 +764,7 @@ function authMsg(e){const c=(e&&e.code)||'';
  if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c))return t('e_cred');
  if(c==='auth/email-already-in-use')return t('e_used');if(c==='auth/weak-password')return t('e_weak');if(c==='auth/invalid-email')return t('e_mail');
  if(c==='auth/too-many-requests')return t('e_many');if(c==='auth/network-request-failed')return t('e_net');if(c==='auth/unauthorized-domain')return t('e_domain');
+ if(c==='auth/banned')return t('banned');if(c==='auth/confirm')return t('x_confirm');if(c==='auth/bad-code')return t('x_badcode');if(c==='auth/bad-name')return t('e_fill');if(c==='auth/no-user')return t('x_nouser');if(c==='auth/forbidden')return t('x_noPerm');
  if(c==='auth/popup-closed-by-user'||c==='auth/cancelled-popup-request')return '';
  return t('e_gen')+(e&&e.message?' ('+String(e.message).slice(0,120)+')':'')}
 function loginHTML(){
@@ -689,37 +772,37 @@ function loginHTML(){
  let h=`<div class="lt">${seg([['en','EN'],['fa','فا']],UI.lang,'lang')}</div><div class="card">${core}<h1 class="brand">HEXORB</h1><p class="sub">${t('loginSub')}</p>`;
  if(!ok){h+=`<div class="warn">${Cloud.cfgd?t('e_net'):t('noServer')}</div>`+(Cloud.cfgd?`<button class="btn full" data-act="reload" style="margin-bottom:10px">${I('refresh')}${t('retry')}</button>`:'')}
  else{
-  if(m!=='reset')h+=`<div class="or">${t('or')}</div>`;
   h+=`<form id="lform" novalidate>`;
   if(m==='up')h+=`<label>${t('name')}<input id="lg-n" autocomplete="name" maxlength="40"></label>`;
   h+=`<label>${t('email')}<input id="lg-e" type="email" autocomplete="email" dir="ltr"></label>`;
   if(m!=='reset')h+=`<label>${t('pass')}<input id="lg-p" type="password" autocomplete="${m==='up'?'new-password':'current-password'}" dir="ltr"></label>`;
-  h+=`<p class="lerr" id="lerr">${esc(LG.err)}</p>${LG.ok?`<p class="note" style="color:var(--ok)">${esc(LG.ok)}</p>`:''}<button class="btn pri full" type="submit">${m==='up'?t('signup'):m==='reset'?t('sendReset'):t('signIn')}</button></form>`;
-  h+=`<div class="row wrap" style="justify-content:space-between;margin-top:8px">`+(m==='in'?`<button class="link" data-act="lmode:reset">${t('forgot')}</button><button class="link" data-act="lmode:up">${t('noAcc')}</button>`:m==='up'?`<button class="link" data-act="lmode:in">${t('haveAcc')}</button>`:`<button class="link" data-act="lmode:in">${t('backIn')}</button>`)+`</div><div class="or">${t('or')}</div>`}
+  h+=`${m==='up'&&LG.needCode?`<label>${t('x_code')}<input id="lg-c" dir="ltr" autocomplete="off"></label>`:''}<p class="lerr" id="lerr">${esc(LG.err)}</p>${LG.ok?`<p class="note" style="color:var(--ok)">${esc(LG.ok)}</p>`:''}<button class="btn pri full" type="submit">${m==='up'?t('signup'):m==='reset'?t('sendReset'):t('signIn')}</button></form>`;
+  h+=`<div class="row wrap" style="justify-content:space-between;margin-top:8px">`+(m==='in'?`<button class="link" data-act="forgot">${t('forgot')}</button><button class="link" data-act="lmode:up">${t('noAcc')}</button>`:m==='up'?`<button class="link" data-act="lmode:in">${t('haveAcc')}</button>`:`<button class="link" data-act="lmode:in">${t('backIn')}</button>`)+`</div><div class="or">${t('or')}</div>`}
  h+=`<button class="btn full" data-act="lguest">${I('user')}${t('guestBtn')}</button><p class="note" style="text-align:center;margin:12px 0 0"><a class="link" href="privacy.html" target="_blank" rel="noopener">${t('privacy')}</a></p></div>`;return h}
 function showLogin(err,mode){LG.err=err||'';LG.ok='';if(mode)LG.mode=mode;const l=$('#login');l.hidden=false;l.innerHTML=loginHTML()}
 function hideLogin(){$('#login').hidden=true}
 function showSplash(){const l=$('#login');l.hidden=false;l.innerHTML=`<div class="card" style="text-align:center">${core}<h1 class="brand">HEXORB</h1><p class="sub"><span class="dots"><i></i><i></i><i></i></span></p></div>`}
 async function doAuth(kind){
- const v=id=>($(id)&&$(id).value||'').trim();const n=v('#lg-n'),e=v('#lg-e'),p=($('#lg-p')&&$('#lg-p').value)||'';
+ const v=id=>($(id)&&$(id).value||'').trim();const n=v('#lg-n'),e=v('#lg-e'),p=($('#lg-p')&&$('#lg-p').value)||'',c=v('#lg-c');
  LG.err='';LG.ok='';const er=m=>{LG.err=m;const x=$('#lerr');if(x)x.textContent=m};
+ const btn=$('#lform button[type=submit]');if(btn)btn.disabled=true;
  try{
-  if(kind==='google')await Cloud.google();
-  else if(kind==='in'){if(!e||!p)return er(t('e_fill'));await Cloud.signIn(e,p)}
-  else if(kind==='up'){if(!n||!e||!p)return er(t('e_fill'));await Cloud.signUp(n,e,p)}
-  else if(kind==='reset'){if(!e)return er(t('e_fill'));await Cloud.reset(e);LG.ok=t('resetSent');$('#login').innerHTML=loginHTML()}
- }catch(err){er(authMsg(err))}}
+  if(kind==='in'){if(!e||!p)return er(t('e_fill'));await Cloud.signIn(e,p)}
+  else if(kind==='up'){if(!n||!e||!p)return er(t('e_fill'));await Cloud.signUp(n,e,p,c)}
+ }catch(err){
+  if(err&&err.code==='auth/need-code'){LG.needCode=true;LG.mode='up';showLogin(t('x_needcode'));const f=(id,x)=>{if($(id))$(id).value=x};f('#lg-n',n);f('#lg-e',e);f('#lg-p',p);return}
+  er(authMsg(err))}
+ finally{if(btn)btn.disabled=false}}
 function mergeConvs(srv){
  const ids={};srv.forEach(s=>{ids[s.id]=1;const l=D.convs.find(c=>c.id===s.id);if(!l)D.convs.push(s);else if((s.ts||0)>=(l.ts||0)){Object.assign(l,s)}else pushConv(l)});
  D.convs.forEach(c=>{if(!ids[c.id])pushConv(c)});D.convs.sort((a,b)=>b.ts-a.ts);if(!D.cur||!cur())D.cur=D.convs[0]?D.convs[0].id:null}
 function mergeMem(srv){const ids={};srv.forEach(s=>{ids[s.id]=1;const l=D.mem.find(m=>m.id===s.id);if(l)Object.assign(l,s);else D.mem.push(s)});D.mem.forEach(m=>{if(!ids[m.id])Cloud.saveMem(U.uid,m).catch(syncErr)});D.mem.sort((a,b)=>a.ts-b.ts)}
 async function onUser(fu){
  const email=fu.email||'';
- U={uid:fu.uid,name:fu.displayName||(email.split('@')[0])||'user',email,photo:fu.photoURL||'',verified:!!fu.emailVerified,owner:!!fu.isAdmin||!!fu.owner|| (!!OWNER&&email.toLowerCase()===OWNER)};
+ U={uid:fu.uid,name:fu.displayName||(email.split('@')[0])||'user',email,photo:'',verified:true,owner:!!fu.isAdmin};
  UI.guest=false;sv(UIK,UI);
  try{
   const rec=await Cloud.getUser(fu.uid);
-  if(rec&&rec.banned===true){await Cloud.out();U=null;D=blankD();showLogin(t('banned'));return}
   const base={name:U.name,email:U.email,photo:U.photo,lastSeen:Date.now()};
   await Cloud.setUser(fu.uid,rec?base:Object.assign({createdAt:Date.now(),msgs:0},base));
   loadD();
@@ -729,22 +812,30 @@ async function onUser(fu){
   saveD();flushFb();
  }catch(e){console.warn(e);loadD();toast(String(e.message||e).slice(0,140),'err')}
  hideLogin();R.view='chat';render();loadAnn()}
-async function logout(){mclose();if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();render();showLogin()}
+async function logout(){mclose();if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();LG.mode='in';LG.needCode=false;render();showLogin()}
 async function loadAnn(){const el=$('#ann');el.hidden=true;if(!Cloud.ok)return;try{const a=await Cloud.getAnn();if(a&&a.active&&a.text&&ld('hexorb.annx',0)!==a.ts){el.innerHTML=`${I('megaphone')}<span>${esc(a.text)}</span><button class="ib" data-act="annx:${a.ts}" style="width:30px;height:30px">${I('x')}</button>`;el.hidden=false}}catch(e){}}
 
 /* ---------- Admin ---------- */
 const ago=ts=>{if(!ts)return '-';const s=(Date.now()-ts)/1000;if(s<60)return '<1m';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d'};
 const errBox=e=>`<div class="warn">${esc(e&&e.message||e)}</div>`;
-function ulist(us,q){q=(q||'').toLowerCase();return us.filter(u=>!q||(u.name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)).map(u=>{const me=U&&u.id===U.uid;return `<div class="urow"><span class="av">${u.photo?`<img src="${esc(u.photo)}" alt="" referrerpolicy="no-referrer">`:esc((u.name||'?').charAt(0).toUpperCase())}</span><div class="an"><b>${esc(u.name||'-')}${me?`<span class="badge o">${t('owner')}</span>`:''}${u.banned?`<span class="badge b">${t('ban')}</span>`:''}</b><small>${esc(u.email||'')}</small><small>${u.msgs||0} ${t('msgs')} &middot; ${t('lastSeen')}: ${ago(u.lastSeen)}</small></div>${me?'':`<button class="btn sm ${u.banned?'':'dng'}" data-act="${u.banned?'unban':'ban'}:${u.id}">${I('ban')}${u.banned?t('unban'):t('ban')}</button><button class="btn sm dng" data-act="wipeu:${u.id}">${I('trash')}${t('wipe')}</button>`}</div>`}).join('')||`<div class="empty">${t('noData')}</div>`}
+const AM={f:'all',list:[],cur:null};
+const admErr=e=>{toast(e&&e.code?authMsg(e):String(e&&e.message||e).slice(0,140),'err')};
 const ADM={
- async users(){const el=$('#admb');try{const us=await Cloud.allUsers();us.sort((a,b)=>(b.lastSeen||0)-(a.lastSeen||0));ADM.us=us;el.innerHTML=`<div class="card" style="padding:12px;margin-bottom:12px"><b>Admin access</b><p class="note">Grant or remove admin access by email. This request is checked by the backend.</p><div class="row wrap"><input id="adm-email" type="email" placeholder="user@example.com" style="flex:1;min-width:180px"><button class="btn pri" data-act="promote">Make admin</button><button class="btn" data-act="demote">Remove admin</button></div></div><input id="admq" placeholder="${esc(t('search'))}" style="margin-bottom:10px"><div id="ulist">${ulist(us)}</div>`}catch(e){el.innerHTML=errBox(e)}},
- async feedback(){const el=$('#admb');try{const f=await Cloud.allFeedback();el.innerHTML=f.length?f.map(x=>`<div class="urow"><span class="tile" style="color:${x.rating==='up'?'var(--ok)':'var(--er)'}">${I(x.rating==='up'?'thumbup':'thumbdown')}</span><div class="an" style="white-space:normal"><b style="white-space:normal">${esc((x.msg||'').slice(0,160))}</b>${x.prompt?`<small style="white-space:normal">&gt; ${esc(x.prompt.slice(0,120))}</small>`:''}${x.comment?`<small style="color:var(--wa);white-space:normal">"${esc(x.comment)}"</small>`:''}<small>${esc(x.email||x.name||'')} &middot; ${ago(x.ts)}</small></div><button class="ib" data-act="delfb:${x.id}">${I('trash')}</button></div>`).join(''):`<div class="empty">${t('noData')}</div>`}catch(e){el.innerHTML=errBox(e)}},
+ fbdraw(){const el=$('#admb');if(!el)return;const L=AM.list;
+  el.innerHTML=seg([['all',t('x_all')],['new',t('x_new')],['up',I('thumbup')],['down',I('thumbdown')]],AM.f,'fbf')+(L.length?L.map(x=>`<div class="urow"><span class="tile" style="color:${x.rating==='up'?'var(--ok)':'var(--er)'}">${I(x.rating==='up'?'thumbup':'thumbdown')}</span><div class="an" style="white-space:normal"><b style="white-space:normal">${esc((x.msg||'').slice(0,160))}</b>${x.prompt?`<small style="white-space:normal">&gt; ${esc(x.prompt.slice(0,120))}</small>`:''}${x.comment?`<small style="color:var(--wa);white-space:normal">"${esc(x.comment)}"</small>`:''}<small>${esc(x.email||'')} &middot; ${ago(x.ts)}</small></div><div class="col"><button class="ib" data-act="fbrev:${esc(x.id)}" title="${esc(t('x_reviewed'))}" style="${x.reviewed?'color:var(--ok)':''}">${I('check')}</button><button class="ib" data-act="delfb:${esc(x.id)}">${I('trash')}</button></div></div>`).join(''):`<div class="empty">${t('noData')}</div>`)+(AM.cur?`<button class="btn full" data-act="fbmore" style="margin-top:8px">${t('x_more')}</button>`:'')},
+ async feedback(more){const el=$('#admb');if(!more){AM.list=[];AM.cur=null;el.innerHTML=t('loading')}
+  try{const r=await Cloud.fbList(more?AM.cur:null,AM.f);AM.list=AM.list.concat(r.items||[]);AM.cur=r.cursor||null;ADM.fbdraw()}catch(e){el.innerHTML=errBox(e)}},
+ async users(){const el=$('#admb');el.innerHTML=t('loading');try{const us=(await Cloud.users()).items;us.sort((a,b)=>(b.lastSeen||0)-(a.lastSeen||0));
+  el.innerHTML=us.length?us.map(u=>{const me=U&&u.id===U.uid;return `<div class="urow"><span class="av">${esc((u.name||'?').charAt(0).toUpperCase())}</span><div class="an"><b>${esc(u.name||'-')}${u.admin?`<span class="badge o">${t('x_admin')}</span>`:''}${u.banned?`<span class="badge b">${t('x_banned')}</span>`:''}</b><small>${esc(u.email||'')}</small><small>${u.msgs||0} ${t('msgs')} &middot; ${t('lastSeen')}: ${ago(u.lastSeen)}</small></div>${me||u.owner?'':`<div class="col"><button class="btn sm ${u.banned?'':'dng'}" data-act="${u.banned?'unban':'ban'}:${u.id}">${I('ban')}${u.banned?t('unban'):t('ban')}</button><button class="btn sm" data-act="rpw:${u.id}">${I('lock')}${t('x_rpw')}</button><button class="btn sm dng" data-act="wipeu:${u.id}">${I('trash')}${t('wipe')}</button></div>`}</div>`}).join(''):`<div class="empty">${t('x_noAcc')}</div>`}catch(e){el.innerHTML=errBox(e)}},
+ async admins(){const el=$('#admb');el.innerHTML=t('loading');try{const l=(await Cloud.admins()).items,me=(U.email||'').toLowerCase();
+  el.innerHTML=`<div class="row" style="margin-bottom:12px"><input id="admnew" type="email" dir="ltr" spellcheck="false" autocomplete="off" placeholder="${esc(t('x_adminEmail'))}" style="flex:1"><button class="btn pri" data-act="admadd">${I('plus')}${t('x_addAdmin')}</button></div>`+l.map(a=>`<div class="urow"><div class="an"><b dir="ltr">${esc(a.email)}</b>${a.owner?`<small>${t('owner')}</small>`:a.by?`<small dir="ltr">${esc(a.by)}</small>`:''}</div>${a.owner||a.email===me?`<span class="badge o">${a.email===me?t('x_you'):t('owner')}</span>`:`<button class="btn sm dng" data-act="admdel:${esc(a.email)}">${I('trash')}</button>`}</div>`).join('')}catch(e){el.innerHTML=errBox(e)}},
  async announce(){const el=$('#admb');let a=null;try{a=await Cloud.getAnn()}catch(e){}el.innerHTML=`<label>${t('announce')}<textarea id="annt" rows="3" placeholder="${esc(t('annPh'))}" style="width:100%;border:1px solid var(--bd);border-radius:12px;padding:10px;background:var(--pan2);margin-top:4px">${esc(a&&a.active?a.text:'')}</textarea></label><div class="row wrap"><button class="btn pri" data-act="annpub">${I('megaphone')}${t('publish')}</button><button class="btn dng" data-act="anncl">${t('clear')}</button></div>`},
- async stats(){const el=$('#admb');try{const r=await Promise.all([Cloud.allUsers(),Cloud.allFeedback()]);const us=r[0],fb=r[1],now=Date.now();
-  el.innerHTML=`<div class="stats">${[[t('totalU'),us.length],[t('active24'),us.filter(u=>now-(u.lastSeen||0)<864e5).length],[t('new7'),us.filter(u=>now-(u.createdAt||0)<6048e5).length],[t('totalM'),us.reduce((s,u)=>s+(u.msgs||0),0)],[t('likes'),fb.filter(x=>x.rating==='up').length],[t('dislikes'),fb.filter(x=>x.rating==='down').length]].map(x=>`<div class="stat"><b>${x[1]}</b><small>${x[0]}</small></div>`).join('')}</div>`}catch(e){el.innerHTML=errBox(e)}}
+ async stats(){const el=$('#admb');el.innerHTML=t('loading');try{const r=await Cloud.stats();el.innerHTML=`<div class="stats">${[[t('x_total'),r.users],[t('x_active'),r.active24],[t('x_msgs'),r.msgs],[t('x_banL'),r.banned],[t('x_likes'),r.up],[t('x_dislikes'),r.down]].map(x=>`<div class="stat"><b>${x[1]}</b><small>${x[0]}</small></div>`).join('')}</div>`}catch(e){el.innerHTML=errBox(e)}}
 };
-function openAdmin(tab){if(!(U&&U.owner&&Cloud.ok))return;tab=ADM[tab]?tab:'users';const tabs=[['users','users','users'],['feedback','feedback','thumbup'],['announce','announce','megaphone'],['stats','stats','chart']];
+function openAdmin(tab){if(!(U&&U.owner&&Cloud.ok))return;tab=ADM[tab]&&tab!=='fbdraw'?tab:'feedback';const tabs=[['feedback','feedback','thumbup'],['users','x_users','users'],['admins','x_admins','shield'],['announce','announce','megaphone'],['stats','stats','chart']];
  modal(t('admin'),`<div class="tabs">${tabs.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="adm:${x[0]}">${I(x[2])}${t(x[1])}</button>`).join('')}</div><div id="admb">${t('loading')}</div>`,'big');ADM[tab]()}
+function chpwModal(){modal(t('x_chpw'),`<label>${t('x_oldpw')}<input id="pw0" type="password" dir="ltr" autocomplete="current-password"></label><label>${t('x_newpw')}<input id="pw1" type="password" dir="ltr" autocomplete="new-password"></label><button class="btn pri full" data-act="chpwgo">${I('lock')}${t('save')}</button>`)}
+async function chpwGo(){const o=$('#pw0').value,n=$('#pw1').value;if(!o||!n)return toast(t('e_fill'),'err');try{await Cloud.changePass(o,n);mclose();toast(t('x_passok'))}catch(e){toast(authMsg(e),'err')}}
 
 /* ---------- Actions ---------- */
 function act(a,p,el){switch(a){
@@ -761,6 +852,7 @@ function act(a,p,el){switch(a){
  case 'pc':{const f=cmds()[+p][2];mclose();f();break}
  case 'mc':mclose();break;
  case 'clear':clearConv();break;
+ case 'sc':{const x=SHC.find(y=>y[0]===p);if(x){const v=($('#inp').value||'').trim();setPrompt(t(x[2])+v)}break}
  case 'qa':setPrompt(t('p_'+p));break;
  case 'tool':if(p==='img'){R.gen=true;go('chat');chips();$('#inp').focus()}else setPrompt(t('pt_'+p));break;
  case 'gen':R.gen=!R.gen;chips();if(!R.gen)toast(t('genOff'));$('#inp').focus();break;
@@ -792,11 +884,8 @@ function act(a,p,el){switch(a){
  case 'memclear':{const old=D.mem.slice();D.mem=[];saveD();if(U&&Cloud.ok)old.forEach(m=>Cloud.delMem(U.uid,m.id).catch(syncErr));openSettings('memory');break}
  case 'imgreset':API.imgUrl=IMG_DEFAULT;saveAPI();openSettings('images');break;
  case 'savename':{const v=$('#dn').value.trim();if(!v||!U||!Cloud.ok)break;U.name=v;Cloud.rename(v).catch(()=>{});Cloud.setUser(U.uid,{name:v}).then(()=>toast(t('saved'))).catch(syncErr);render();break}
- case 'resendv':Cloud.verify().then(()=>toast(t('verifySent'))).catch(e=>toast(authMsg(e),'err'));break;
- case 'resetpw':Cloud.reset(U.email).then(()=>toast(t('resetSent'))).catch(e=>toast(authMsg(e),'err'));break;
  case 'logout':logout();break;
  case 'login':mclose();UI.guest=false;sv(UIK,UI);showLogin();break;
- case 'lgoogle':doAuth('google');break;
  case 'lmode':LG.mode=p;showLogin();break;
  case 'lguest':UI.guest=true;sv(UIK,UI);loadD();hideLogin();R.view='chat';render();break;
  case 'reload':location.reload();break;
@@ -805,12 +894,20 @@ function act(a,p,el){switch(a){
  case 'annx':sv('hexorb.annx',+p);$('#ann').hidden=true;break;
  case 'admin':$('#side').classList.remove('open');$('#scrim').classList.remove('show');openAdmin();break;
  case 'adm':openAdmin(p);break;
- case 'ban':case 'unban':Cloud.setUser(p,{banned:a==='ban'}).then(()=>ADM.users()).catch(e=>toast(e.message,'err'));break;
- case 'promote':case 'demote':{const email=($('#adm-email')?.value||'').trim();if(!email){toast('Enter an email address','err');break}Cloud.setAdmin(email,a==='promote').then(()=>{toast(a==='promote'?'Admin access granted':'Admin access removed');ADM.users()}).catch(e=>toast(e.message,'err'));break}
- case 'wipeu':if(confirm(t('sure')))Cloud.wipeUser(p).then(()=>ADM.users()).catch(e=>toast(e.message,'err'));break;
- case 'delfb':Cloud.delFeedback(p).then(()=>ADM.feedback()).catch(e=>toast(e.message,'err'));break;
- case 'annpub':{const v=$('#annt').value.trim();Cloud.setAnn({text:v,active:!!v,ts:Date.now()}).then(()=>toast(t('annDone'))).catch(e=>toast(e.message,'err'));break}
- case 'anncl':Cloud.setAnn({text:'',active:false,ts:Date.now()}).then(()=>{$('#annt').value='';toast(t('annDone'))}).catch(e=>toast(e.message,'err'));break;
+ case 'fbf':AM.f=p;ADM.feedback();break;
+ case 'fbmore':ADM.feedback(true);break;
+ case 'fbrev':{const x=AM.list.find(i=>i.id===p);Cloud.fbReview(p,!(x&&x.reviewed)).then(()=>{if(x)x.reviewed=!x.reviewed;ADM.fbdraw()}).catch(admErr);break}
+ case 'delfb':if(confirm(t('sure')))Cloud.fbDel(p).then(()=>{AM.list=AM.list.filter(i=>i.id!==p);ADM.fbdraw()}).catch(admErr);break;
+ case 'ban':case 'unban':Cloud.ban(p,a==='ban').then(()=>ADM.users()).catch(admErr);break;
+ case 'rpw':if(confirm(t('sure')))Cloud.resetPw(p).then(r=>{alert(t('x_tmpPw')+'\n\n'+r.password)}).catch(admErr);break;
+ case 'wipeu':if(confirm(t('sure')))Cloud.wipeUser(p).then(()=>toast(t('deleted'))).catch(admErr);break;
+ case 'admadd':{const v=($('#admnew').value||'').trim();if(!v)break;Cloud.adminAdd(v).then(()=>{toast(t('x_addOk'));ADM.admins()}).catch(admErr);break}
+ case 'admdel':if(confirm(t('sure')))Cloud.adminDel(p).then(()=>ADM.admins()).catch(admErr);break;
+ case 'forgot':toast(t('x_forgot'));break;
+ case 'chpw':chpwModal();break;
+ case 'chpwgo':chpwGo();break;
+ case 'annpub':{const v=$('#annt').value.trim();Cloud.setAnn({text:v}).then(()=>toast(t('annDone'))).catch(admErr);break}
+ case 'anncl':Cloud.setAnn({text:''}).then(()=>{$('#annt').value='';toast(t('annDone'))}).catch(admErr);break;
 }}
 async function testApi(){const f=afields();if(!/^https?:\/\//i.test(f.endpoint))return toast('Endpoint must start with http(s)://','err');
  setStatus('testing');try{extract(await call({messages:[{role:'user',content:'Reply with: ok'}],max_tokens:8},f));setStatus('ok');toast(t('s_ok'))}catch(e){setStatus('error');toast(e.message,'err')}}
@@ -855,10 +952,9 @@ function onAuth(fu){if(fu){onUser(fu);return}
 (async function boot(){
  $$('[data-i]').forEach(e=>{e.innerHTML=I(e.dataset.i)});$('#logo').innerHTML=LOGO;
  applyAll();render();showSplash();
- Cloud.cfgd=!!CFG.apiBase;
  let ok=false;try{ok=await Promise.race([Cloud.init(),new Promise(r=>setTimeout(()=>r(false),10000))])}catch(e){}
  if(ok){Cloud.watch(onAuth)}
- else{U=null;if(UI.guest){loadD();hideLogin();render()}else showLogin()}
+ else{U=null;if(UI.guest||!Cloud.cfgd){UI.guest=true;loadD();hideLogin();render()}else showLogin()}
  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 

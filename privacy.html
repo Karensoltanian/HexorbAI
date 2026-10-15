@@ -6,7 +6,6 @@
 <title>HEXORB Privacy Policy</title>
 <meta name="theme-color" content="#050a14">
 <link rel="icon" href="icon-192.png">
-<script src="firebase-config.js"></script>
 <style>
 html{background:#050a14}
 body{margin:0;background:#050a14;color:#dff3ff;font:16px/1.7 "Segoe UI",Tahoma,system-ui,sans-serif;padding:20px 16px 60px}
@@ -33,9 +32,9 @@ button.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#041018;font-
 
 <h2>What we store</h2>
 <ul>
-<li><b>Account:</b> if you sign in, your name, email address and profile photo (from Google or the email you used), plus the time you were last active and how many messages you sent.</li>
-<li><b>Chats, memory and settings:</b> your conversations, the short facts HEXORB remembers about you, and your preferences (theme, language). Signed-in users have these saved on our server (Google Firebase) so they sync across devices. Guests keep them only on their own device.</li>
-<li><b>Feedback:</b> when you press like or dislike, we store that rating with the related answer, your question and an optional comment so we can improve the app.</li>
+<li><b>Account:</b> if you create an account: your name, email address, a securely hashed password (we never store or see the password itself), the time you were last active and how many messages you sent.</li>
+<li><b>Chats, memory and settings:</b> signed-in users have their conversations, the short facts HEXORB remembers and their preferences saved on the HEXORB server so they sync across devices. Attached images are not uploaded to the server. Guests keep everything only on their own device.</li>
+<li><b>Feedback:</b> when you press like or dislike, the rating, the related answer, your question and an optional comment are saved with your account email so the owner can improve the app.</li>
 </ul>
 
 <h2>What stays on your device</h2>
@@ -48,21 +47,22 @@ button.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#041018;font-
 <ul>
 <li><b>Your chosen AI provider</b> (for example LLM7, OpenAI, Groq, OpenRouter): receives your messages, attached images, files and your saved memory so it can answer. Their own privacy policy applies.</li>
 <li><b>Image generation service</b> (Pollinations by default): receives the text description of the image you ask for.</li>
-<li><b>Google Firebase</b> (sign-in and database) and <b>Google Fonts</b>: used to run the app.</li>
+<li><b>HEXORB server</b> (the app's own backend): stores the account data listed above.</li>
+<li><b>HEXORB server</b> (the app's own backend): stores the account data listed above. <b>Google Fonts</b>: used to display the app's fonts.</li>
 </ul>
 
 <h2>Memory</h2>
 <p>HEXORB can save short facts you share (for example your name or preferences) to personalise answers. You can view, edit, delete or turn off memory at any time in Settings &gt; Memory. Please do not share passwords, card numbers or ID numbers in chat.</p>
 
+<h2>Owner access</h2>
+<p>The owner and the admins they appoint can see account details (name, email, activity) and feedback in an admin panel, can suspend accounts that abuse the service and can reset a password. They cannot see your password, chat contents or API key.</p>
+
 <h2>Your choices</h2>
 <ul>
 <li>Delete your chats and memory from the server: Settings &gt; Data.</li>
 <li>Clear data stored on this device: Settings &gt; Data.</li>
-<li>Request deletion of your whole account: contact us using the details below.</li>
+<li>Request deletion of your whole account: contact the developer.</li>
 </ul>
-
-<h2>Owner access</h2>
-<p>The app owner can see account details (name, email, activity), feedback and aggregate statistics through an admin panel, and can suspend accounts that abuse the service. The owner cannot see your API key.</p>
 
 <h2>AI content</h2>
 <p>Answers and images are produced by AI and can be wrong or inaccurate. Do not rely on them for medical, legal or financial decisions.</p>
@@ -82,9 +82,9 @@ button.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#041018;font-
 
 <h2>چه چیزهایی ذخیره می‌شود</h2>
 <ul>
-<li><b>حساب کاربری:</b> اگر وارد شوی، نام، ایمیل و عکس پروفایل (از گوگل یا ایمیلی که استفاده کردی)، زمان آخرین فعالیت و تعداد پیام‌هایی که فرستاده‌ای.</li>
-<li><b>چت‌ها، حافظه و تنظیمات:</b> گفتگوهایت، نکته‌های کوتاهی که HEXORB درباره‌ی تو به خاطر می‌سپارد و ترجیحاتت (تم و زبان). برای کاربران واردشده این‌ها روی سرور (Google Firebase) ذخیره می‌شود تا بین دستگاه‌ها همگام بماند. مهمان‌ها همه‌چیز را فقط روی دستگاه خودشان نگه می‌دارند.</li>
-<li><b>بازخورد:</b> وقتی لایک یا دیس‌لایک می‌زنی، امتیاز همراه با پاسخ مربوطه، سؤالت و توضیح اختیاری ذخیره می‌شود تا اپ را بهتر کنیم.</li>
+<li><b>حساب کاربری:</b> اگر حساب بسازی: نام، ایمیل، رمز عبور به‌صورت رمزنگاری‌شده (خودِ رمز هرگز ذخیره یا دیده نمی‌شود)، زمان آخرین فعالیت و تعداد پیام‌هایی که فرستاده‌ای.</li>
+<li><b>چت‌ها، حافظه و تنظیمات:</b> برای کاربران واردشده روی سرور HEXORB ذخیره می‌شود تا بین دستگاه‌ها همگام بماند. عکس‌های پیوست روی سرور آپلود نمی‌شوند. مهمان‌ها همه‌چیز را فقط روی دستگاه خودشان نگه می‌دارند.</li>
+<li><b>بازخورد:</b> وقتی لایک یا دیس‌لایک می‌زنی، امتیاز، پاسخ مربوطه، سؤالت و توضیح اختیاری همراه ایمیل حسابت ذخیره می‌شود تا مالک اپ را بهتر کند.</li>
 </ul>
 
 <h2>چه چیزی فقط روی دستگاه تو می‌ماند</h2>
@@ -97,21 +97,21 @@ button.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#041018;font-
 <ul>
 <li><b>سرویس هوش مصنوعی که خودت انتخاب می‌کنی</b> (مثل LLM7، OpenAI، Groq، OpenRouter): پیام‌ها، عکس‌ها، فایل‌های پیوست و حافظه‌ات را برای پاسخ دادن دریافت می‌کند. سیاست حریم خصوصی خودش اعمال می‌شود.</li>
 <li><b>سرویس ساخت تصویر</b> (به‌طور پیش‌فرض Pollinations): متن توصیف تصویری که می‌خواهی را دریافت می‌کند.</li>
-<li><b>Google Firebase</b> (ورود و پایگاه داده) و <b>Google Fonts</b>: برای اجرای اپ استفاده می‌شوند.</li>
+<li><b>سرور HEXORB</b> (بک‌اند خود اپ): داده‌های حساب بالا را نگه می‌دارد. <b>Google Fonts</b>: برای نمایش فونت‌های اپ.</li>
 </ul>
 
 <h2>حافظه</h2>
 <p>HEXORB می‌تواند نکته‌های کوتاهی که می‌گویی (مثل نام یا علایقت) را برای شخصی‌سازی پاسخ‌ها ذخیره کند. هر زمان می‌توانی در تنظیمات، بخش حافظه، آن‌ها را ببینی، ویرایش یا حذف کنی یا حافظه را خاموش کنی. لطفاً رمز، شماره‌ی کارت یا مدارک شناسایی را در چت ننویس.</p>
 
+<h2>دسترسی مالک</h2>
+<p>مالک و ادمین‌هایی که او تعیین می‌کند می‌توانند مشخصات حساب (نام، ایمیل، فعالیت) و بازخوردها را ببینند، حساب‌های سوءاستفاده‌گر را مسدود کنند و رمز را بازنشانی کنند. آن‌ها رمز، محتوای چت یا کلید API تو را نمی‌بینند.</p>
+
 <h2>انتخاب‌های تو</h2>
 <ul>
 <li>حذف چت‌ها و حافظه از سرور: تنظیمات ← داده‌ها.</li>
 <li>پاک کردن داده‌های ذخیره‌شده روی این دستگاه: تنظیمات ← داده‌ها.</li>
-<li>درخواست حذف کامل حساب: از راه تماس پایین همین صفحه.</li>
+<li>درخواست حذف کامل حساب: با توسعه‌دهنده تماس بگیر.</li>
 </ul>
-
-<h2>دسترسی مالک</h2>
-<p>مالک اپ از طریق پنل مدیریت می‌تواند مشخصات حساب (نام، ایمیل، فعالیت)، بازخوردها و آمار کلی را ببیند و حساب‌هایی که از سرویس سوءاستفاده می‌کنند را مسدود کند. مالک کلید API تو را نمی‌بیند.</p>
 
 <h2>محتوای هوش مصنوعی</h2>
 <p>پاسخ‌ها و تصاویر را هوش مصنوعی می‌سازد و ممکن است اشتباه یا نادقیق باشند. برای تصمیم‌های پزشکی، حقوقی یا مالی به آن‌ها تکیه نکن.</p>
