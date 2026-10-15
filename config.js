@@ -1,1 +1,1 @@
-window.HEXORB_CONFIG={sbUrl:"PASTE_PROJECT_URL_HERE",sbKey:"PASTE_ANON_KEY_HERE"};
+window.HEXORB_CONFIG={sbUrl:"https://lbmxovqmytqkmhguddxj.supabase.co",sbKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxibXhvdnFteXRxa21oZ3VkZHhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwODU2ODUsImV4cCI6MjEwNzY2MTY4NX0.YLQ5mGwENSe61TlrVz87wmKf-tJNEFySrFee_LgNLUQ"};
