@@ -3,10 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>HEXORB AI HUD</title>
+<title>HEXORB AI — Free AI chat with memory, image generation and Persian support</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<meta name="description" content="HEXORB AI is a free AI chat app with streaming answers, editable memory, image generation, and full English and Persian (فارسی) support. Built by Karen Soltanian (karensol).">
+<meta name="author" content="Karen Soltanian">
+<link rel="canonical" href="https://karensoltanian.github.io/HexorbAI/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HEXORB AI">
+<meta property="og:title" content="HEXORB AI — AI chat that remembers you">
+<meta property="og:description" content="Free AI chat with streaming answers, editable memory, image generation, English and Persian.">
+<meta property="og:url" content="https://karensoltanian.github.io/HexorbAI/">
+<meta property="og:image" content="https://karensoltanian.github.io/HexorbAI/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HEXORB AI — AI chat that remembers you">
+<meta name="twitter:description" content="Free AI chat with streaming answers, editable memory, image generation, English and Persian.">
+<meta name="twitter:image" content="https://karensoltanian.github.io/HexorbAI/icon-512.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"HEXORB AI","url":"https://karensoltanian.github.io/HexorbAI/","description":"Free AI chat app with streaming answers, editable memory, image generation, and English and Persian support.","applicationCategory":"UtilitiesApplication","operatingSystem":"Android, Web","inLanguage":["en","fa"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Karen Soltanian","alternateName":"karensol"}}</script>
+
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050a14">
 <script src="config.js"></script>
@@ -242,6 +257,18 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 .sh{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:var(--pan2);border:1px solid var(--bd);color:var(--tx);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;transition:transform .18s,border-color .2s,background .2s}
 .sh svg{width:16px;height:16px;flex:none}
 .sh:hover{border-color:var(--cy,#27d7ff)}.sh:active{transform:scale(.94)}
+
+.achat{height:min(52vh,420px);overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:8px;border:1px solid var(--bd);border-radius:14px;background:rgba(5,10,20,.35)}
+.cm{max-width:84%;padding:8px 12px;border-radius:14px;background:var(--pan2);border:1px solid var(--bd);align-self:flex-start;font-size:.92em;white-space:pre-wrap;word-break:break-word}
+.cm.me{align-self:flex-end;background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.4)}
+.cm small{display:flex;gap:8px;align-items:center;color:var(--mu);font-size:.78em;margin-bottom:3px}
+.cm small .ib{width:22px;height:22px;min-height:0;margin-inline-start:auto}.cm small .ib svg{width:13px;height:13px}
+#achin,#ntx,#bwx{flex:1;width:100%;border:1px solid var(--bd);border-radius:12px;padding:10px;background:var(--pan2);color:var(--tx);font:inherit;resize:vertical}
+#achin{resize:none;max-height:120px}
+.ntc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.ntc button{padding:6px 10px;border-radius:999px;border:1px solid var(--bd);background:var(--pan2);color:var(--mu);font-size:.8em}.ntc button:hover{color:var(--tx);border-color:var(--ac)}
+.ntk{margin-bottom:4px}
+.ntcard{padding:12px;border-radius:14px;border:1px solid var(--bd);margin-bottom:10px;background:rgba(34,211,238,.05)}.ntcard.w{border-color:var(--er);background:rgba(251,113,133,.07)}.ntcard p{margin:8px 0;white-space:pre-wrap}
+#nbAdmin{position:relative}#nbAdmin.has::after{content:"";position:absolute;top:10px;inset-inline-end:12px;width:9px;height:9px;border-radius:50%;background:var(--er);box-shadow:0 0 10px var(--er)}
 </style>
 </head>
 <body>
@@ -298,6 +325,7 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 <div id="qs" class="card" hidden></div>
 <div id="modal"></div>
 <div id="toasts"></div>
+<noscript><h1>HEXORB AI</h1><p>HEXORB AI is a free AI chat app with streaming answers, editable memory, image generation and full English and Persian support. Enable JavaScript to use it.</p></noscript>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -379,7 +407,7 @@ s_off:'NOT CONNECTED',s_ok:'CONNECTED',s_testing:'TESTING',s_error:'ERROR',onlin
 quick:'Quick settings',clearConv:'Clear conversation',attach:'Attach file or image',mic:'Microphone',send:'Send',genImg:'Generate image',
 ph:'Message HEXORB...',genOn:'Image mode: describe the picture you want',genOff:'Image mode off',
 qa_plan:'Planning',qa_brain:'Brainstorm',qa_learn:'Learn',qa_code:'Coding',qa_sum:'Summarize',qa_ana:'Analyze',
-p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
+p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',x_achat:'Team chat',x_notices:'Notices',x_typeMsg:'Write a message…',x_noMsgs:'No messages yet. Say hi to your team.',x_msgWarn:'Warn / message',x_sendTo:'Message to',x_nWarn:'Warning',x_nInfo:'Notice',x_nPh:'Write what the user should read…',x_nSent:'Sent to the user',x_tpl1:'Please keep the chat respectful. Repeated violations can lead to a suspension.',x_tpl2:'We checked your request and everything is fine now.',x_tpl3:'Thanks for your feedback, we are working on it.',x_ntWarnT:'Warning from the admins',x_ntInfoT:'Message from the admins',x_ntOk:'I understand',x_seen:'seen',x_unseen:'not seen yet',x_warns:'warnings',x_noNotices:'No notices sent yet',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
 tl_sum:'Text Summarizer',tl_tr:'Translator',tl_code:'Code Helper',tl_wr:'Writing Assistant',tl_json:'JSON Formatter',tl_img:'Image Generator',
 pt_sum:'Summarize this text concisely:\n',pt_tr:'Translate the following text to Persian (or to English if it is already Persian):\n',pt_code:'Review this code, find bugs and suggest improvements:\n',pt_wr:'Improve the clarity, grammar and tone of this text:\n',pt_json:'Validate and pretty-print this JSON, and explain any errors:\n',
 toolHint:'Insert prompt into composer',
@@ -401,7 +429,7 @@ s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error
 quick:'تنظیمات سریع',clearConv:'پاک کردن گفتگو',attach:'پیوست فایل یا عکس',mic:'میکروفون',send:'ارسال',genImg:'ساخت تصویر',
 ph:'پیام به HEXORB...',genOn:'حالت تصویر: تصویر دلخواهت را توصیف کن',genOff:'حالت تصویر خاموش شد',
 qa_plan:'برنامه‌ریزی',qa_brain:'ایده‌پردازی',qa_learn:'یادگیری',qa_code:'کدنویسی',qa_sum:'خلاصه‌سازی',qa_ana:'تحلیل',
-p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
+p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',x_achat:'چت تیم',x_notices:'اخطارها',x_typeMsg:'پیام بنویس…',x_noMsgs:'هنوز پیامی نیست. به تیمت سلام کن.',x_msgWarn:'اخطار / پیام',x_sendTo:'پیام برای',x_nWarn:'اخطار',x_nInfo:'اطلاعیه',x_nPh:'متنی که کاربر باید ببیند…',x_nSent:'برای کاربر ارسال شد',x_tpl1:'لطفاً محترمانه گفتگو کن. تکرار تخلف می‌تواند به مسدود شدن حساب منجر شود.',x_tpl2:'درخواستت بررسی شد و الان مشکلی نیست.',x_tpl3:'ممنون از بازخوردت، در حال بررسی هستیم.',x_ntWarnT:'اخطار از طرف مدیریت',x_ntInfoT:'پیام از طرف مدیریت',x_ntOk:'متوجه شدم',x_seen:'دیده شد',x_unseen:'هنوز ندیده',x_warns:'اخطار',x_noNotices:'هنوز اخطاری ارسال نشده',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
 tl_sum:'خلاصه‌ساز متن',tl_tr:'مترجم',tl_code:'دستیار کد',tl_wr:'دستیار نوشتن',tl_json:'فرمت‌کننده JSON',tl_img:'تولید تصویر',
 pt_sum:'این متن را کوتاه خلاصه کن:\n',pt_tr:'متن زیر را به انگلیسی ترجمه کن (اگر انگلیسی است به فارسی):\n',pt_code:'این کد را بررسی کن، باگ‌ها را پیدا کن و بهبود پیشنهاد بده:\n',pt_wr:'وضوح، گرامر و لحن این متن را بهتر کن:\n',pt_json:'این JSON را بررسی و مرتب کن و خطاها را توضیح بده:\n',
 toolHint:'پرامپت را وارد کادر پیام می‌کند',
@@ -544,7 +572,15 @@ admins(){return this.rpc('hx_admin_admins')},
 adminAdd(e){return this.rpc('hx_admin_add',{p_email:e})},
 adminDel(e){return this.rpc('hx_admin_remove',{p_email:e})},
 setAnn(d){return this.rpc('hx_admin_ann',{p_text:d.text||''})},
-stats(){return this.rpc('hx_admin_stats')}
+stats(){return this.rpc('hx_admin_stats')},
+notices(){return this.rpc('hx_notices')},
+noticeSeen(ids){return this.rpc('hx_notice_seen',{p_ids:ids.map(Number)})},
+adminNotice(id,k,x){return this.rpc('hx_admin_notice',{p_uid:id,p_kind:k,p_text:x})},
+adminNotices(uid,cursor){return this.rpc('hx_admin_notices',{p_uid:uid||null,p_cursor:cursor?+cursor:null})},
+adminNoticeDel(id){return this.rpc('hx_admin_notice_del',{p_id:+id})},
+adminChat(after){return this.rpc('hx_admin_chat',{p_after:+after||0})},
+adminChatSend(x){return this.rpc('hx_admin_chat_send',{p_text:x})},
+adminChatDel(id){return this.rpc('hx_admin_chat_del',{p_id:+id})}
 };
 
 const pend={};
@@ -588,8 +624,15 @@ function extract(d){const c=d&&d.choices&&d.choices[0];let x=c&&((c.message&&c.m
 function setStatus(s){R.status=s;const e=$('#stat');if(e){e.className='pill '+s;e.textContent=t('s_'+s)}const a=$('#a-s');if(a){a.className='pill '+s;a.textContent=t('s_'+s)}}
 
 /* ---------- Identity + memory ---------- */
+function nowInfo(){const d=new Date();let g='',p='',tm='',tz='';
+ try{g=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}catch(e){g=d.toDateString()}
+ try{p=new Intl.DateTimeFormat('fa-IR-u-ca-persian-nu-latn',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d)}catch(e){}
+ try{tm=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){}
+ try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+ return {g:g,p:p,tm:tm,tz:tz,y:d.getFullYear()}}
 function sysPrompt(){
  let s="You are HEXORB, a futuristic AI assistant. Never describe yourself as a HUD. Reply in the language the user writes in. Use markdown code fences for code. If asked who or what you are, say you are HEXORB, an AI assistant. If asked who made, built or developed you, say your creator and developer is Karen Soltanian (Persian: کارن سلطانیان). Never claim to be a product of any other company or model. Quality rules: be accurate and honest, and say so when you are unsure instead of guessing; think through problems step by step before answering and double-check calculations and facts; for math, logic and planning show the key steps briefly; for code give complete, working, well-structured code with a short explanation; ask one short clarifying question only when the request is truly ambiguous; match the length to the question (short for simple questions, thorough for complex ones); write natural, fluent Persian when the user writes Persian. Never repeat yourself: if the user asks something you already answered, give a fresh answer with different wording, a new angle or extra detail instead of copying your earlier reply.";
+const N=nowInfo();s+="\nCURRENT DATE AND TIME (authoritative, read from the user's device right now): "+N.g+(N.p?" | Persian (Jalali) calendar: "+N.p:"")+" | time "+N.tm+(N.tz?" ("+N.tz+")":"")+". Your training data is older than this, so the real year is "+N.y+", never an earlier year. Whenever the user asks about today's date, the day, the time or the year, answer from this information exactly (Jalali date for Persian speakers, Gregorian for others). Use it for relative dates such as tomorrow, last week, or someone's age.";
  if(UI.memOn&&D.mem.length)s+="\nLong-term memory about the user (use it naturally, do not recite it unless asked):\n"+D.mem.slice(-40).map(m=>'- '+m.text).join('\n');
  return s}
 const IDV={en:{maker:['I was created and developed by Karen Soltanian.','My creator and developer is Karen Soltanian.','Karen Soltanian is the one who designed and developed me.'],who:['I am HEXORB, an AI assistant.',"I'm HEXORB, your AI assistant.",'HEXORB here, an AI assistant ready to help.']},
@@ -811,31 +854,75 @@ async function onUser(fu){
   if(rec&&rec.settings){Object.assign(UI,rec.settings,{guest:false});sv(UIK,UI);applyAll()}
   saveD();flushFb();
  }catch(e){console.warn(e);loadD();toast(String(e.message||e).slice(0,140),'err')}
- hideLogin();R.view='chat';render();loadAnn()}
-async function logout(){mclose();if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();LG.mode='in';LG.needCode=false;render();showLogin()}
+ hideLogin();R.view='chat';render();loadAnn();NT.start();if(U&&U.owner)AC.start()}
+async function logout(){mclose();NT.stop();clearInterval(AC.t);if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();LG.mode='in';LG.needCode=false;render();showLogin()}
 async function loadAnn(){const el=$('#ann');el.hidden=true;if(!Cloud.ok)return;try{const a=await Cloud.getAnn();if(a&&a.active&&a.text&&ld('hexorb.annx',0)!==a.ts){el.innerHTML=`${I('megaphone')}<span>${esc(a.text)}</span><button class="ib" data-act="annx:${a.ts}" style="width:30px;height:30px">${I('x')}</button>`;el.hidden=false}}catch(e){}}
 
 /* ---------- Admin ---------- */
 const ago=ts=>{if(!ts)return '-';const s=(Date.now()-ts)/1000;if(s<60)return '<1m';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d'};
 const errBox=e=>`<div class="warn">${esc(e&&e.message||e)}</div>`;
-const AM={f:'all',list:[],cur:null};
+const AM={f:'all',list:[],cur:null,us:[],nl:[],nc:null,nk:'warn',nu:null};
 const admErr=e=>{toast(e&&e.code?authMsg(e):String(e&&e.message||e).slice(0,140),'err')};
 const ADM={
  fbdraw(){const el=$('#admb');if(!el)return;const L=AM.list;
   el.innerHTML=seg([['all',t('x_all')],['new',t('x_new')],['up',I('thumbup')],['down',I('thumbdown')]],AM.f,'fbf')+(L.length?L.map(x=>`<div class="urow"><span class="tile" style="color:${x.rating==='up'?'var(--ok)':'var(--er)'}">${I(x.rating==='up'?'thumbup':'thumbdown')}</span><div class="an" style="white-space:normal"><b style="white-space:normal">${esc((x.msg||'').slice(0,160))}</b>${x.prompt?`<small style="white-space:normal">&gt; ${esc(x.prompt.slice(0,120))}</small>`:''}${x.comment?`<small style="color:var(--wa);white-space:normal">"${esc(x.comment)}"</small>`:''}<small>${esc(x.email||'')} &middot; ${ago(x.ts)}</small></div><div class="col"><button class="ib" data-act="fbrev:${esc(x.id)}" title="${esc(t('x_reviewed'))}" style="${x.reviewed?'color:var(--ok)':''}">${I('check')}</button><button class="ib" data-act="delfb:${esc(x.id)}">${I('trash')}</button></div></div>`).join(''):`<div class="empty">${t('noData')}</div>`)+(AM.cur?`<button class="btn full" data-act="fbmore" style="margin-top:8px">${t('x_more')}</button>`:'')},
  async feedback(more){const el=$('#admb');if(!more){AM.list=[];AM.cur=null;el.innerHTML=t('loading')}
   try{const r=await Cloud.fbList(more?AM.cur:null,AM.f);AM.list=AM.list.concat(r.items||[]);AM.cur=r.cursor||null;ADM.fbdraw()}catch(e){el.innerHTML=errBox(e)}},
- async users(){const el=$('#admb');el.innerHTML=t('loading');try{const us=(await Cloud.users()).items;us.sort((a,b)=>(b.lastSeen||0)-(a.lastSeen||0));
-  el.innerHTML=us.length?us.map(u=>{const me=U&&u.id===U.uid;return `<div class="urow"><span class="av">${esc((u.name||'?').charAt(0).toUpperCase())}</span><div class="an"><b>${esc(u.name||'-')}${u.admin?`<span class="badge o">${t('x_admin')}</span>`:''}${u.banned?`<span class="badge b">${t('x_banned')}</span>`:''}</b><small>${esc(u.email||'')}</small><small>${u.msgs||0} ${t('msgs')} &middot; ${t('lastSeen')}: ${ago(u.lastSeen)}</small></div>${me||u.owner?'':`<div class="col"><button class="btn sm ${u.banned?'':'dng'}" data-act="${u.banned?'unban':'ban'}:${u.id}">${I('ban')}${u.banned?t('unban'):t('ban')}</button><button class="btn sm" data-act="rpw:${u.id}">${I('lock')}${t('x_rpw')}</button><button class="btn sm dng" data-act="wipeu:${u.id}">${I('trash')}${t('wipe')}</button></div>`}</div>`}).join(''):`<div class="empty">${t('x_noAcc')}</div>`}catch(e){el.innerHTML=errBox(e)}},
+ async users(){const el=$('#admb');el.innerHTML=t('loading');try{const us=(await Cloud.users()).items;us.sort((a,b)=>(b.lastSeen||0)-(a.lastSeen||0));AM.us=us;
+  el.innerHTML=us.length?us.map(u=>{const me=U&&u.id===U.uid;return `<div class="urow"><span class="av">${esc((u.name||'?').charAt(0).toUpperCase())}</span><div class="an"><b>${esc(u.name||'-')}${u.admin?`<span class="badge o">${t('x_admin')}</span>`:''}${u.banned?`<span class="badge b">${t('x_banned')}</span>`:''}${u.warns?`<span class="badge b" title="${esc(t('x_warns'))}">&#9888; ${u.warns}</span>`:''}</b><small>${esc(u.email||'')}</small><small>${u.msgs||0} ${t('msgs')} &middot; ${t('lastSeen')}: ${ago(u.lastSeen)}</small></div>${me||u.owner?'':`<div class="col"><button class="btn sm" data-act="ntmod:${u.id}">${I('megaphone')}${t('x_msgWarn')}</button><button class="btn sm ${u.banned?'':'dng'}" data-act="${u.banned?'unban':'ban'}:${u.id}">${I('ban')}${u.banned?t('unban'):t('ban')}</button><button class="btn sm" data-act="rpw:${u.id}">${I('lock')}${t('x_rpw')}</button><button class="btn sm dng" data-act="wipeu:${u.id}">${I('trash')}${t('wipe')}</button></div>`}</div>`}).join(''):`<div class="empty">${t('x_noAcc')}</div>`}catch(e){el.innerHTML=errBox(e)}},
  async admins(){const el=$('#admb');el.innerHTML=t('loading');try{const l=(await Cloud.admins()).items,me=(U.email||'').toLowerCase();
   el.innerHTML=`<div class="row" style="margin-bottom:12px"><input id="admnew" type="email" dir="ltr" spellcheck="false" autocomplete="off" placeholder="${esc(t('x_adminEmail'))}" style="flex:1"><button class="btn pri" data-act="admadd">${I('plus')}${t('x_addAdmin')}</button></div>`+l.map(a=>`<div class="urow"><div class="an"><b dir="ltr">${esc(a.email)}</b>${a.owner?`<small>${t('owner')}</small>`:a.by?`<small dir="ltr">${esc(a.by)}</small>`:''}</div>${a.owner||a.email===me?`<span class="badge o">${a.email===me?t('x_you'):t('owner')}</span>`:`<button class="btn sm dng" data-act="admdel:${esc(a.email)}">${I('trash')}</button>`}</div>`).join('')}catch(e){el.innerHTML=errBox(e)}},
  async announce(){const el=$('#admb');let a=null;try{a=await Cloud.getAnn()}catch(e){}el.innerHTML=`<label>${t('announce')}<textarea id="annt" rows="3" placeholder="${esc(t('annPh'))}" style="width:100%;border:1px solid var(--bd);border-radius:12px;padding:10px;background:var(--pan2);margin-top:4px">${esc(a&&a.active?a.text:'')}</textarea></label><div class="row wrap"><button class="btn pri" data-act="annpub">${I('megaphone')}${t('publish')}</button><button class="btn dng" data-act="anncl">${t('clear')}</button></div>`},
+ async chat(){const el=$('#admb');AC.items=[];AC.last=0;
+  el.innerHTML=`<div id="achat" class="achat"></div><div class="row" style="margin-top:10px;align-items:flex-end"><textarea id="achin" rows="1" maxlength="1000" placeholder="${esc(t('x_typeMsg'))}"></textarea><button class="btn pri" data-act="achsend" aria-label="${esc(t('send'))}">${I('send')}</button></div>`;
+  AC.draw();await AC.poll();setTimeout(()=>{const i=$('#achin');if(i)i.focus()},50)},
+ noticeModal(uid){const u=AM.us.find(x=>x.id===uid)||{};AM.nu=uid;AM.nk='warn';
+  modal(esc(t('x_sendTo')+' '+(u.name||u.email||'')),`<div class="seg ntk"><button class="on" data-act="ntk:warn">${I('shield')} ${t('x_nWarn')}</button><button data-act="ntk:info">${I('mail')} ${t('x_nInfo')}</button></div><div class="ntc">${[1,2,3].map(i=>`<button data-act="nttpl:${i}">${esc(t('x_tpl'+i).slice(0,42))}&hellip;</button>`).join('')}</div><textarea id="ntx" rows="4" maxlength="600" placeholder="${esc(t('x_nPh'))}"></textarea><button class="btn pri full" data-act="ntsend" style="margin-top:10px">${I('send')} ${t('send')}</button>`);setTimeout(()=>{const i=$('#ntx');if(i)i.focus()},50)},
+ async noticeSend(){const x=($('#ntx').value||'').trim();if(!x||!AM.nu)return;const b=$('[data-act=ntsend]');if(b)b.disabled=true;
+  try{await Cloud.adminNotice(AM.nu,AM.nk,x);toast(t('x_nSent'));openAdmin('users')}catch(e){if(b)b.disabled=false;admErr(e)}},
+ ntdraw(){const el=$('#admb');if(!el)return;const L=AM.nl;
+  const list=L.length?L.map(x=>{const w=x.kind!=='info';return `<div class="ntcard ${w?'w':''}"><div class="row wrap"><span class="badge ${w?'b':'o'}">${w?t('x_nWarn'):t('x_nInfo')}</span><b>${esc(x.name||'-')}</b><small dir="ltr">${esc(x.email||'')}</small><small style="margin-inline-start:auto">${ago(x.ts)} &middot; ${x.seen?t('x_seen'):t('x_unseen')}</small></div><p>${esc(x.text)}</p><div class="row"><small dir="ltr">${esc(x.by||'')}</small><button class="ib" style="margin-inline-start:auto" data-act="ntdel:${esc(x.id)}">${I('trash')}</button></div></div>`}).join(''):`<div class="empty">${t('x_noNotices')}</div>`;
+  const box=$('#ntlist');if(box)box.innerHTML=list+(AM.nc?`<button class="btn full" data-act="ntmore">${t('x_more')}</button>`:'')},
+ async notices(more){const el=$('#admb');
+  if(!more){AM.nl=[];AM.nc=null;el.innerHTML=`<div id="ntlist">${t('loading')}</div>`}
+  try{const r=await Cloud.adminNotices(null,more?AM.nc:null);AM.nl=AM.nl.concat(r.items||[]);AM.nc=r.cursor||null;ADM.ntdraw()}catch(e){const b=$('#ntlist');if(b)b.innerHTML=errBox(e)}},
  async stats(){const el=$('#admb');el.innerHTML=t('loading');try{const r=await Cloud.stats();el.innerHTML=`<div class="stats">${[[t('x_total'),r.users],[t('x_active'),r.active24],[t('x_msgs'),r.msgs],[t('x_banL'),r.banned],[t('x_likes'),r.up],[t('x_dislikes'),r.down]].map(x=>`<div class="stat"><b>${x[1]}</b><small>${x[0]}</small></div>`).join('')}</div>`}catch(e){el.innerHTML=errBox(e)}}
 };
-function openAdmin(tab){if(!(U&&U.owner&&Cloud.ok))return;tab=ADM[tab]&&tab!=='fbdraw'?tab:'feedback';const tabs=[['feedback','feedback','thumbup'],['users','x_users','users'],['admins','x_admins','shield'],['announce','announce','megaphone'],['stats','stats','chart']];
- modal(t('admin'),`<div class="tabs">${tabs.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="adm:${x[0]}">${I(x[2])}${t(x[1])}</button>`).join('')}</div><div id="admb">${t('loading')}</div>`,'big');ADM[tab]()}
+function openAdmin(tab){if(!(U&&U.owner&&Cloud.ok))return;tab=ADM[tab]&&!/draw$|Modal$|Send$/.test(tab)?tab:'feedback';const tabs=[['feedback','feedback','thumbup'],['users','x_users','users'],['chat','x_achat','msg'],['notices','x_notices','mail'],['admins','x_admins','shield'],['announce','announce','megaphone'],['stats','stats','chart']];
+ modal(t('admin'),`<div class="tabs">${tabs.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="adm:${x[0]}">${I(x[2])}${t(x[1])}${x[0]==='chat'&&AC.unread?`<span class="badge b">${AC.unread}</span>`:''}</button>`).join('')}</div><div id="admb">${t('loading')}</div>`,'big');ADM[tab]()}
 function chpwModal(){modal(t('x_chpw'),`<label>${t('x_oldpw')}<input id="pw0" type="password" dir="ltr" autocomplete="current-password"></label><label>${t('x_newpw')}<input id="pw1" type="password" dir="ltr" autocomplete="new-password"></label><button class="btn pri full" data-act="chpwgo">${I('lock')}${t('save')}</button>`)}
 async function chpwGo(){const o=$('#pw0').value,n=$('#pw1').value;if(!o||!n)return toast(t('e_fill'),'err');try{await Cloud.changePass(o,n);mclose();toast(t('x_passok'))}catch(e){toast(authMsg(e),'err')}}
+
+/* ---------- admin team chat ---------- */
+const AC={items:[],last:0,seen:+ld('hexorb.achat',0)||0,unread:0,t:null,n:0,busy:false,first:true,
+ draw(){const el=$('#achat');if(!el)return;const near=el.scrollHeight-el.scrollTop-el.clientHeight<80||!el.children.length;
+  el.innerHTML=AC.items.length?AC.items.map(m=>`<div class="cm ${m.mine?'me':''}"><small><b>${esc(m.name||'')}</b><span>${new Date(m.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>${m.mine?`<button class="ib" data-act="achdel:${esc(m.id)}" aria-label="${esc(t('delete'))}">${I('x')}</button>`:''}</small><div dir="auto">${esc(m.text)}</div></div>`).join(''):`<div class="empty" style="margin:auto">${t('x_noMsgs')}</div>`;
+  if(near)el.scrollTop=el.scrollHeight},
+ async poll(){if(AC.busy||!(U&&U.owner&&Cloud.ok))return;AC.busy=true;
+  try{const r=await Cloud.adminChat(AC.last);const it=r.items||[];
+   if(AC.first){AC.first=false;if(!AC.seen&&it.length){AC.seen=Math.max(...it.map(x=>+x.id));sv('hexorb.achat',AC.seen)}}
+   if(it.length){const open=!!$('#achat');AC.items=AC.items.concat(it.filter(x=>!AC.items.some(y=>y.id===x.id)));AC.last=Math.max(AC.last,...it.map(x=>+x.id));
+    if(open){AC.draw();AC.markSeen()}else AC.unread+=it.filter(x=>!x.mine&&+x.id>AC.seen).length;AC.badge()}
+   else if($('#achat')){AC.draw();AC.markSeen()}}
+  catch(e){}finally{AC.busy=false}},
+ markSeen(){AC.seen=AC.last;sv('hexorb.achat',AC.seen);if(AC.unread){AC.unread=0;AC.badge()}},
+ badge(){const b=$('#nbAdmin');if(b)b.classList.toggle('has',AC.unread>0)},
+ async send(){const i=$('#achin');if(!i)return;const x=i.value.trim();if(!x)return;i.value='';
+  try{await Cloud.adminChatSend(x);await AC.poll()}catch(e){i.value=x;admErr(e)}},
+ start(){clearInterval(AC.t);AC.t=setInterval(()=>{if(!(U&&U.owner&&Cloud.ok)||document.visibilityState!=='visible')return;if($('#achat')||++AC.n%3===0)AC.poll()},4000);AC.items=[];AC.last=0;AC.first=true;AC.poll()}
+};
+document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='achin'&&e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();AC.send()}});
+/* ---------- notices on the user side ---------- */
+const NT={t:null,busy:false,
+ async check(){if(NT.busy||!(U&&Cloud.ok&&Cloud.notices)||document.visibilityState!=='visible')return;
+  try{const r=await Cloud.notices();const n=(r.items||[]).filter(x=>!x.seen);if(!n.length)return;NT.busy=true;
+   const warn=n.some(x=>x.kind!=='info');
+   modal(esc(t(warn?'x_ntWarnT':'x_ntInfoT')),n.map(x=>{const w=x.kind!=='info';return `<div class="ntcard ${w?'w':''}"><div class="row"><span class="badge ${w?'b':'o'}">${w?t('x_nWarn'):t('x_nInfo')}</span><small>${ago(x.ts)}</small></div><p>${esc(x.text)}</p></div>`}).join('')+`<button class="btn pri full" data-act="mc">${t('x_ntOk')}</button>`);
+   await Cloud.noticeSeen(n.map(x=>x.id)).catch(()=>{});NT.busy=false}catch(e){NT.busy=false}},
+ start(){clearInterval(NT.t);NT.check();NT.t=setInterval(()=>NT.check(),60000)},
+ stop(){clearInterval(NT.t)}
+};
+addEventListener('focus',()=>{if(U)NT.check()});
 
 /* ---------- Actions ---------- */
 function act(a,p,el){switch(a){
@@ -894,6 +981,14 @@ function act(a,p,el){switch(a){
  case 'annx':sv('hexorb.annx',+p);$('#ann').hidden=true;break;
  case 'admin':$('#side').classList.remove('open');$('#scrim').classList.remove('show');openAdmin();break;
  case 'adm':openAdmin(p);break;
+ case 'achsend':AC.send();break;
+ case 'achdel':Cloud.adminChatDel(p).then(()=>{AC.items=AC.items.filter(x=>x.id!==p);AC.draw()}).catch(admErr);break;
+ case 'ntmod':ADM.noticeModal(p);break;
+ case 'ntk':AM.nk=p;$$('.ntk button').forEach(b=>b.classList.toggle('on',b.dataset.act==='ntk:'+p));break;
+ case 'nttpl':{const x=$('#ntx');if(x){x.value=t('x_tpl'+p);x.focus()}break}
+ case 'ntsend':ADM.noticeSend();break;
+ case 'ntmore':ADM.notices(true);break;
+ case 'ntdel':if(confirm(t('sure')))Cloud.adminNoticeDel(p).then(()=>{AM.nl=AM.nl.filter(x=>x.id!==p);ADM.ntdraw()}).catch(admErr);break;
  case 'fbf':AM.f=p;ADM.feedback();break;
  case 'fbmore':ADM.feedback(true);break;
  case 'fbrev':{const x=AM.list.find(i=>i.id===p);Cloud.fbReview(p,!(x&&x.reviewed)).then(()=>{if(x)x.reviewed=!x.reviewed;ADM.fbdraw()}).catch(admErr);break}
