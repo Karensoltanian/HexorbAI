@@ -269,6 +269,19 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 .ntk{margin-bottom:4px}
 .ntcard{padding:12px;border-radius:14px;border:1px solid var(--bd);margin-bottom:10px;background:rgba(34,211,238,.05)}.ntcard.w{border-color:var(--er);background:rgba(251,113,133,.07)}.ntcard p{margin:8px 0;white-space:pre-wrap}
 #nbAdmin{position:relative}#nbAdmin.has::after{content:"";position:absolute;top:10px;inset-inline-end:12px;width:9px;height:9px;border-radius:50%;background:var(--er);box-shadow:0 0 10px var(--er)}
+
+#vx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:72;display:flex;flex-direction:column;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));background:radial-gradient(900px 600px at 50% 30%,#0d2147 0%,#060d1c 60%,#02050c 100%);color:#dff3ff}
+#vx[hidden]{display:none}
+.vxtop{width:100%;display:flex;align-items:center;gap:10px}.vxt{letter-spacing:.18em;font-size:.8rem;color:var(--mu)}
+.vxr{margin-inline-start:auto;display:flex;gap:8px;align-items:center}
+.vxhf{padding:6px 14px;border-radius:999px;border:1px solid var(--bd);background:transparent;color:var(--mu);font:inherit;font-size:.8rem}.vxhf.on{color:#dff3ff;border-color:#22d3ee;background:rgba(34,211,238,.12)}
+.vxst{flex:1;display:grid;place-items:center;width:100%;min-height:0}
+#vxc{width:min(86vw,46vh,440px);aspect-ratio:1;cursor:pointer;touch-action:manipulation}
+.vxs{font-size:1.05rem;color:#9fe9ff;letter-spacing:.04em;margin-top:4px;min-height:1.5em}
+.vxu{color:var(--mu);font-size:.95rem;min-height:1.4em;max-width:560px;text-align:center;margin-top:6px}
+.vxa{max-width:560px;max-height:18vh;overflow:auto;text-align:center;font-size:1rem;line-height:1.55;margin-top:6px;min-height:1.5em}
+.vxb{padding-top:14px}.vxm{width:72px;height:72px;border-radius:50%;border:1.5px solid var(--bd);background:rgba(20,36,64,.8);color:#dff3ff;display:grid;place-items:center;transition:.25s}.vxm svg{width:30px;height:30px}
+.vxm.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#04101d;box-shadow:0 0 44px rgba(34,211,238,.55)}
 </style>
 </head>
 <body>
@@ -297,6 +310,7 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
   <span class="pill off" id="stat"></span>
   <div class="tb hide-m"><span data-t="model"></span> <b id="mdl"></b></div>
   <div style="flex:1"></div>
+  <button class="ib" id="vxb" data-act="voice" data-tt="v_title"><span data-i="wave"></span></button>
   <button class="ib" id="qsb" data-act="qs" data-tt="quick" title="Quick settings"><span data-i="sliders"></span></button>
   <button class="ib hide-m" data-act="clear" data-tt="clearConv"><span data-i="trash"></span></button>
   <button class="ib hide-m" data-act="api" data-tt="api"><span data-i="plug"></span></button>
@@ -325,6 +339,12 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 <div id="qs" class="card" hidden></div>
 <div id="modal"></div>
 <div id="toasts"></div>
+<div id="vx" hidden data-st="idle">
+ <div class="vxtop"><span class="vxt">HEXORB &middot; <span data-t="v_title"></span></span><div class="vxr"><button class="vxhf on" data-act="vxhf"><span data-t="v_hf"></span></button><button class="ib" data-act="vxclose" data-tt="v_close"><span data-i="x"></span></button></div></div>
+ <div class="vxst"><canvas id="vxc" width="720" height="720" data-act="vxtap"></canvas></div>
+ <div id="vxs" class="vxs"></div><div id="vxu" class="vxu" dir="auto"></div><div id="vxa" class="vxa" dir="auto"></div>
+ <div class="vxb"><button id="vxm" class="vxm" data-act="vxmic" data-tt="mic"><span data-i="mic"></span></button></div>
+</div>
 <noscript><h1>HEXORB AI</h1><p>HEXORB AI is a free AI chat app with streaming answers, editable memory, image generation and full English and Persian support. Enable JavaScript to use it.</p></noscript>
 <script>
 "use strict";
@@ -350,7 +370,7 @@ moon:'<path class="f a-moon" d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/>',
 trash:'<path class="lid" d="M4 6h16M9 6V4h6v2"/><path class="f" d="M6 6l1 14h10l1-14z"/><path d="M10 10v6M14 10v6"/>',
 send:'<g class="a-send"><path class="f" d="M21 3L3 10.5l7 3 3 7z"/><path d="M21 3L10 13.5"/></g>',
 clip:'<g class="a-clip"><path d="M21 12l-9 9a5 5 0 0 1-7-7l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8-8"/></g>',
-mic:'<g class="a-mic"><rect class="f" x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></g>',
+wave:'<g><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></g>',mic:'<g class="a-mic"><rect class="f" x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></g>',
 copy:'<rect class="f" x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',
 refresh:'<g class="a-ref"><path d="M20 11a8 8 0 1 0-2 5.5M20 4v7h-7"/></g>',
 x:'<g class="a-x"><path d="M6 6l12 12M18 6L6 18"/></g>',
@@ -407,7 +427,7 @@ s_off:'NOT CONNECTED',s_ok:'CONNECTED',s_testing:'TESTING',s_error:'ERROR',onlin
 quick:'Quick settings',clearConv:'Clear conversation',attach:'Attach file or image',mic:'Microphone',send:'Send',genImg:'Generate image',
 ph:'Message HEXORB...',genOn:'Image mode: describe the picture you want',genOff:'Image mode off',
 qa_plan:'Planning',qa_brain:'Brainstorm',qa_learn:'Learn',qa_code:'Coding',qa_sum:'Summarize',qa_ana:'Analyze',
-p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',x_achat:'Team chat',x_notices:'Notices',x_typeMsg:'Write a message…',x_noMsgs:'No messages yet. Say hi to your team.',x_msgWarn:'Warn / message',x_sendTo:'Message to',x_nWarn:'Warning',x_nInfo:'Notice',x_nPh:'Write what the user should read…',x_nSent:'Sent to the user',x_tpl1:'Please keep the chat respectful. Repeated violations can lead to a suspension.',x_tpl2:'We checked your request and everything is fine now.',x_tpl3:'Thanks for your feedback, we are working on it.',x_ntWarnT:'Warning from the admins',x_ntInfoT:'Message from the admins',x_ntOk:'I understand',x_seen:'seen',x_unseen:'not seen yet',x_warns:'warnings',x_noNotices:'No notices sent yet',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
+p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',x_achat:'Team chat',x_notices:'Notices',x_typeMsg:'Write a message…',x_noMsgs:'No messages yet. Say hi to your team.',x_msgWarn:'Warn / message',x_sendTo:'Message to',x_nWarn:'Warning',x_nInfo:'Notice',x_nPh:'Write what the user should read…',x_nSent:'Sent to the user',x_tpl1:'Please keep the chat respectful. Repeated violations can lead to a suspension.',x_tpl2:'We checked your request and everything is fine now.',x_tpl3:'Thanks for your feedback, we are working on it.',x_ntWarnT:'Warning from the admins',x_ntInfoT:'Message from the admins',x_ntOk:'I understand',x_seen:'seen',x_unseen:'not seen yet',x_warns:'warnings',x_noNotices:'No notices sent yet',v_title:'Voice',v_close:'Close',v_hf:'Hands-free',v_tap:'Tap the mic and talk',v_listen:'Listening…',v_think:'Thinking…',v_speak:'Speaking… tap to interrupt',v_nosr:'Voice input is not supported in this browser. Use Chrome.',v_mic:'Microphone permission was denied.',v_net:'Speech recognition needs an internet connection.',v_novoice:'No voice for this language was found on your device. Install a text-to-speech voice in system settings.',v_img:'Your image is ready in the chat.',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
 tl_sum:'Text Summarizer',tl_tr:'Translator',tl_code:'Code Helper',tl_wr:'Writing Assistant',tl_json:'JSON Formatter',tl_img:'Image Generator',
 pt_sum:'Summarize this text concisely:\n',pt_tr:'Translate the following text to Persian (or to English if it is already Persian):\n',pt_code:'Review this code, find bugs and suggest improvements:\n',pt_wr:'Improve the clarity, grammar and tone of this text:\n',pt_json:'Validate and pretty-print this JSON, and explain any errors:\n',
 toolHint:'Insert prompt into composer',
@@ -429,7 +449,7 @@ s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error
 quick:'تنظیمات سریع',clearConv:'پاک کردن گفتگو',attach:'پیوست فایل یا عکس',mic:'میکروفون',send:'ارسال',genImg:'ساخت تصویر',
 ph:'پیام به HEXORB...',genOn:'حالت تصویر: تصویر دلخواهت را توصیف کن',genOff:'حالت تصویر خاموش شد',
 qa_plan:'برنامه‌ریزی',qa_brain:'ایده‌پردازی',qa_learn:'یادگیری',qa_code:'کدنویسی',qa_sum:'خلاصه‌سازی',qa_ana:'تحلیل',
-p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',x_achat:'چت تیم',x_notices:'اخطارها',x_typeMsg:'پیام بنویس…',x_noMsgs:'هنوز پیامی نیست. به تیمت سلام کن.',x_msgWarn:'اخطار / پیام',x_sendTo:'پیام برای',x_nWarn:'اخطار',x_nInfo:'اطلاعیه',x_nPh:'متنی که کاربر باید ببیند…',x_nSent:'برای کاربر ارسال شد',x_tpl1:'لطفاً محترمانه گفتگو کن. تکرار تخلف می‌تواند به مسدود شدن حساب منجر شود.',x_tpl2:'درخواستت بررسی شد و الان مشکلی نیست.',x_tpl3:'ممنون از بازخوردت، در حال بررسی هستیم.',x_ntWarnT:'اخطار از طرف مدیریت',x_ntInfoT:'پیام از طرف مدیریت',x_ntOk:'متوجه شدم',x_seen:'دیده شد',x_unseen:'هنوز ندیده',x_warns:'اخطار',x_noNotices:'هنوز اخطاری ارسال نشده',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
+p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',x_achat:'چت تیم',x_notices:'اخطارها',x_typeMsg:'پیام بنویس…',x_noMsgs:'هنوز پیامی نیست. به تیمت سلام کن.',x_msgWarn:'اخطار / پیام',x_sendTo:'پیام برای',x_nWarn:'اخطار',x_nInfo:'اطلاعیه',x_nPh:'متنی که کاربر باید ببیند…',x_nSent:'برای کاربر ارسال شد',x_tpl1:'لطفاً محترمانه گفتگو کن. تکرار تخلف می‌تواند به مسدود شدن حساب منجر شود.',x_tpl2:'درخواستت بررسی شد و الان مشکلی نیست.',x_tpl3:'ممنون از بازخوردت، در حال بررسی هستیم.',x_ntWarnT:'اخطار از طرف مدیریت',x_ntInfoT:'پیام از طرف مدیریت',x_ntOk:'متوجه شدم',x_seen:'دیده شد',x_unseen:'هنوز ندیده',x_warns:'اخطار',x_noNotices:'هنوز اخطاری ارسال نشده',v_title:'صدا',v_close:'بستن',v_hf:'هندزفری',v_tap:'میکروفون را بزن و حرف بزن',v_listen:'دارم گوش می‌دهم…',v_think:'دارم فکر می‌کنم…',v_speak:'در حال صحبت… برای قطع کردن لمس کن',v_nosr:'این مرورگر ورودی صوتی را پشتیبانی نمی‌کند. از کروم استفاده کن.',v_mic:'اجازه‌ی میکروفون داده نشد.',v_net:'تشخیص گفتار به اینترنت نیاز دارد.',v_novoice:'برای این زبان صدایی روی دستگاهت پیدا نشد. در تنظیمات گوشی یک صدای تبدیل متن به گفتار نصب کن.',v_img:'تصویرت در گفتگو آماده است.',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
 tl_sum:'خلاصه‌ساز متن',tl_tr:'مترجم',tl_code:'دستیار کد',tl_wr:'دستیار نوشتن',tl_json:'فرمت‌کننده JSON',tl_img:'تولید تصویر',
 pt_sum:'این متن را کوتاه خلاصه کن:\n',pt_tr:'متن زیر را به انگلیسی ترجمه کن (اگر انگلیسی است به فارسی):\n',pt_code:'این کد را بررسی کن، باگ‌ها را پیدا کن و بهبود پیشنهاد بده:\n',pt_wr:'وضوح، گرامر و لحن این متن را بهتر کن:\n',pt_json:'این JSON را بررسی و مرتب کن و خطاها را توضیح بده:\n',
 toolHint:'پرامپت را وارد کادر پیام می‌کند',
@@ -633,6 +653,7 @@ function nowInfo(){const d=new Date();let g='',p='',tm='',tz='';
 function sysPrompt(){
  let s="You are HEXORB, a futuristic AI assistant. Never describe yourself as a HUD. Reply in the language the user writes in. Use markdown code fences for code. If asked who or what you are, say you are HEXORB, an AI assistant. If asked who made, built or developed you, say your creator and developer is Karen Soltanian (Persian: کارن سلطانیان). Never claim to be a product of any other company or model. Quality rules: be accurate and honest, and say so when you are unsure instead of guessing; think through problems step by step before answering and double-check calculations and facts; for math, logic and planning show the key steps briefly; for code give complete, working, well-structured code with a short explanation; ask one short clarifying question only when the request is truly ambiguous; match the length to the question (short for simple questions, thorough for complex ones); write natural, fluent Persian when the user writes Persian. Never repeat yourself: if the user asks something you already answered, give a fresh answer with different wording, a new angle or extra detail instead of copying your earlier reply.";
 const N=nowInfo();s+="\nCURRENT DATE AND TIME (authoritative, read from the user's device right now): "+N.g+(N.p?" | Persian (Jalali) calendar: "+N.p:"")+" | time "+N.tm+(N.tz?" ("+N.tz+")":"")+". Your training data is older than this, so the real year is "+N.y+", never an earlier year. Whenever the user asks about today's date, the day, the time or the year, answer from this information exactly (Jalali date for Persian speakers, Gregorian for others). Use it for relative dates such as tomorrow, last week, or someone's age.";
+ if(R.voice)s+="\nVOICE CONVERSATION MODE: your reply will be read aloud. Speak naturally in at most three short sentences unless the user asks for more. No markdown, no lists, no code blocks, no emojis, no URLs.";
  if(UI.memOn&&D.mem.length)s+="\nLong-term memory about the user (use it naturally, do not recite it unless asked):\n"+D.mem.slice(-40).map(m=>'- '+m.text).join('\n');
  return s}
 const IDV={en:{maker:['I was created and developed by Karen Soltanian.','My creator and developer is Karen Soltanian.','Karen Soltanian is the one who designed and developed me.'],who:['I am HEXORB, an AI assistant.',"I'm HEXORB, your AI assistant.",'HEXORB here, an AI assistant ready to help.']},
@@ -855,7 +876,7 @@ async function onUser(fu){
   saveD();flushFb();
  }catch(e){console.warn(e);loadD();toast(String(e.message||e).slice(0,140),'err')}
  hideLogin();R.view='chat';render();loadAnn();NT.start();if(U&&U.owner)AC.start()}
-async function logout(){mclose();NT.stop();clearInterval(AC.t);if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();LG.mode='in';LG.needCode=false;render();showLogin()}
+async function logout(){mclose();VX.close();NT.stop();clearInterval(AC.t);if(Cloud.ok&&U){try{await Cloud.out()}catch(e){}}U=null;UI.guest=false;sv(UIK,UI);D=blankD();LG.mode='in';LG.needCode=false;render();showLogin()}
 async function loadAnn(){const el=$('#ann');el.hidden=true;if(!Cloud.ok)return;try{const a=await Cloud.getAnn();if(a&&a.active&&a.text&&ld('hexorb.annx',0)!==a.ts){el.innerHTML=`${I('megaphone')}<span>${esc(a.text)}</span><button class="ib" data-act="annx:${a.ts}" style="width:30px;height:30px">${I('x')}</button>`;el.hidden=false}}catch(e){}}
 
 /* ---------- Admin ---------- */
@@ -981,6 +1002,11 @@ function act(a,p,el){switch(a){
  case 'annx':sv('hexorb.annx',+p);$('#ann').hidden=true;break;
  case 'admin':$('#side').classList.remove('open');$('#scrim').classList.remove('show');openAdmin();break;
  case 'adm':openAdmin(p);break;
+ case 'voice':VX.open();break;
+ case 'vxclose':VX.close();break;
+ case 'vxmic':VX.micBtn();break;
+ case 'vxtap':VX.tap();break;
+ case 'vxhf':VX.hf=!VX.hf;$('.vxhf').classList.toggle('on',VX.hf);break;
  case 'achsend':AC.send();break;
  case 'achdel':Cloud.adminChatDel(p).then(()=>{AC.items=AC.items.filter(x=>x.id!==p);AC.draw()}).catch(admErr);break;
  case 'ntmod':ADM.noticeModal(p);break;
@@ -1013,6 +1039,73 @@ function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition
  r.onerror=e=>toast('Mic: '+(e.error==='not-allowed'?'permission denied':e.error),'err');
  r.onend=()=>{R.rec=null;$('#micb').classList.remove('rec')};
  try{r.start();toast(t('listening'))}catch(e){R.rec=null;$('#micb').classList.remove('rec')}}
+
+
+/* ---------- HEXORB Voice ---------- */
+const VX={on:false,st:'idle',hf:true,rec:null,lvl:0,pulse:0,talk:0,empty:0,raf:0,blink:0,nb:0,q:[],sid:0,cv:null,cx:null,warned:0,
+ SRc(){return window.SpeechRecognition||window.webkitSpeechRecognition},
+ open(){if(!this.SRc()){toast(t('v_nosr'),'err');return}if(!apiOK())return;
+  this.on=true;R.voice=true;this.cv=$('#vxc');this.cx=this.cv.getContext('2d');$('#vx').hidden=false;$('#side').classList.remove('open');$('#scrim').classList.remove('show');
+  $('#vxu').textContent='';$('#vxa').textContent='';this.empty=0;this.warned=0;$('.vxhf').classList.toggle('on',this.hf);this.set('idle');this.loop();this.listen()},
+ close(){this.on=false;R.voice=false;try{this.rec&&this.rec.abort()}catch(e){}this.rec=null;this.stopSpeak();cancelAnimationFrame(this.raf);$('#vx').hidden=true},
+ set(s){this.st=s;const k={idle:'v_tap',listen:'v_listen',think:'v_think',speak:'v_speak'}[s];$('#vxs').textContent=t(k);$('#vx').dataset.st=s;$('#vxm').classList.toggle('on',s==='listen')},
+ tap(){if(this.st==='speak'){this.stopSpeak();this.listen()}else if(this.st==='idle')this.listen()},
+ micBtn(){if(this.st==='listen'){try{this.rec&&this.rec.stop()}catch(e){}}else if(this.st==='idle'||this.st==='speak'){this.stopSpeak();this.empty=0;this.listen()}},
+ listen(){if(!this.on||R.busy)return;const self=this,r=new (this.SRc())();r.lang=lang==='fa'?'fa-IR':'en-US';r.interimResults=true;r.continuous=false;
+  let fin='',err='';
+  r.onspeechstart=()=>{self.talk=1};r.onspeechend=()=>{self.talk=0};
+  r.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++)s+=e.results[i][0].transcript;fin=s;$('#vxu').textContent=s;self.talk=1};
+  r.onerror=e=>{err=e.error||'error'};
+  r.onend=()=>{if(self.rec===r)self.rec=null;self.talk=0;if(!self.on)return;
+   if(fin.trim()){self.empty=0;self.ask(fin.trim());return}
+   if(err==='not-allowed'||err==='service-not-allowed'){self.set('idle');toast(t('v_mic'),'err');return}
+   if(err==='network'){self.set('idle');toast(t('v_net'),'err');return}
+   if(self.hf&&self.empty<2&&err!=='aborted'){self.empty++;self.listen();return}
+   self.set('idle')};
+  this.rec=r;this.set('listen');try{r.start()}catch(e){this.rec=null;this.set('idle')}},
+ async ask(text){this.set('think');$('#vxu').textContent=text;$('#vxa').textContent='';const c0=cur(),n0=c0?c0.msgs.length:0;$('#inp').value=text;
+  try{await send()}catch(e){}
+  if(!this.on)return;const c=cur();if(!c||c.msgs.length<n0+2){this.set('idle');return}
+  const m=c.msgs[c.msgs.length-1];
+  if(m.r==='ai'&&!m.e&&m.c&&!m.gen){$('#vxa').textContent=this.plain(m.c);this.say(m.c)}
+  else{$('#vxa').textContent=m.gen?t('v_img'):(m.c||'');this.set('idle')}},
+ plain(s){return String(s).replace(/```[\s\S]*?```/g,' ').replace(/`([^`]*)`/g,'$1').replace(/!?\[([^\]]*)\]\([^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' ').replace(/[*_#>~|]+/g,' ').replace(/^\s*[-•]\s+/gm,'').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,' ').replace(/\s+/g,' ').trim()},
+ say(text){const p=this.plain(text);if(!window.speechSynthesis||!p){this.done();return}
+  this.stopSpeak();const parts=p.match(/[^.!?؟۔\n]+[.!?؟۔]*/g)||[p],q=[];let c='';
+  for(const x of parts){if((c+x).length>180&&c){q.push(c);c=x}else c+=x}if(c)q.push(c);
+  this.q=q;const sid=++this.sid;this.set('speak');this.next(sid)},
+ voice(){const L=lang==='fa'?'fa':'en',vs=speechSynthesis.getVoices();return vs.find(v=>v.lang.toLowerCase().startsWith(L)&&v.localService)||vs.find(v=>v.lang.toLowerCase().startsWith(L))||null},
+ next(sid){if(sid!==this.sid||!this.on)return;const x=this.q.shift();if(x==null){this.done();return}
+  const u=new SpeechSynthesisUtterance(x);u.lang=lang==='fa'?'fa-IR':'en-US';const v=this.voice();if(v)u.voice=v;else if(lang==='fa'&&!this.warned){this.warned=1;toast(t('v_novoice'))}
+  u.onboundary=()=>{this.pulse=1};u.onend=()=>this.next(sid);u.onerror=()=>this.next(sid);speechSynthesis.speak(u)},
+ done(){if(!this.on)return;this.set('idle');if(this.hf){this.empty=0;setTimeout(()=>{if(this.on&&this.st==='idle')this.listen()},400)}},
+ stopSpeak(){this.sid++;this.q=[];try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}},
+ loop(){const f=tm=>{if(!this.on)return;this.draw(tm);this.raf=requestAnimationFrame(f)};this.raf=requestAnimationFrame(f)},
+ draw(tm){const x=this.cx,W=this.cv.width,C=W/2,R0=W*.25,s=this.st,rgb=s==='think'?'168,85,247':'34,211,238';
+  this.pulse*=.9;let tg=.02;
+  if(s==='speak')tg=.28+.22*Math.abs(Math.sin(tm*.011))+.18*Math.abs(Math.sin(tm*.0273+1))+.45*this.pulse;
+  else if(s==='listen')tg=this.talk?.2+.3*Math.abs(Math.sin(tm*.017)):.05;else if(s==='think')tg=.04;
+  this.lvl+=(Math.min(1,tg)-this.lvl)*.22;const L=this.lvl,R=R0*(1+L*.05);
+  x.clearRect(0,0,W,W);
+  let g=x.createRadialGradient(C,C,R0*.6,C,C,R0*1.98);g.addColorStop(0,'rgba('+rgb+','+(.2+L*.25).toFixed(3)+')');g.addColorStop(1,'rgba('+rgb+',0)');x.fillStyle=g;x.beginPath();x.arc(C,C,R0*1.98,0,7);x.fill();
+  if(s==='listen'){for(let i=0;i<3;i++){const ph=((tm*.0006)+i/3)%1;x.strokeStyle='rgba('+rgb+','+((1-ph)*.5).toFixed(3)+')';x.lineWidth=2;x.beginPath();x.arc(C,C,R0*(1.08+ph*.75),0,7);x.stroke()}}
+  if(s==='think'){x.save();x.strokeStyle='rgba('+rgb+',.8)';x.lineWidth=R0*.03;x.lineCap='round';x.setLineDash([R0*.14,R0*.1]);x.lineDashOffset=-tm*.04;x.beginPath();x.arc(C,C,R0*1.2,0,7);x.stroke();x.restore()}
+  g=x.createRadialGradient(C-R*.35,C-R*.45,R*.05,C,C,R*1.05);g.addColorStop(0,'#1b3f73');g.addColorStop(.55,'#0b1a38');g.addColorStop(1,'#050a18');
+  x.save();x.shadowColor='rgba('+rgb+',.55)';x.shadowBlur=R0*(.3+L*.35);x.fillStyle=g;x.beginPath();x.arc(C,C,R,0,7);x.fill();x.restore();
+  g=x.createLinearGradient(C-R,C-R,C+R,C+R);g.addColorStop(0,'#22d3ee');g.addColorStop(1,'#a855f7');x.strokeStyle=g;x.lineWidth=R0*.035;x.beginPath();x.arc(C,C,R,0,7);x.stroke();
+  g=x.createRadialGradient(C,C+R*.9,0,C,C+R*.9,R*.9);g.addColorStop(0,'rgba('+rgb+',.28)');g.addColorStop(1,'rgba('+rgb+',0)');x.save();x.beginPath();x.arc(C,C,R*.96,0,7);x.clip();x.fillStyle=g;x.fillRect(0,0,W,W);x.restore();
+  x.fillStyle='rgba(255,255,255,.07)';x.beginPath();x.ellipse(C-R*.3,C-R*.58,R*.34,R*.13,-.5,0,7);x.fill();
+  if(tm>this.nb){this.blink=tm;this.nb=tm+2400+Math.random()*3200}
+  const d=tm-this.blink,bf=d<150?Math.max(.08,Math.abs(d-75)/75):1;
+  const eh=R0*.26*bf*(s==='think'?.5:s==='listen'?1.12:1),ew=R0*.12,ox=s==='think'?Math.sin(tm*.004)*R0*.07:0,oy=s==='speak'?Math.sin(tm*.02)*R0*.01:0;
+  x.save();x.fillStyle='#e8fcff';x.shadowColor='rgba('+rgb+',.9)';x.shadowBlur=R0*.14;
+  for(const sd of[-1,1]){x.beginPath();x.roundRect?x.roundRect(C+sd*R0*.34+ox-ew/2,C-R0*.14+oy-eh/2,ew,eh,ew/2):x.rect(C+sd*R0*.34+ox-ew/2,C-R0*.14-eh/2,ew,eh);x.fill()}
+  x.restore();
+  const N=44,y0=C+R0*.4,amp=L*R0*.3,sm=(1-Math.min(1,L*4))*R0*.08;
+  x.save();x.strokeStyle='#e8fcff';x.lineWidth=R0*.05;x.lineCap='round';x.lineJoin='round';x.shadowColor='rgba('+rgb+',.9)';x.shadowBlur=R0*.12;x.beginPath();
+  for(let i=0;i<=N;i++){const u=i/N,env=Math.sin(Math.PI*u),px=C-R0*.46+u*R0*.92,py=y0+sm*env+Math.sin(i*.34+tm*.026)*amp*env;i?x.lineTo(px,py):x.moveTo(px,py)}
+  x.stroke();x.restore()}
+};
 
 /* ---------- Events ---------- */
 document.addEventListener('click',e=>{
