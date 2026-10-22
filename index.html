@@ -282,6 +282,20 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 .vxa{max-width:560px;max-height:18vh;overflow:auto;text-align:center;font-size:1rem;line-height:1.55;margin-top:6px;min-height:1.5em}
 .vxb{padding-top:14px}.vxm{width:72px;height:72px;border-radius:50%;border:1.5px solid var(--bd);background:rgba(20,36,64,.8);color:#dff3ff;display:grid;place-items:center;transition:.25s}.vxm svg{width:30px;height:30px}
 .vxm.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#04101d;box-shadow:0 0 44px rgba(34,211,238,.55)}
+
+#vx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:72;display:flex;flex-direction:column;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));background:radial-gradient(900px 600px at 50% 30%,#0d2147 0%,#060d1c 60%,#02050c 100%);color:#dff3ff}
+#vx[hidden]{display:none}
+.vxtop{width:100%;display:flex;align-items:center;gap:10px}.vxt{letter-spacing:.18em;font-size:.8rem;color:var(--mu)}
+.vxr{margin-inline-start:auto;display:flex;gap:8px;align-items:center}
+.vxhf{padding:6px 14px;border-radius:999px;border:1px solid var(--bd);background:transparent;color:var(--mu);font:inherit;font-size:.8rem}.vxhf.on{color:#dff3ff;border-color:#22d3ee;background:rgba(34,211,238,.12)}
+.vxopt{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}.vxe{font-size:.75rem;color:var(--mu);min-height:1em;opacity:.8}
+.vxst{flex:1;display:grid;place-items:center;width:100%;min-height:0}
+#vxc{width:min(86vw,46vh,440px);aspect-ratio:1;cursor:pointer;touch-action:manipulation}
+.vxs{font-size:1.05rem;color:#9fe9ff;letter-spacing:.04em;margin-top:4px;min-height:1.5em}
+.vxu{color:var(--mu);font-size:.95rem;min-height:1.4em;max-width:560px;text-align:center;margin-top:6px}
+.vxa{max-width:560px;max-height:18vh;overflow:auto;text-align:center;font-size:1rem;line-height:1.55;margin-top:6px;min-height:1.5em}
+.vxb{padding-top:14px}.vxm{width:72px;height:72px;border-radius:50%;border:1.5px solid var(--bd);background:rgba(20,36,64,.8);color:#dff3ff;display:grid;place-items:center;transition:.25s}.vxm svg{width:30px;height:30px}
+.vxm.on{background:linear-gradient(135deg,#22d3ee,#a855f7);color:#04101d;box-shadow:0 0 44px rgba(34,211,238,.55)}
 </style>
 </head>
 <body>
@@ -340,9 +354,10 @@ body::after{background:radial-gradient(60% 40% at 50% 20%,rgba(34,211,238,.07),t
 <div id="modal"></div>
 <div id="toasts"></div>
 <div id="vx" hidden data-st="idle">
- <div class="vxtop"><span class="vxt">HEXORB &middot; <span data-t="v_title"></span></span><div class="vxr"><button class="vxhf on" data-act="vxhf"><span data-t="v_hf"></span></button><button class="ib" data-act="vxclose" data-tt="v_close"><span data-i="x"></span></button></div></div>
+ <div class="vxtop"><span class="vxt">HEXORB &middot; <span data-t="v_title"></span></span><div class="vxr"><button class="ib" data-act="vxclose" data-tt="v_close"><span data-i="x"></span></button></div></div>
+ <div class="vxopt"><button class="vxhf on" data-act="vxhf"><span data-t="v_hf"></span></button><button class="vxhf" id="vxeng" data-act="vxeng"></button><button class="vxhf" id="vxg" data-act="vxg"></button></div>
  <div class="vxst"><canvas id="vxc" width="720" height="720" data-act="vxtap"></canvas></div>
- <div id="vxs" class="vxs"></div><div id="vxu" class="vxu" dir="auto"></div><div id="vxa" class="vxa" dir="auto"></div>
+ <div id="vxs" class="vxs"></div><div id="vxe" class="vxe"></div><div id="vxu" class="vxu" dir="auto"></div><div id="vxa" class="vxa" dir="auto"></div>
  <div class="vxb"><button id="vxm" class="vxm" data-act="vxmic" data-tt="mic"><span data-i="mic"></span></button></div>
 </div>
 <noscript><h1>HEXORB AI</h1><p>HEXORB AI is a free AI chat app with streaming answers, editable memory, image generation and full English and Persian support. Enable JavaScript to use it.</p></noscript>
@@ -427,7 +442,7 @@ s_off:'NOT CONNECTED',s_ok:'CONNECTED',s_testing:'TESTING',s_error:'ERROR',onlin
 quick:'Quick settings',clearConv:'Clear conversation',attach:'Attach file or image',mic:'Microphone',send:'Send',genImg:'Generate image',
 ph:'Message HEXORB...',genOn:'Image mode: describe the picture you want',genOff:'Image mode off',
 qa_plan:'Planning',qa_brain:'Brainstorm',qa_learn:'Learn',qa_code:'Coding',qa_sum:'Summarize',qa_ana:'Analyze',
-p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',x_achat:'Team chat',x_notices:'Notices',x_typeMsg:'Write a message…',x_noMsgs:'No messages yet. Say hi to your team.',x_msgWarn:'Warn / message',x_sendTo:'Message to',x_nWarn:'Warning',x_nInfo:'Notice',x_nPh:'Write what the user should read…',x_nSent:'Sent to the user',x_tpl1:'Please keep the chat respectful. Repeated violations can lead to a suspension.',x_tpl2:'We checked your request and everything is fine now.',x_tpl3:'Thanks for your feedback, we are working on it.',x_ntWarnT:'Warning from the admins',x_ntInfoT:'Message from the admins',x_ntOk:'I understand',x_seen:'seen',x_unseen:'not seen yet',x_warns:'warnings',x_noNotices:'No notices sent yet',v_title:'Voice',v_close:'Close',v_hf:'Hands-free',v_tap:'Tap the mic and talk',v_listen:'Listening…',v_think:'Thinking…',v_speak:'Speaking… tap to interrupt',v_nosr:'Voice input is not supported in this browser. Use Chrome.',v_mic:'Microphone permission was denied.',v_net:'Speech recognition needs an internet connection.',v_novoice:'No voice for this language was found on your device. Install a text-to-speech voice in system settings.',v_img:'Your image is ready in the chat.',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
+p_tr:'Translate the following (Persian to English, English to Persian):\n',p_imp:'Improve the writing of the following, keep the meaning:\n',s_sum:'Summarize',s_exp:'Explain',s_tr:'Translate',s_imp:'Improve',s_code:'Code',s_brain:'Ideas',x_confirm:'Email confirmation is still ON in Supabase. Turn it OFF (see the guide).',x_achat:'Team chat',x_notices:'Notices',x_typeMsg:'Write a message…',x_noMsgs:'No messages yet. Say hi to your team.',x_msgWarn:'Warn / message',x_sendTo:'Message to',x_nWarn:'Warning',x_nInfo:'Notice',x_nPh:'Write what the user should read…',x_nSent:'Sent to the user',x_tpl1:'Please keep the chat respectful. Repeated violations can lead to a suspension.',x_tpl2:'We checked your request and everything is fine now.',x_tpl3:'Thanks for your feedback, we are working on it.',x_ntWarnT:'Warning from the admins',x_ntInfoT:'Message from the admins',x_ntOk:'I understand',x_seen:'seen',x_unseen:'not seen yet',x_warns:'warnings',x_noNotices:'No notices sent yet',v_title:'Voice',v_close:'Close',v_hf:'Hands-free',v_tap:'Tap the mic and talk',v_listen:'Listening…',v_think:'Thinking…',v_speak:'Speaking… tap to interrupt',v_nosr:'Voice input is not supported in this browser. Use Chrome.',v_mic:'Microphone permission was denied.',v_net:'Speech recognition needs an internet connection.',v_novoice:'No voice for this language was found on your device. Install a text-to-speech voice in system settings.',v_img:'Your image is ready in the chat.',v_natfail:'Natural voice is not available right now, using the basic voice.',v_e_auto:'Voice: Auto',v_e_natural:'Voice: Natural',v_e_online:'Voice: Online',v_e_device:'Voice: Device',p_plan:'Help me plan: ',p_brain:'Brainstorm 10 creative ideas about: ',p_learn:'Explain step by step, like a tutor: ',p_code:'Help me write and explain code for: ',p_sum:'Summarize the following in bullet points:\n',p_ana:'Analyze the following and give insights, risks and next steps:\n',
 tl_sum:'Text Summarizer',tl_tr:'Translator',tl_code:'Code Helper',tl_wr:'Writing Assistant',tl_json:'JSON Formatter',tl_img:'Image Generator',
 pt_sum:'Summarize this text concisely:\n',pt_tr:'Translate the following text to Persian (or to English if it is already Persian):\n',pt_code:'Review this code, find bugs and suggest improvements:\n',pt_wr:'Improve the clarity, grammar and tone of this text:\n',pt_json:'Validate and pretty-print this JSON, and explain any errors:\n',
 toolHint:'Insert prompt into composer',
@@ -449,7 +464,7 @@ s_off:'متصل نیست',s_ok:'متصل',s_testing:'در حال تست',s_error
 quick:'تنظیمات سریع',clearConv:'پاک کردن گفتگو',attach:'پیوست فایل یا عکس',mic:'میکروفون',send:'ارسال',genImg:'ساخت تصویر',
 ph:'پیام به HEXORB...',genOn:'حالت تصویر: تصویر دلخواهت را توصیف کن',genOff:'حالت تصویر خاموش شد',
 qa_plan:'برنامه‌ریزی',qa_brain:'ایده‌پردازی',qa_learn:'یادگیری',qa_code:'کدنویسی',qa_sum:'خلاصه‌سازی',qa_ana:'تحلیل',
-p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',x_achat:'چت تیم',x_notices:'اخطارها',x_typeMsg:'پیام بنویس…',x_noMsgs:'هنوز پیامی نیست. به تیمت سلام کن.',x_msgWarn:'اخطار / پیام',x_sendTo:'پیام برای',x_nWarn:'اخطار',x_nInfo:'اطلاعیه',x_nPh:'متنی که کاربر باید ببیند…',x_nSent:'برای کاربر ارسال شد',x_tpl1:'لطفاً محترمانه گفتگو کن. تکرار تخلف می‌تواند به مسدود شدن حساب منجر شود.',x_tpl2:'درخواستت بررسی شد و الان مشکلی نیست.',x_tpl3:'ممنون از بازخوردت، در حال بررسی هستیم.',x_ntWarnT:'اخطار از طرف مدیریت',x_ntInfoT:'پیام از طرف مدیریت',x_ntOk:'متوجه شدم',x_seen:'دیده شد',x_unseen:'هنوز ندیده',x_warns:'اخطار',x_noNotices:'هنوز اخطاری ارسال نشده',v_title:'صدا',v_close:'بستن',v_hf:'هندزفری',v_tap:'میکروفون را بزن و حرف بزن',v_listen:'دارم گوش می‌دهم…',v_think:'دارم فکر می‌کنم…',v_speak:'در حال صحبت… برای قطع کردن لمس کن',v_nosr:'این مرورگر ورودی صوتی را پشتیبانی نمی‌کند. از کروم استفاده کن.',v_mic:'اجازه‌ی میکروفون داده نشد.',v_net:'تشخیص گفتار به اینترنت نیاز دارد.',v_novoice:'برای این زبان صدایی روی دستگاهت پیدا نشد. در تنظیمات گوشی یک صدای تبدیل متن به گفتار نصب کن.',v_img:'تصویرت در گفتگو آماده است.',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
+p_tr:'متن زیر را ترجمه کن (فارسی به انگلیسی و انگلیسی به فارسی):\n',p_imp:'متن زیر را بازنویسی و بهتر کن، معنی همان بماند:\n',s_sum:'خلاصه',s_exp:'توضیح',s_tr:'ترجمه',s_imp:'بهتر کن',s_code:'کد',s_brain:'ایده',x_confirm:'تأیید ایمیل در Supabase هنوز روشن است. خاموشش کن (راهنما را ببین).',x_achat:'چت تیم',x_notices:'اخطارها',x_typeMsg:'پیام بنویس…',x_noMsgs:'هنوز پیامی نیست. به تیمت سلام کن.',x_msgWarn:'اخطار / پیام',x_sendTo:'پیام برای',x_nWarn:'اخطار',x_nInfo:'اطلاعیه',x_nPh:'متنی که کاربر باید ببیند…',x_nSent:'برای کاربر ارسال شد',x_tpl1:'لطفاً محترمانه گفتگو کن. تکرار تخلف می‌تواند به مسدود شدن حساب منجر شود.',x_tpl2:'درخواستت بررسی شد و الان مشکلی نیست.',x_tpl3:'ممنون از بازخوردت، در حال بررسی هستیم.',x_ntWarnT:'اخطار از طرف مدیریت',x_ntInfoT:'پیام از طرف مدیریت',x_ntOk:'متوجه شدم',x_seen:'دیده شد',x_unseen:'هنوز ندیده',x_warns:'اخطار',x_noNotices:'هنوز اخطاری ارسال نشده',v_title:'صدا',v_close:'بستن',v_hf:'هندزفری',v_tap:'میکروفون را بزن و حرف بزن',v_listen:'دارم گوش می‌دهم…',v_think:'دارم فکر می‌کنم…',v_speak:'در حال صحبت… برای قطع کردن لمس کن',v_nosr:'این مرورگر ورودی صوتی را پشتیبانی نمی‌کند. از کروم استفاده کن.',v_mic:'اجازه‌ی میکروفون داده نشد.',v_net:'تشخیص گفتار به اینترنت نیاز دارد.',v_novoice:'برای این زبان صدایی روی دستگاهت پیدا نشد. در تنظیمات گوشی یک صدای تبدیل متن به گفتار نصب کن.',v_img:'تصویرت در گفتگو آماده است.',v_natfail:'صدای طبیعی فعلاً در دسترس نیست، با صدای ساده ادامه می‌دهم.',v_e_auto:'صدا: خودکار',v_e_natural:'صدا: طبیعی',v_e_online:'صدا: آنلاین',v_e_device:'صدا: دستگاه',p_plan:'کمکم کن برنامه‌ریزی کنم: ',p_brain:'۱۰ ایده‌ی خلاقانه درباره‌ی این موضوع بده: ',p_learn:'مثل یک معلم، قدم‌به‌قدم توضیح بده: ',p_code:'کمکم کن کد این را بنویسم و توضیح بده: ',p_sum:'متن زیر را در چند نکته خلاصه کن:\n',p_ana:'متن زیر را تحلیل کن و نکات، ریسک‌ها و قدم‌های بعدی را بگو:\n',
 tl_sum:'خلاصه‌ساز متن',tl_tr:'مترجم',tl_code:'دستیار کد',tl_wr:'دستیار نوشتن',tl_json:'فرمت‌کننده JSON',tl_img:'تولید تصویر',
 pt_sum:'این متن را کوتاه خلاصه کن:\n',pt_tr:'متن زیر را به انگلیسی ترجمه کن (اگر انگلیسی است به فارسی):\n',pt_code:'این کد را بررسی کن، باگ‌ها را پیدا کن و بهبود پیشنهاد بده:\n',pt_wr:'وضوح، گرامر و لحن این متن را بهتر کن:\n',pt_json:'این JSON را بررسی و مرتب کن و خطاها را توضیح بده:\n',
 toolHint:'پرامپت را وارد کادر پیام می‌کند',
@@ -1006,6 +1021,8 @@ function act(a,p,el){switch(a){
  case 'vxclose':VX.close();break;
  case 'vxmic':VX.micBtn();break;
  case 'vxtap':VX.tap();break;
+ case 'vxeng':VX.cycle();break;
+ case 'vxg':VX.gender();break;
  case 'vxhf':VX.hf=!VX.hf;$('.vxhf').classList.toggle('on',VX.hf);break;
  case 'achsend':AC.send();break;
  case 'achdel':Cloud.adminChatDel(p).then(()=>{AC.items=AC.items.filter(x=>x.id!==p);AC.draw()}).catch(admErr);break;
@@ -1042,11 +1059,13 @@ function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition
 
 
 /* ---------- HEXORB Voice ---------- */
-const VX={on:false,st:'idle',hf:true,rec:null,lvl:0,pulse:0,talk:0,empty:0,raf:0,blink:0,nb:0,q:[],sid:0,cv:null,cx:null,warned:0,
+const VX={on:false,st:'idle',hf:true,rec:null,lvl:0,pulse:0,talk:0,empty:0,raf:0,blink:0,nb:0,q:[],sid:0,cv:null,cx:null,warned:0,eng:'auto',male:false,natFail:false,pf:{},cur:null,cancel:null,ctx:null,an:null,ab:null,auN:null,auG:null,
  SRc(){return window.SpeechRecognition||window.webkitSpeechRecognition},
  open(){if(!this.SRc()){toast(t('v_nosr'),'err');return}if(!apiOK())return;
   this.on=true;R.voice=true;this.cv=$('#vxc');this.cx=this.cv.getContext('2d');$('#vx').hidden=false;$('#side').classList.remove('open');$('#scrim').classList.remove('show');
-  $('#vxu').textContent='';$('#vxa').textContent='';this.empty=0;this.warned=0;$('.vxhf').classList.toggle('on',this.hf);this.set('idle');this.loop();this.listen()},
+  $('#vxu').textContent='';$('#vxa').textContent='';this.empty=0;this.warned=0;this.natFail=false;try{Object.assign(this,JSON.parse(localStorage.getItem('hexorb.vx')||'{}'))}catch(e){}
+  const SIL='data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=';if(!this.auN){this.auN=new Audio();this.auG=new Audio()}[this.auN,this.auG].forEach(a=>{a.src=SIL;const p=a.play();p&&p.catch&&p.catch(()=>{})});
+  $('#vxe').textContent='';$('.vxhf').classList.toggle('on',this.hf);this.pref();this.set('idle');this.loop();this.listen()},
  close(){this.on=false;R.voice=false;try{this.rec&&this.rec.abort()}catch(e){}this.rec=null;this.stopSpeak();cancelAnimationFrame(this.raf);$('#vx').hidden=true},
  set(s){this.st=s;const k={idle:'v_tap',listen:'v_listen',think:'v_think',speak:'v_speak'}[s];$('#vxs').textContent=t(k);$('#vx').dataset.st=s;$('#vxm').classList.toggle('on',s==='listen')},
  tap(){if(this.st==='speak'){this.stopSpeak();this.listen()}else if(this.st==='idle')this.listen()},
@@ -1070,20 +1089,42 @@ const VX={on:false,st:'idle',hf:true,rec:null,lvl:0,pulse:0,talk:0,empty:0,raf:0
   if(m.r==='ai'&&!m.e&&m.c&&!m.gen){$('#vxa').textContent=this.plain(m.c);this.say(m.c)}
   else{$('#vxa').textContent=m.gen?t('v_img'):(m.c||'');this.set('idle')}},
  plain(s){return String(s).replace(/```[\s\S]*?```/g,' ').replace(/`([^`]*)`/g,'$1').replace(/!?\[([^\]]*)\]\([^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' ').replace(/[*_#>~|]+/g,' ').replace(/^\s*[-•]\s+/gm,'').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,' ').replace(/\s+/g,' ').trim()},
- say(text){const p=this.plain(text);if(!window.speechSynthesis||!p){this.done();return}
+ say(text){const p=this.plain(text);if(!p){this.done();return}
   this.stopSpeak();const parts=p.match(/[^.!?؟۔\n]+[.!?؟۔]*/g)||[p],q=[];let c='';
-  for(const x of parts){if((c+x).length>180&&c){q.push(c);c=x}else c+=x}if(c)q.push(c);
-  this.q=q;const sid=++this.sid;this.set('speak');this.next(sid)},
- voice(){const L=lang==='fa'?'fa':'en',vs=speechSynthesis.getVoices();return vs.find(v=>v.lang.toLowerCase().startsWith(L)&&v.localService)||vs.find(v=>v.lang.toLowerCase().startsWith(L))||null},
- next(sid){if(sid!==this.sid||!this.on)return;const x=this.q.shift();if(x==null){this.done();return}
-  const u=new SpeechSynthesisUtterance(x);u.lang=lang==='fa'?'fa-IR':'en-US';const v=this.voice();if(v)u.voice=v;else if(lang==='fa'&&!this.warned){this.warned=1;toast(t('v_novoice'))}
-  u.onboundary=()=>{this.pulse=1};u.onend=()=>this.next(sid);u.onerror=()=>this.next(sid);speechSynthesis.speak(u)},
+  for(const x of parts){if((c+x).length>170&&c){q.push(c);c=x}else c+=x}if(c)q.push(c);
+  this.q=[];for(const x of q){if(x.length<=190){this.q.push(x);continue}let k='';for(const w of x.split(/\s+/)){if((k+' '+w).length>170&&k){this.q.push(k);k=w}else k+=(k?' ':'')+w}if(k)this.q.push(k)}
+  const sid=++this.sid;this.set('speak');this.next(sid)},
+ ttsUrl(){return (typeof CFG!=='undefined'&&CFG.ttsUrl)||((typeof SB_URL!=='undefined'&&SB_URL)?SB_URL+'/functions/v1/hx-tts':'')},
+ chain(){const e=this.eng,n=this.ttsUrl()&&!this.natFail?['natural']:[];if(e==='device')return['device'];if(e==='online')return['online','device'];if(e==='natural')return(this.ttsUrl()?['natural']:[]).concat(['online','device']);return n.concat(['online','device'])},
+ fetchNat(x){const k=x+'|'+lang+this.male;if(this.pf[k])return this.pf[k];
+  const p=fetch(this.ttsUrl(),{method:'POST',headers:{'content-type':'application/json',apikey:(typeof SB_KEY!=='undefined'?SB_KEY:'')},body:JSON.stringify({text:x,voice:(lang==='fa'?'fa':'en')+(this.male?'-m':'-f'),lang})}).then(r=>{if(!r.ok)throw new Error('tts '+r.status);return r.blob()}).then(b=>{if(!b.size)throw new Error('empty');return URL.createObjectURL(b)});
+  p.catch(()=>{});this.pf[k]=p;return p},
+ play(el,src,an){return new Promise(res=>{let d=false;const fin=ok=>{if(d)return;d=true;el.onended=el.onerror=null;this.cancel=null;res(ok)};this.cancel=()=>{try{el.pause()}catch(e){}fin(true)};
+  el.onended=()=>fin(true);el.onerror=()=>fin(false);el.src=src;this.cur=el;if(an)this.hook(el);const p=el.play();if(p&&p.catch)p.catch(()=>fin(false))})},
+ hook(el){try{if(!this.ctx)this.ctx=new (window.AudioContext||window.webkitAudioContext)();if(!el._h){const s=this.ctx.createMediaElementSource(el);this.an=this.ctx.createAnalyser();this.an.fftSize=512;this.ab=new Uint8Array(this.an.fftSize);s.connect(this.an);this.an.connect(this.ctx.destination);el._h=1}this.ctx.resume()}catch(e){this.an=null}},
+ say1(e,x,sid){
+  if(e==='natural')return this.fetchNat(x).then(u=>sid!==this.sid?true:this.play(this.auN,u,true));
+  if(e==='online')return sid!==this.sid?Promise.resolve(true):this.play(this.auG,'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl='+(lang==='fa'?'fa':'en')+'&q='+encodeURIComponent(x),false);
+  return new Promise(res=>{if(!window.speechSynthesis)return res(false);const u=new SpeechSynthesisUtterance(x);u.lang=lang==='fa'?'fa-IR':'en-US';const v=this.voice();if(v)u.voice=v;
+   u.onboundary=()=>{this.pulse=1};u.onend=()=>res(true);u.onerror=()=>res(false);this.cancel=()=>res(true);speechSynthesis.speak(u)})},
+ voice(){try{const L=lang==='fa'?'fa':'en',vs=speechSynthesis.getVoices();return vs.find(v=>v.lang.toLowerCase().startsWith(L)&&v.localService)||vs.find(v=>v.lang.toLowerCase().startsWith(L))||null}catch(e){return null}},
+ async next(sid){if(sid!==this.sid||!this.on)return;const x=this.q.shift();if(x==null){this.done();return}
+  const ch=this.chain();if(ch[0]==='natural'&&this.q[0])this.fetchNat(this.q[0]);
+  let used='',ok=false;
+  for(const e of ch){if(sid!==this.sid)return;try{ok=await this.say1(e,x,sid)}catch(err){ok=false;if(e==='natural'&&!this.natFail){this.natFail=true;toast(t('v_natfail'))}}
+   if(ok){used=e;break}if(e==='natural')this.natFail=true}
+  if(used){$('#vxe').textContent=t('v_e_'+used)}else if(!this.warned){this.warned=1;toast(t('v_novoice'))}
+  this.next(sid)},
  done(){if(!this.on)return;this.set('idle');if(this.hf){this.empty=0;setTimeout(()=>{if(this.on&&this.st==='idle')this.listen()},400)}},
- stopSpeak(){this.sid++;this.q=[];try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}},
+ stopSpeak(){this.sid++;this.q=[];try{this.cancel&&this.cancel()}catch(e){}try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}this.pf={}},
+ pref(){try{localStorage.setItem('hexorb.vx',JSON.stringify({eng:this.eng,male:this.male}))}catch(e){}$('#vxeng').textContent=t('v_e_'+this.eng);$('#vxg').textContent=this.male?'♂':'♀';$('#vxg').classList.toggle('on',true)},
+ cycle(){const o=['auto','natural','online','device'];this.eng=o[(o.indexOf(this.eng)+1)%4];if(this.eng==='natural')this.natFail=false;this.pref()},
+ gender(){this.male=!this.male;this.pf={};this.pref()},
  loop(){const f=tm=>{if(!this.on)return;this.draw(tm);this.raf=requestAnimationFrame(f)};this.raf=requestAnimationFrame(f)},
  draw(tm){const x=this.cx,W=this.cv.width,C=W/2,R0=W*.25,s=this.st,rgb=s==='think'?'168,85,247':'34,211,238';
   this.pulse*=.9;let tg=.02;
-  if(s==='speak')tg=.28+.22*Math.abs(Math.sin(tm*.011))+.18*Math.abs(Math.sin(tm*.0273+1))+.45*this.pulse;
+  if(s==='speak'&&this.an&&this.cur===this.auN&&!this.auN.paused){this.an.getByteTimeDomainData(this.ab);let m=0;for(let i=0;i<this.ab.length;i++){const v=(this.ab[i]-128)/128;m+=v*v}tg=Math.min(1,Math.sqrt(m/this.ab.length)*5.5)}
+  else if(s==='speak')tg=.28+.22*Math.abs(Math.sin(tm*.011))+.18*Math.abs(Math.sin(tm*.0273+1))+.45*this.pulse;
   else if(s==='listen')tg=this.talk?.2+.3*Math.abs(Math.sin(tm*.017)):.05;else if(s==='think')tg=.04;
   this.lvl+=(Math.min(1,tg)-this.lvl)*.22;const L=this.lvl,R=R0*(1+L*.05);
   x.clearRect(0,0,W,W);
